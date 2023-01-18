@@ -18,7 +18,7 @@ export default function Signup() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        await signup(data.get('email'), data.get('password'));
+        await signup(data.get('email'), data.get('password'), data.get('firstName'), data.get('lastName'));
     };
 
     return (

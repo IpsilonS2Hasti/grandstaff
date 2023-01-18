@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router";
+import SearchAppBar from "./components/SearchAppBar";
+import SideNav from "./components/SideNav";
+import Find from "./pages/Find";
+import Home from "./pages/Home";
+import Jobs from "./pages/Jobs";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="app" style={{  backgroundColor: "#f6f8fc" }}>
+      <SearchAppBar />
+      <div style={{display: 'flex', height: 'calc(100vh - 65px)'}}>
+        <SideNav />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/find" element={<Find />} />
+          <Route path="/concerts" element={<Home />} />
+          <Route path="/band" element={<Jobs />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </div>
     </div>
   );
 }

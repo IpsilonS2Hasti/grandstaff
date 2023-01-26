@@ -6,7 +6,7 @@ import { navData } from '../lib/navData';
 const SideNav = () => {
     const { collapseSidebar } = useProSidebar();
     const { pathname } = useLocation();
-
+    const mainPath = '/' + pathname.split('/')[1];
     return (
         <Sidebar
             // For 720p displays, make width smaller and make it collapsed by default or just have it be perma collapsed
@@ -39,8 +39,8 @@ const SideNav = () => {
             >
                 {navData.map(cur => (
                     <MenuItem
-                        id={cur.name} //Doesn't seem to work?
-                        active={pathname === cur.path ? true : false}
+                        key={cur.name} //Doesn't seem to work?
+                        active={mainPath === cur.path ? true : false}
                         routerLink={<Link to={cur.path} />}
                         icon={cur.icon}
                     >

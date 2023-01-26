@@ -2,27 +2,49 @@ import { Route, Routes } from "react-router";
 import SearchAppBar from "./components/SearchAppBar";
 import SideNav from "./components/SideNav";
 import Find from "./pages/Find";
+import Discover from "./pages/Discover";
 import Home from "./pages/Home";
-import Jobs from "./pages/Jobs";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import { Box, CssBaseline } from "@mui/material";
+import { useMemo, useState } from "react";
+import { ThemeProvider } from '@mui/material/styles';
+import { ColorModeContextProvider } from "./context/ColorModeContext";
+import { theme } from "./theme";
+
 
 function App() {
+  const [mode, setMode] = useState('light');
+
+  const themeMemo = useMemo(
+    () =>
+      theme(mode),
+    [mode],
+  );
+
   return (
-    <div id="app" style={{  backgroundColor: "#f6f8fc" }}>
-      <SearchAppBar />
-      <div style={{display: 'flex', height: 'calc(100vh - 65px)'}}>
-        <SideNav />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/find" element={<Find />} />
-          <Route path="/concerts" element={<Home />} />
-          <Route path="/band" element={<Jobs />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
-      </div>
-    </div>
+    <ColorModeContextProvider setMode={setMode}>
+      <ThemeProvider theme={themeMemo}>
+        <CssBaseline>
+          <Box id="app" sx={{ backgroundColor: "background.paper" }}>
+            <SearchAppBar />
+            <div style={{ display: 'flex', height: 'calc(100vh - 65px)' }}>
+              <SideNav />
+              <Routes>
+                <Route path="/find" element={<Find />} >
+                  <Route path=':country' element={<Find />} />
+                  <Route path=':country/:province' element={<Find />} />
+                </Route>
+                <Route path="/discover" element={<Discover />} />
+                <Route path="/concerts" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+              </Routes>
+            </div>
+          </Box>
+        </CssBaseline>
+      </ThemeProvider>
+    </ColorModeContextProvider>
   );
 }
 

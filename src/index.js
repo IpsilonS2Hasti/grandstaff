@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { theme } from './theme';
+import { CssBaseline } from '@mui/material';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
@@ -14,13 +13,11 @@ root.render(
   <React.StrictMode>
     <AuthContextProvider>
       <BrowserRouter>
-        <ThemeProvider theme={theme}>
           <CssBaseline>
             <ProSidebarProvider>
               <App />
             </ProSidebarProvider>
           </CssBaseline>
-        </ThemeProvider>
       </BrowserRouter>
     </AuthContextProvider>
   </React.StrictMode>

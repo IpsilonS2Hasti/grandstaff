@@ -16,6 +16,10 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useProSidebar } from "react-pro-sidebar";
+import ListingFilters from './ListingFilters';
+import { ColorModeContext } from '../context/ColorModeContext';
+import { useTheme } from '@emotion/react';
+import { useContext } from 'react';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -58,6 +62,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+    const theme = useTheme();
+    const colorMode = useContext(ColorModeContext);
+    // console.log(colorMode);
+
     const { collapseSidebar } = useProSidebar();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -190,9 +198,10 @@ export default function SearchAppBar() {
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
+                    <ListingFilters />
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                        <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={ colorMode.toggleColorMode }>
                             <Badge badgeContent={4} color="error">
                                 <MailIcon />
                             </Badge>

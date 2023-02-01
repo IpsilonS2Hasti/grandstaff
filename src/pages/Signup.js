@@ -15,7 +15,7 @@ import { useSignup } from '../hooks/useSignup';
 export default function Signup() {
     const { signup, isLoading, error } = useSignup();
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event) => { //async await is unnecessary here?!
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         await signup(data.get('email'), data.get('password'), data.get('firstName'), data.get('lastName'));
@@ -105,7 +105,7 @@ export default function Signup() {
                         </Grid>
                     </Grid>
                     <Box>
-                        {error}
+                        {error + ""}
                     </Box>
                 </Box>
             </Box>

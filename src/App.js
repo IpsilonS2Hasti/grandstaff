@@ -11,6 +11,7 @@ import { useMemo, useState } from "react";
 import { ThemeProvider } from '@mui/material/styles';
 import { ColorModeContextProvider } from "./context/ColorModeContext";
 import { theme } from "./theme";
+import Profile from "./pages/Profile";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
                 </Route>
                 <Route path="/discover" element={<Discover />} />
                 <Route path="/concerts" element={<Home />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
               </Routes>

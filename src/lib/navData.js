@@ -21,7 +21,7 @@ export const navData = [
         name: "Concerts"
     },
     {
-        path: "/band",
+        path: "/profile",
         icon: <PeopleAltIcon />,
         name: "Band"
     }

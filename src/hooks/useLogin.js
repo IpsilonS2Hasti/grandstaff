@@ -1,33 +1,29 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 
-export const useSignup = () => {
+export const useLogin = () => {
     const [ error, setError ] = useState(null);
     const [ isLoading, setIsLoading ] = useState(null);
     const { dispatch } = useAuthContext();
 
-    const signup = async (email, password, firstName, lastName) => {
+    const login = async (email, password) => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch('http://localhost:8080/signup', {
-            method: 'PUT',
+        const response = await fetch('http://localhost:8080/login', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 email: email,
                 password: password,
-                firstName: firstName,
-                lastName: lastName
             })
         }).catch(err => {
             setIsLoading(false);
             setError(err);
           });
         const json = await response.json();
-
-        //EITHER THEN LOGIN THE USER OR HAVE DENKO MAKE SIGN UP RETURN TOKEN AND UID
 
         if(!response.ok){
             setIsLoading(false);
@@ -45,5 +41,5 @@ export const useSignup = () => {
         }
     }
 
-    return { signup, isLoading, error };
+    return { login, isLoading, error };
 }

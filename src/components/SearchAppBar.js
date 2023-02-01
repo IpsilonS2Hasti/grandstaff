@@ -20,6 +20,7 @@ import ListingFilters from './ListingFilters';
 import { ColorModeContext } from '../context/ColorModeContext';
 import { useTheme } from '@emotion/react';
 import { useContext } from 'react';
+import { useLogout } from '../hooks/useLogout';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -62,6 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+    const { logout } = useLogout();
     const theme = useTheme();
     const colorMode = useContext(ColorModeContext);
     // console.log(colorMode);
@@ -110,6 +112,10 @@ export default function SearchAppBar() {
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={()=>{
+                handleMenuClose();
+                logout();
+            }}>Log out</MenuItem>
         </Menu>
     );
 
@@ -194,7 +200,7 @@ export default function SearchAppBar() {
                             <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase
-                            placeholder="Search…"
+                            placeholder="Search by name…"
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>

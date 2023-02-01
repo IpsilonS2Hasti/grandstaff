@@ -10,16 +10,16 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useAuthContext } from '../hooks/useAuthContext';
+import axios from 'axios';
+import { useLogin } from '../hooks/useLogin';
 
 export default function Login() {
-    let { user, dispatch } = useAuthContext();
+    const { login, error, isLoading } = useLogin();
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event) => { //async await is unnecessary here?!
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        let user = { email: data.get('email'), password: data.get('password')}
-        dispatch({ type: 'LOGIN', payload: user });
+        await login(data.get('email'), data.get('password'));
     };
 
     return (
@@ -67,6 +67,7 @@ export default function Login() {
                         type="submit"
                         fullWidth
                         variant="contained"
+                        disabled={isLoading}
                         sx={{ mt: 3, mb: 2 }}
                     >
                         Sign In
@@ -83,6 +84,9 @@ export default function Login() {
                             </Link>
                         </Grid>
                     </Grid>
+                    <Box>
+                        {error + ""}
+                    </Box>
                 </Box>
             </Box>
         </Container>

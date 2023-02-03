@@ -14,8 +14,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 })
 
-const DialogPopup = ({ data, }) => {
-    const [selEls, setSelEls] = React.useState([]);
+const DialogPopup = ({ data, selected }) => {
+    const [selEls, setSelEls] = React.useState([...selected]);
     const [open, setOpen] = React.useState(false);
     const [query, setQuery] = React.useState('');
 
@@ -30,9 +30,12 @@ const DialogPopup = ({ data, }) => {
 
     return (
         <div>
-            <IconButton size="small" onClick={handleClickOpen}>
-                <AddIcon fontSize="small" />
-            </IconButton>
+            <Stack direction='row' spacing={'2px'}>
+                {selEls.map(el => <Chip label={el} />)}
+                <IconButton size="small" onClick={handleClickOpen}>
+                    <AddIcon fontSize="small" />
+                </IconButton>
+            </Stack>
             <Dialog
                 open={open}
                 TransitionComponent={Transition}
@@ -56,7 +59,8 @@ const DialogPopup = ({ data, }) => {
                                         <Grid item>
                                             <Chip label={el} color={inArr ? 'primary' : 'default'} onClick={() => {
                                                 if (inArr) setSelEls(selEls.filter(instr => instr !== el));
-                                                else setSelEls([...selEls, el]);
+                                                if(selEls.length >=5) return;
+                                                if (!inArr) setSelEls([...selEls, el]);
                                             }} />
                                         </Grid>
                                     )

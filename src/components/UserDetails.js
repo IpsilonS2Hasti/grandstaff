@@ -7,8 +7,6 @@ import DialogPopup from "./DialogPopup";
 import { chipData } from "../lib/chipData";
 
 const UserDetails = ({ name, pfp, instruments, genres, editView }) => {
-    const [editName, setEditName] = useState(false);
-
     return (
         <Box maxWidth={'700px'} margin={'auto'}>
             <Stack direction={'row'}>
@@ -27,33 +25,31 @@ const UserDetails = ({ name, pfp, instruments, genres, editView }) => {
                         {
                             editView
                                 ?
-                                <EditField value={name}/>
+                                <EditField value={name} />
                                 :
                                 name
                         }
                     </Typography>
-                    <Stack direction='row' spacing={'2px'}>
-                        {instruments.map(instr => <Chip label={instr} />)}
-                        {
-                            editView
-                                ?
-                                <DialogPopup data={chipData[1]} />
-                                :
-                                null
-                        }
-                    </Stack>
+                    {
+                        editView
+                            ?
+                            <DialogPopup data={chipData[1]} selected={instruments} />
+                            :
+                            <Stack direction='row' spacing={'2px'}>
+                                {instruments.map(instr => <Chip label={instr} />)}
+                            </Stack>
+                    }
                     <Box sx={{ height: '5px' }} />
                     <Stack direction='row' spacing={'2px'}>
-                        {genres.map(genre => <Chip label={genre} />)}
-                        {
-                            editView
-                                ?
-                                <IconButton size="small">
-                                    <AddIcon fontSize="small" />
-                                </IconButton>
-                                :
-                                null
-                        }
+                    {
+                        editView
+                            ?
+                            <DialogPopup data={chipData[2]} selected={genres} />
+                            :
+                            <Stack direction='row' spacing={'2px'}>
+                                {genres.map(instr => <Chip label={instr} />)}
+                            </Stack>
+                    }
                     </Stack>
                 </Stack>
             </Stack>

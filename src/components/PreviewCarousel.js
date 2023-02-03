@@ -40,24 +40,24 @@ const PreviewCarousel = ({ previews, uid }) => {
                     modules={[EffectCards, Pagination, Navigation]}
                     className="mySwiper"
                 >
-                    {previews.map(bg => (
+                    {previews.map(({type, cover, source}) => (
                         <SwiperSlide style={{ height: '500px', width: '400px' }}>
                             {({ isActive }) => (
                                 isActive ?
                                     <div style={{ borderRadius: '16px', overflow: 'hidden', zIndex: 1, height: '100%', width: '100%' }}>
-                                        <video style={{objectFit: 'cover',  width: "100%", height:"100%"}} controls poster={bg}>
-                                            <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4" />
+                                        <video style={{objectFit: 'cover',  width: "100%", height:"100%"}} controls poster={cover}>
+                                            <source src={source} type="video/mp4" />
                                         </video>
                                     </div>
                                     :
-                                    <Box style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', height: '100%', width: '100%', borderRadius: '16px' }} />
+                                    <Box style={{ backgroundImage: `url(${cover})`, backgroundSize: 'cover', height: '100%', width: '100%', borderRadius: '16px' }} />
                             )}
                         </SwiperSlide>
                     ))}
                 </Swiper>
             </Box>
             <Box
-                display={previews.length < 3 ? 'none' : 'flex'}
+                display={previews.length < 2 ? 'none' : 'flex'}
                 justifyContent="center"
                 alignItems="center"
                 minHeight="100%"

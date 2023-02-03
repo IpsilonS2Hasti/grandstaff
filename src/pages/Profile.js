@@ -1,8 +1,9 @@
 import { Box, Stack, Typography } from "@mui/material";
-import PreviewCarousel from "../components/PreviewCarousel";
+import EditPreviewCarousel from "../components/EditPreviewCarousel";
 import UserDetails from "../components/UserDetails";
 import { findData } from "../lib/discoveryData";
 import AddIcon from '@mui/icons-material/Add';
+import InfoPanel from "../components/InfoPanel";
 
 const Profile = () => {
     const user = findData[1];
@@ -15,13 +16,11 @@ const Profile = () => {
 
                     <UserDetails {...user} key={user.uid} editView />
                     <Box sx={{ height: '1px', width: '628px', margin: '35px 45px 45px 45px', backgroundColor: 'primary.main' }} />
-                    <Stack direction={'row'} justifyContent={'center'}>
+                    <Stack direction={'row'} justifyContent={'center'} alignItems='center'>
                         <Box style={{ maxWidth: '628px' }}>
-                            <PreviewCarousel {...user} />
+                            <EditPreviewCarousel initPreviews={user.previews} uid={user.uid} />
                         </Box>
-                        <Box sx={{ backgroundColor: 'background.paper', padding: '15px', marginLeft: '25px', borderRadius: '16px', height: '400px', width: '300px' }}>
-                            <Typography variant="p" component="p">{user.desc}</Typography>
-                        </Box>
+                        <InfoPanel desc={user.desc}/>
                     </Stack>
                 </Stack>
             </Box>

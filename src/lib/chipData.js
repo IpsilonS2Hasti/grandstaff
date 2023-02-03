@@ -73,4 +73,21 @@ export const chipData = [
             "Xylophone",
         ],
     },
+    {
+        chipName: 'Genre',
+        title: 'Genres',
+        queryParam: 'genre',
+        content: [
+            'Blues',
+            'Classical',
+            'Electronic',
+            'Folk',
+            'Metal',
+            'Hip-hop',
+            'Jazz',
+            'Religious',
+            'Rock',
+            'Pop-folk'
+        ],
+    },
 ]

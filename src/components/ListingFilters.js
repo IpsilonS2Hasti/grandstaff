@@ -6,8 +6,6 @@ import ChipSelectPopup from './ChipSelectPopup';
 import Popover from '@mui/material/Popover'; //popover
 
 export default function ListingFilters() { //Pull from url bar on component mount
-    const [selectedInstr, setSelectedInstr] = React.useState([]);
-    const [selectedRegions, setSelectedRegions] = React.useState([]);
     const [anchorEl, setAnchorEl] = React.useState(null); //popover
     const [selVal, setSelVal] = React.useState('')
 
@@ -31,8 +29,8 @@ export default function ListingFilters() { //Pull from url bar on component moun
     return (
         <div>
             <Stack direction="row" spacing={2} >
-                <ChipSelectPopup selEls={selectedRegions} setSelEls={setSelectedRegions} data={chipData[0]} />
-                <ChipSelectPopup selEls={selectedInstr} setSelEls={setSelectedInstr} data={chipData[1]} />
+                <ChipSelectPopup data={chipData[0]} />
+                <ChipSelectPopup data={chipData[1]} />
                 <Chip aria-describedby={id} label="Education" onClick={handleClick} sx={{ backgroundColor: 'rgba(255, 255, 255, 0.16)', color: '#fff', [':hover']: { backgroundColor: 'rgba(255, 255, 255, 0.24)' } }} />
                 <Popover
                     id={id}

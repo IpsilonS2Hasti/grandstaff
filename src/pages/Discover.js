@@ -1,4 +1,5 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Card, Stack, Typography } from "@mui/material";
+import InfoPanel from "../components/InfoPanel";
 import PreviewCarousel from "../components/PreviewCarousel";
 import UserDetails from "../components/UserDetails";
 import { findData } from "../lib/discoveryData";
@@ -14,13 +15,11 @@ const Find = () => {
 
                             <UserDetails {...user} key={user.uid} />
                             <Box sx={{ height: '1px', width: '628px', margin: '35px 45px 45px 45px', backgroundColor: 'primary.main' }} />
-                            <Stack direction={'row'} justifyContent={'center'}>
+                            <Stack direction={'row'} justifyContent={'center'} alignItems='center'>
                                 <Box style={{ maxWidth: '628px' }}>
                                     <PreviewCarousel {...user} />
                                 </Box>
-                                <Box sx={{ backgroundColor: 'background.paper', padding: '15px', marginLeft: '25px', borderRadius: '16px', height: '400px', width: '300px' }}>
-                                    <Typography variant="p" component="p">{user.desc}</Typography>
-                                </Box>
+                                <InfoPanel desc={user.desc}/>
                             </Stack>
                         </Stack>
                     </Box>

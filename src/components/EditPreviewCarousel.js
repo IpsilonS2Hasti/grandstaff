@@ -1,7 +1,7 @@
 import { Box, Button, ButtonGroup, IconButton, Popover } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards, Navigation, Pagination } from "swiper";
-import { Stack } from "@mui/system";
+import { alpha, Stack } from "@mui/system";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from "react";
@@ -44,9 +44,17 @@ const EditPreviewCarousel = ({ initPreviews, uid }) => {
             bob.splice(index, 1);
             setPreviews(bob);
         }
+
+        const changeFile = e => {
+            const file = e.target.files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+            //SEND TO SERVER AND REFRESH PAGE!!
+        };
+
         return (
             <Stack direction='row' style={{ width: '100%', position: 'absolute', zIndex: '3', justifyContent: 'flex-end' }}>
-                <IconButton onClick={handleClick}>
+                <IconButton onClick={handleClick} sx={{backgroundColor: theme => alpha(theme.palette.background.default, 0.25)}}>
                     <EditIcon fontSize="large"/>
                 </IconButton>
                 <Popover
@@ -72,7 +80,7 @@ const EditPreviewCarousel = ({ initPreviews, uid }) => {
                         >
                             <Button key="one" component='label' style={{ borderBottom: 0 }}>
                                 Change
-                                <input hidden accept="image/*" type="file" />
+                                <input hidden accept="image/*" type="file" onChange={changeFile} />
                             </Button>
                             <Button key="two" onClick={() => { handleClose(); deleteItem(index) }} sx={{ color: 'error.main' }}>Delete</Button>
                         </ButtonGroup>

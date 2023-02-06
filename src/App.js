@@ -32,13 +32,11 @@ function App() {
             <div style={{ display: 'flex', height: 'calc(100vh - 65px)' }}>
               <SideNav />
               <Routes>
-                <Route path="/find" element={<Find />} >
-                  <Route path=':country' element={<Find />} />
-                  <Route path=':country/:province' element={<Find />} />
-                </Route>
+                <Route path="/find" element={<Find />} />{/* Make seperate find routes for the 3 types in the future?*/}
                 <Route path="/discover" element={<Discover />} />
                 <Route path="/concerts" element={<Home />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/:uid" element={<Profile />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
               </Routes>

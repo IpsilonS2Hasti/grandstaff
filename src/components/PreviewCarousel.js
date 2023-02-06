@@ -41,7 +41,7 @@ const PreviewCarousel = ({ previews, uid }) => {
                     className="mySwiper"
                 >
                     {previews.map(({type, cover, source}) => (
-                        <SwiperSlide style={{ height: '500px', width: '400px' }}>
+                        <SwiperSlide style={{ height: '500px', width: '800px' }}>
                             {({ isActive }) => (
                                 isActive ?
                                     <div style={{ borderRadius: '16px', overflow: 'hidden', zIndex: 1, height: '100%', width: '100%' }}>

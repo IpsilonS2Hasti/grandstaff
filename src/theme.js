@@ -17,7 +17,7 @@ export const theme = mode => {
         palette: {
             mode: 'dark',
             background: {
-                paper: '#1E1E1E',
+                paper: '#121212',
                 default: '#121212'
             }
         }

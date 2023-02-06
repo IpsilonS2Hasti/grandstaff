@@ -5,7 +5,7 @@ export const findData = [
         pfp: 'https://www.meme-arsenal.com/memes/17d66979cdcfc3363aee314f4967254a.jpg',
         instruments: ['Accordion', 'Guitar', 'Organ', 'Singing'],
         genres: ['Classical', 'Choir', 'Folk'],
-        desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        desc: "Hi, I'm Ernest. I've been playing music since I was very young, and I'm always looking for ways to push the boundaries of sound. I'm a bit of an enigma, but my music speaks for itself and I'm always looking for new ways to express myself.",
         previews: [
             {
                 type: 'video',

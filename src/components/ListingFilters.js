@@ -1,62 +1,50 @@
 import * as React from 'react';
-import { Box, Button, ButtonGroup, Chip, Stack } from '@mui/material';
-import { chipData } from '../lib/chipData';
-import { useSearchParams } from "react-router-dom";
+import { Stack } from '@mui/material';
+import { chipData, ChipDropdownData } from '../lib/chipData';
 import ChipSelectPopup from './ChipSelectPopup';
-import Popover from '@mui/material/Popover'; //popover
+import ChipDropdown from './ChipDropdown';
+import { Box } from '@mui/system';
+import { useSearchParams } from 'react-router-dom';
 
 export default function ListingFilters() { //Pull from url bar on component mount
-    const [anchorEl, setAnchorEl] = React.useState(null); //popover
-    const [selVal, setSelVal] = React.useState('')
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchParam = searchParams.get("type");
+    const type = searchParam ? searchParam : "musicians";
 
-    const handleClick = (event) => { //popover
-        setAnchorEl(event.currentTarget);
+    React.useEffect(() => {
+        const paramKeyArr = ['region', 'instrument', 'genre', 'uEdu']; //scuff
+        paramKeyArr.forEach(key => {
+            searchParams.delete(key);
+        });        
+        setSearchParams(searchParams);
+    }, [type])
+
+    const RenderFilters = () => {
+        console.log(type);
+        if (type === "musicians")
+            return (
+                <Stack direction="row" spacing={2} >
+                    <ChipSelectPopup key="1" data={chipData[0]} />
+                    <ChipSelectPopup key="2" data={chipData[1]} />
+                    <ChipSelectPopup key="3" data={chipData[2]} />
+                    <ChipDropdown key="4" data={ChipDropdownData[1]} />
+                </Stack>
+            );
+        if (type === "bands")
+            return (
+                <Stack direction="row" spacing={2} >
+                    <ChipSelectPopup key="5" data={chipData[0]} />
+                    <ChipSelectPopup key="6" data={chipData[2]} />
+                </Stack>
+            );
     };
-
-    const handleClose = () => { //popover
-        setAnchorEl(null);
-         console.log('clicked!!');
-    };
-
-    const open = Boolean(anchorEl); //popover
-    const id = open ? 'simple-popover' : undefined; //popover
-
-    const buttons = [ //popover
-        <Button key="one" style={{borderBottom: 0}} onClick={handleClose}>All</Button>,
-        <Button key="two" onClick={handleClose}>Degree</Button>,
-    ];
 
     return (
         <div>
             <Stack direction="row" spacing={2} >
-                <ChipSelectPopup data={chipData[0]} />
-                <ChipSelectPopup data={chipData[1]} />
-                <Chip aria-describedby={id} label="Education" onClick={handleClick} sx={{ backgroundColor: 'rgba(255, 255, 255, 0.16)', color: '#fff', [':hover']: { backgroundColor: 'rgba(255, 255, 255, 0.24)' } }} />
-                <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                      }}
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',
-                      }}
-                >
-                    <Box width="100px">
-                        <ButtonGroup
-                            orientation="vertical"
-                            aria-label="vertical contained button group"
-                            variant="text"
-                            fullWidth
-                        >
-                            {buttons}
-                        </ButtonGroup>
-                    </Box>
-                </Popover>
+                <ChipDropdown data={ChipDropdownData[0]} />
+                <Box sx={{ width: '1px', height: '32px', backgroundColor: '#ffffffDD' }} />
+                {RenderFilters()}
             </Stack>
         </div>
     );

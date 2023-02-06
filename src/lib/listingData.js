@@ -269,13 +269,4 @@ export const listingData = [
             'Mouth Farting'
         ]
     },
-    {
-        name: 'Кешан Махморлу',
-        pfp: 'https://tundratabloids.com/wp-content/uploads/2012/10/ugly-arab.jpg',
-        city: 'гр. Съсел',
-        instruments: [
-            'Зурла',
-            'Подсвиркване'
-        ]
-    }
 ];

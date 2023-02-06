@@ -91,3 +91,40 @@ export const chipData = [
         ],
     },
 ]
+
+export const ChipDropdownData = [
+    {
+        chipName: 'Type',
+        queryParam: 'type',
+        default: 'musicians',
+        btns: [
+            {
+                param: 'musicians',
+                name: 'Musicians'
+            },
+            {
+                param: 'bands',
+                name: 'Bands'
+            },
+            {
+                param: 'employers',
+                name: 'Employers'
+            },
+        ]
+    },
+    {
+        chipName: 'Education',
+        queryParam: 'uEdu',
+        default: 'false',
+        btns: [
+            {
+                param: 'false',
+                name: 'All'
+            },
+            {
+                param: 'true',
+                name: 'Higher'
+            },
+        ]
+    }
+]

@@ -14,9 +14,9 @@ const Find = () => {
                         <Stack direction={'column'} alignItems={'center'}>
 
                             <UserDetails {...user} key={user.uid} />
-                            <Box sx={{ height: '1px', width: '628px', margin: '35px 45px 45px 45px', backgroundColor: 'primary.main' }} />
+                            <Box sx={{ height: '1px', width: '1228px', margin: '35px 45px 45px 45px', backgroundColor: 'primary.main' }} />
                             <Stack direction={'row'} justifyContent={'center'} alignItems='center'>
-                                <Box style={{ maxWidth: '628px' }}>
+                                <Box style={{ maxWidth: '1228px' }}>
                                     <PreviewCarousel {...user} />
                                 </Box>
                                 <InfoPanel desc={user.desc}/>

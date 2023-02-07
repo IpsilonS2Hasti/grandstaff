@@ -34,7 +34,7 @@ const ChipDropdown = ({ data }) => {
 
     return (
         <div>
-            <Chip aria-describedby={id} label={labelName()} onClick={handleClick} sx={{ backgroundColor: 'rgba(255, 255, 255, 0.16)', color: '#fff', [':hover']: { backgroundColor: 'rgba(255, 255, 255, 0.24)' } }} />
+            <Chip aria-describedby={id} label={labelName()} onClick={handleClick} sx={ { backgroundColor: theme => alpha(theme.palette.primary.main, 0.6), color: '#fff', [':hover']: { backgroundColor: theme => alpha(theme.palette.primary.main, 0.7) } } } />
             <Popover
                 id={id}
                 open={open}

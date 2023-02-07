@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { Chip, Grid, Stack, Typography } from '@mui/material';
+import { alpha, Chip, Grid, Stack, Typography } from '@mui/material';
 import { useSearchParams } from "react-router-dom";
 import SearchField from './SearchField';
 
@@ -44,7 +44,12 @@ const ChipSelectPopup = ({ data }) => {
         <div>
             <Chip label={labelName()}
                 onClick={handleClickOpen}
-                sx={{ backgroundColor: 'rgba(255, 255, 255, 0.16)', color: '#fff', [':hover']: { backgroundColor: 'rgba(255, 255, 255, 0.24)' } }}
+                sx={
+                    selEls.length === 0?
+                    { backgroundColor: 'rgba(255, 255, 255, 0.16)', color: '#fff', [':hover']: { backgroundColor: 'rgba(255, 255, 255, 0.24)' } }
+                    :
+                    { backgroundColor: theme => alpha(theme.palette.primary.main, 0.6), color: '#fff', [':hover']: { backgroundColor: theme => alpha(theme.palette.primary.main, 0.7) } }
+                }
             />
             <Dialog
                 open={open}

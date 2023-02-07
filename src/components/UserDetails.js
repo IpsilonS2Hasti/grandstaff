@@ -1,4 +1,4 @@
-import { Box, Chip, IconButton, Stack, Typography } from "@mui/material";
+import { alpha, Box, Chip, IconButton, Stack, Typography } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import EditField from "./EditField";
@@ -8,7 +8,7 @@ import { chipData } from "../lib/chipData";
 
 const UserDetails = ({ name, pfp, instruments, genres, editView }) => {
     return (
-        <Box maxWidth={'700px'} margin={'auto'}>
+        <Box maxWidth={'700px'}>
             <Stack direction={'row'}>
                 <Box style={{
                     backgroundPosition: 'center',

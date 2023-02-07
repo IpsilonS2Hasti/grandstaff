@@ -4,6 +4,7 @@ import { EffectCards, Navigation, Pagination } from "swiper";
 import { Stack } from "@mui/system";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -11,6 +12,8 @@ import "swiper/css/pagination";
 
 
 const PreviewCarousel = ({ previews, uid }) => {
+    const largeScreen = useMediaQuery((theme) => theme.breakpoints.up('xl'));
+
     return (
         <Stack direction="row">
             <Box
@@ -41,11 +44,11 @@ const PreviewCarousel = ({ previews, uid }) => {
                     className="mySwiper"
                 >
                     {previews.map(({type, cover, source}) => (
-                        <SwiperSlide style={{ height: '500px', width: '800px' }}>
+                        <SwiperSlide style={{ height: largeScreen?'500px':'350px', width: largeScreen?'650px':'400px' }}>
                             {({ isActive }) => (
                                 isActive ?
                                     <div style={{ borderRadius: '16px', overflow: 'hidden', zIndex: 1, height: '100%', width: '100%' }}>
-                                        <video style={{objectFit: 'cover',  width: "100%", height:"100%"}} controls poster={cover}>
+                                        <video style={{objectFit: 'cover',  width: "100%", height:"100%"}} controls poster={cover}>
                                             <source src={source} type="video/mp4" />
                                         </video>
                                     </div>

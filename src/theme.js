@@ -16,8 +16,11 @@ export const theme = mode => {
     if(mode==='dark') return createTheme({
         palette: {
             mode: 'dark',
+            primary: {
+                main: "#FCAE1A"
+            },
             background: {
-                paper: '#121212',
+                paper: '#1E1E1E',
                 default: '#121212'
             }
         }

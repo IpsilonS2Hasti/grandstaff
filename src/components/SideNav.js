@@ -21,16 +21,16 @@ const SideNav = () => {
                     button: ({ active }) => {
                         let style = {
                             [`:hover`]: {
-                                backgroundColor: '#eaebef',
+                                backgroundColor: '#ffffff22',
                             },
                             borderRadius: '15px',
                             margin: "3px 5px 3px 5px"
                         }
                         if (active) return {
                             ...style,
-                            backgroundColor: '#d3e3fd',
+                            backgroundColor: '#FCAE1ACC',
                             [`:hover`]: {
-                                backgroundColor: '#d3e3fd',
+                                backgroundColor: '#FCAE1AEE',
                             },
                         };
                         return style;

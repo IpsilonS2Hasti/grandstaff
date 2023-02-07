@@ -1,12 +1,14 @@
 import { Card, CardActionArea, Chip, Stack, Typography } from "@mui/material";
 import { alpha, Box } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
-const ProfileListing = ({ id, name, pfp, instruments, city }) => {
+const ProfileListing = ({ id, name, pfp, instruments, city, genres }) => {
+    const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
     return (
         <Card sx={{ borderRadius: '10px' }}>
-            <CardActionArea onClick={()=>navigate('/profile/' + id)}>
+            <CardActionArea onClick={() => navigate('/profile/' + id)}>
                 <Stack direction='row' height={'85px'}>
                     <Box style={{
                         backgroundPosition: 'center',
@@ -26,7 +28,21 @@ const ProfileListing = ({ id, name, pfp, instruments, city }) => {
                     </Typography>
                 </Stack>
                 <Stack direction='row' spacing={'2px'} margin='5px'>
-                    {instruments.map(instr => <Chip label={instr} onClick={event =>{ console.log("farts"); event.stopPropagation();}} />)}
+                    {instruments.map(instr => {
+                         let isHighlighted = false;
+                         searchParams.forEach(e => {if(e === instr) isHighlighted = true;});
+                         console.log(isHighlighted);
+                        return(<Chip label={instr} sx={
+                           
+                            isHighlighted?
+                            { backgroundColor: theme => alpha(theme.palette.primary.main, 0.6), color: '#fff', [':hover']: { backgroundColor: theme => alpha(theme.palette.primary.main, 0.7) } }
+                            :
+                            null
+                        } />)
+})}
+                </Stack>
+                <Stack direction='row' spacing={'2px'} margin='5px'>
+                    {genres.map(genre => <Chip label={genre} onClick={event => { console.log("farts"); event.stopPropagation(); }} />)}
                 </Stack>
             </CardActionArea>
         </Card>

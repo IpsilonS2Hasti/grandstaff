@@ -30,7 +30,7 @@ const ProfileListing = ({ id, name, pfp, instruments, city, genres, uEdu }) => {
                         </Typography>
                     </Typography>
                 </Stack>
-                <Stack direction='row' spacing={'2px'} margin='5px'>
+                <Stack direction='row' spacing={'5px'} margin='5px'>
                     {instruments.map(instr => {
                         let isHighlighted = false;
                         searchParams.forEach(e => { if (e === instr) isHighlighted = true; });
@@ -43,7 +43,7 @@ const ProfileListing = ({ id, name, pfp, instruments, city, genres, uEdu }) => {
                         } />)
                     })}
                 </Stack>
-                <Stack direction='row' spacing={'2px'} margin='5px'>
+                <Stack direction='row' spacing={'5px'} margin='5px'>
                     {genres.map(genre => {
                         let isHighlighted = false;
                         searchParams.forEach(e => { if (e === genre) isHighlighted = true; });

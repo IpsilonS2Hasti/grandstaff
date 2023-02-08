@@ -30,16 +30,17 @@ const EditPreviewCarousel = ({ initPreviews, uid }) => {
         const handleClick = (event) => { //popover
             setAnchorEl(event.currentTarget);
         };
-    
+
         const handleClose = () => { //popover
             setAnchorEl(null);
         };
-    
+
         const open = Boolean(anchorEl); //popover
         const id = open ? 'simple-popover' : undefined; //popover
-    
-        const deleteItem = index => {
+
+        const deleteItem = ({ index }) => {
             //DELETE ON SERVER!!
+            console.log(index);
             let bob = [...previews];
             bob.splice(index, 1);
             setPreviews(bob);
@@ -54,8 +55,8 @@ const EditPreviewCarousel = ({ initPreviews, uid }) => {
 
         return (
             <Stack direction='row' style={{ width: '100%', position: 'absolute', zIndex: '3', justifyContent: 'flex-end' }}>
-                <IconButton onClick={handleClick} sx={{backgroundColor: theme => alpha(theme.palette.background.default, 0.25)}}>
-                    <EditIcon fontSize="large"/>
+                <IconButton onClick={handleClick} sx={{ backgroundColor: theme => alpha(theme.palette.background.default, 0.25) }}>
+                    <EditIcon fontSize="large" />
                 </IconButton>
                 <Popover
                     id={id}
@@ -142,7 +143,7 @@ const EditPreviewCarousel = ({ initPreviews, uid }) => {
                                     )
                                 return (
                                     <div style={{ borderRadius: '16px', overflow: 'hidden', height: '100%', width: '100%' }}>
-                                        <EditSlide index={index}/>
+                                        <EditSlide index={index} />
                                         {renderSlideContent(type, cover, source)}
                                     </div>
                                 )

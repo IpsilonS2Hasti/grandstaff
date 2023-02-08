@@ -5,10 +5,11 @@ import EditField from "./EditField";
 import { useState } from "react";
 import DialogPopup from "./DialogPopup";
 import { chipData } from "../lib/chipData";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const UserDetails = ({ name, pfp, instruments, genres, editView }) => {
     return (
-        <Box maxWidth={'700px'}>
+        <Box maxWidth={'700px'} marginLeft='70px'>
             <Stack direction={'row'}>
                 <Box style={{
                     backgroundPosition: 'center',
@@ -21,15 +22,24 @@ const UserDetails = ({ name, pfp, instruments, genres, editView }) => {
                     marginRight: '15px'
                 }} />
                 <Stack direction={'column'} padding={'5px 0 5px 0'}>
-                    <Typography gutterBottom variant="h5" component="div">
-                        {
-                            editView
-                                ?
-                                <EditField value={name} />
-                                :
-                                name
-                        }
-                    </Typography>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <Typography gutterBottom variant="h5" component="div">
+                            {
+                                editView
+                                    ?
+                                    <EditField value={name} />
+                                    :
+                                    name
+                            }
+                        </Typography>
+                        <Box width='20px' />
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: "8.4px" }}>
+                            <LocationOnIcon fontSize='17px' />
+                            <Typography fontSize='17px' variant="p" component="div">
+                                Baazardzhique
+                            </Typography>
+                        </div>
+                    </div>
                     {
                         editView
                             ?
@@ -41,15 +51,15 @@ const UserDetails = ({ name, pfp, instruments, genres, editView }) => {
                     }
                     <Box sx={{ height: '5px' }} />
                     <Stack direction='row' spacing={'2px'}>
-                    {
-                        editView
-                            ?
-                            <DialogPopup data={chipData[2]} selected={genres} />
-                            :
-                            <Stack direction='row' spacing={'2px'}>
-                                {genres.map(instr => <Chip label={instr} />)}
-                            </Stack>
-                    }
+                        {
+                            editView
+                                ?
+                                <DialogPopup data={chipData[2]} selected={genres} />
+                                :
+                                <Stack direction='row' spacing={'2px'}>
+                                    {genres.map(instr => <Chip label={instr} />)}
+                                </Stack>
+                        }
                     </Stack>
                 </Stack>
             </Stack>

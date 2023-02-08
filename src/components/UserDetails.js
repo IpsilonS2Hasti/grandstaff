@@ -35,7 +35,7 @@ const UserDetails = ({ name, pfp, instruments, genres, editView }) => {
                         <Box width='20px' />
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: "8.4px" }}>
                             <LocationOnIcon fontSize='17px' />
-                            <Typography fontSize='17px' variant="p" component="div">
+                            <Typography fontSize='17px' variant="p" component="div" style={{flexShrink: 0}}>
                                 Baazardzhique
                             </Typography>
                         </div>

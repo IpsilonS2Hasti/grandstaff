@@ -3,6 +3,7 @@ import ScheduleCalendar from "./ScheduleCalendar";
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import { useState } from "react";
+import BandStack from "./BandStack";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -60,16 +61,7 @@ const InfoPanel = ({ desc, editView }) => {
                 <ScheduleCalendar editView={editView} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-            <Box style={{
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
-                    backgroundImage: `url(${"https://cdn.discordapp.com/attachments/802212627405078578/1072580934819393586/Charles_Mingus_1976_cropped.png"})`,
-                    borderRadius: '20px',
-                    height: '125px',
-                    width: '125px',
-                    marginRight: '15px'
-                }} />
+                <BandStack />
             </TabPanel>
         </Card>
     );

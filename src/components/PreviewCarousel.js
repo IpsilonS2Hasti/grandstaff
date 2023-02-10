@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards, Navigation, Pagination } from "swiper";
 import { Stack } from "@mui/system";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -22,9 +22,9 @@ const PreviewCarousel = ({ previews, uid }) => {
                 alignItems="center"
                 minHeight="100%"
             >
-                <ArrowBackIosIcon allignSelf className={`swiper-button-prev${uid}`} style={{ cursor: 'pointer', width: '50px', height: '36px' }} /> {/* DISABLE ARROWS ON BREAKPOINT!  */}
+                <ArrowBackIosNewIcon allignSelf className={`swiper-button-prev${uid}`} style={{ cursor: 'pointer', width: '36px', height: '36px' }} /> {/* DISABLE ARROWS ON BREAKPOINT!  */}
             </Box>
-            <Box maxWidth={'calc(100% - 100px)'} margin={'auto'}> {/* Remake with flex?  */}
+            <Box maxWidth={'calc(100% - 76px)'} margin={'auto'}> {/* Remake with flex?  */}
                 <Swiper
                     allowTouchMove={false}
                     effect={"cards"}
@@ -36,19 +36,19 @@ const PreviewCarousel = ({ previews, uid }) => {
                     }}
                     cardsEffect={{
                         perSlideRotate: '0',
-                        perSlideOffset: '15',
+                        perSlideOffset: '10',
                         rotate: false
                     }}
-                    pagination={false} // FIX PAGINATION IN FUTURE
+                    pagination={{clickable: 'true'}}
                     modules={[EffectCards, Pagination, Navigation]}
                     className="mySwiper"
                 >
-                    {previews.map(({type, cover, source}) => (
-                        <SwiperSlide style={{ height: largeScreen?'500px':'350px', width: largeScreen?'650px':'400px' }}>
+                    {previews.map(({ type, cover, source }) => (
+                        <SwiperSlide style={{ height: largeScreen ? '500px' : '350px', width: largeScreen ? '650px' : '400px' }}>
                             {({ isActive }) => (
                                 isActive ?
                                     <div style={{ borderRadius: '16px', overflow: 'hidden', zIndex: 1, height: '100%', width: '100%' }}>
-                                        <video style={{objectFit: 'cover',  width: "100%", height:"100%"}} controls poster={cover}>
+                                        <video style={{ objectFit: 'cover', width: "100%", height: "100%" }} controls poster={cover}>
                                             <source src={source} type="video/mp4" />
                                         </video>
                                     </div>
@@ -65,7 +65,7 @@ const PreviewCarousel = ({ previews, uid }) => {
                 alignItems="center"
                 minHeight="100%"
             >
-                <ArrowForwardIosIcon className={`swiper-button-next${uid}`} style={{ cursor: 'pointer', width: '50px', height: '36px' }} />
+                <ArrowForwardIosIcon className={`swiper-button-next${uid}`} style={{ cursor: 'pointer', width: '36px', height: '36px' }} />
             </Box>
         </Stack>
     );

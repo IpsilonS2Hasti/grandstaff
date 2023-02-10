@@ -1,8 +1,8 @@
-import { Box, Button, ButtonGroup, IconButton, Popover } from "@mui/material";
+import { Box, Button, ButtonGroup, IconButton, Popover, useMediaQuery } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards, Navigation, Pagination } from "swiper";
 import { alpha, Stack } from "@mui/system";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from "react";
 import { FilePond, registerPlugin } from 'react-filepond'
@@ -104,17 +104,19 @@ const EditPreviewCarousel = ({ initPreviews, uid }) => {
             )
     };
 
+    const largeScreen = useMediaQuery((theme) => theme.breakpoints.up('xl'));
+
     return (
         <Stack direction="row">
             <Box
-                display={previews.length < 2 ? 'none' : 'flex'}
+                display={previews.length < 1 ? 'none' : 'flex'}
                 justifyContent="center"
                 alignItems="center"
                 minHeight="100%"
             >
-                <ArrowBackIosIcon allignSelf className={`swiper-button-prev${uid}`} style={{ cursor: 'pointer', width: '50px', height: '36px' }} /> {/* DISABLE ARROWS ON BREAKPOINT!  */}
+                <ArrowBackIosNewIcon allignSelf className={`swiper-button-prev${uid}`} style={{ cursor: 'pointer', width: '36px', height: '36px' }} /> {/* DISABLE ARROWS ON BREAKPOINT!  */}
             </Box>
-            <Box maxWidth={'calc(100% - 100px)'} margin={'auto'}> {/* Remake with flex?  */}
+            <Box maxWidth={'calc(100% - 76px)'} margin={'auto'}> {/* Remake with flex?  */}
                 <Swiper
                     allowTouchMove={false}
                     effect={"cards"}
@@ -126,16 +128,16 @@ const EditPreviewCarousel = ({ initPreviews, uid }) => {
                     }}
                     cardsEffect={{
                         perSlideRotate: '0',
-                        perSlideOffset: '15',
+                        perSlideOffset: '10',
                         rotate: false
                     }}
-                    pagination={false} // FIX PAGINATION IN FUTURE
+                    pagination={{ clickable: false }}
                     modules={[EffectCards, Pagination, Navigation]}
-                    className="mySwiper"
+                    className="editSwiper"
                 >
 
                     {previews.map(({ type, cover, source }, index) => (
-                        <SwiperSlide style={{ height: '500px', width: '400px' }} key={cover} >
+                        <SwiperSlide style={{ height: largeScreen ? '500px' : '350px', width: largeScreen ? '650px' : '400px' }}>
                             {({ isActive }) => {
                                 if (!isActive)
                                     return (
@@ -154,18 +156,21 @@ const EditPreviewCarousel = ({ initPreviews, uid }) => {
                     {
                         previews.length < 5
                             ?
-                            <SwiperSlide style={{ height: '500px', width: '400px' }}>
-                                <FilePond
-                                    files={files}
-                                    onupdatefiles={setFiles}
-                                    allowMultiple={false}
-                                    maxFiles={1}
-                                    server="/api"
-                                    name="files" /* sets the file input name, it's filepond by default */
-                                    labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-                                    stylePanelLayout='integrated'
-                                    stylePanelAspectRatio='4:5'
-                                />
+                            <SwiperSlide style={{ height: largeScreen ? '500px' : '350px', width: largeScreen ? '650px' : '400px' }}>
+                                <Box sx={{ backdropFilter: 'blur(15px)', backgroundColor: theme => theme.palette.mode === 'dark'?"#878787AA" : alpha(theme.palette.background.default, 0.67), borderRadius: '16px'}}>
+                                    <FilePond
+                                        files={files}
+                                        onupdatefiles={setFiles}
+                                        allowMultiple={false}
+                                        maxFiles={1}
+                                        server="/api"
+                                        name="files" /* sets the file input name, it's filepond by default */
+                                        labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+                                        stylePanelLayout='integrated'
+                                        stylePanelAspectRatio={largeScreen ? '650:500' : '400:350'}
+                                        credits={false}
+                                    />
+                                </Box>
                             </SwiperSlide>
                             :
                             null
@@ -173,12 +178,12 @@ const EditPreviewCarousel = ({ initPreviews, uid }) => {
                 </Swiper>
             </Box>
             <Box
-                display={previews.length < 2 ? 'none' : 'flex'}
+                display={previews.length < 1 ? 'none' : 'flex'}
                 justifyContent="center"
                 alignItems="center"
                 minHeight="100%"
             >
-                <ArrowForwardIosIcon className={`swiper-button-next${uid}`} style={{ cursor: 'pointer', width: '50px', height: '36px' }} />
+                <ArrowForwardIosIcon className={`swiper-button-next${uid}`} style={{ cursor: 'pointer', width: '36px', height: '36px' }} />
             </Box>
         </Stack>
     );

@@ -138,7 +138,7 @@ export default function SearchAppBar() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="static" color='secondary'>
                 <Toolbar>
                     <IconButton
                         size="large"

@@ -1,7 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search';
 import CompassIcon from '@mui/icons-material/Explore';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import PersonIcon from '@mui/icons-material/Person';
 import WorkIcon from '@mui/icons-material/Work';
 
 export const navData = [
@@ -22,7 +22,7 @@ export const navData = [
     },
     {
         path: "/profile",
-        icon: <PeopleAltIcon />,
-        name: "Band"
+        icon: <PersonIcon />,
+        name: "Profile"
     }
 ];

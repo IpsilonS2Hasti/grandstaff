@@ -12,6 +12,32 @@ code {
     monospace;
 }
 
-.css-1kpubfb-MuiPickerStaticWrapper-content{
+.css-1kpubfb-MuiPickerStaticWrapper-content{ /* Dark theme */
+  background-color: #00000000 !important;
+}
+
+.css-1pchf0t-MuiPickerStaticWrapper-content{ /* Light theme */
+  background-color: #00000000 !important;
+}
+
+/* Swiper */
+.swiper-pagination {
+  bottom: 94% !important;
+}
+
+.swiper-pagination-bullet {
+  background: #fff !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #FCAE1A !important;
+}
+
+.editSwiper .swiper-pagination {
+  pointer-events: none !important;
+}
+
+/* Filepond */
+.filepond--panel-root {
   background-color: #00000000 !important;
 }

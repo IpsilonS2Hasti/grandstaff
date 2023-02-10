@@ -1,4 +1,4 @@
-import { alpha, Box, Chip, IconButton, Stack, Typography } from "@mui/material";
+import { alpha, Box, Button, Chip, IconButton, Stack, Typography } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import EditField from "./EditField";
@@ -6,6 +6,9 @@ import { useState } from "react";
 import DialogPopup from "./DialogPopup";
 import { chipData } from "../lib/chipData";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PfpUpload from "./PfpUpload";
+import EditRegionPopup from "./EditRegionPopup";
+import EditAccount from "./EditAccount";
 
 const UserDetails = ({ name, pfp, instruments, genres, editView }) => {
     return (
@@ -20,25 +23,42 @@ const UserDetails = ({ name, pfp, instruments, genres, editView }) => {
                     height: '125px',
                     width: '125px',
                     marginRight: '15px'
-                }} />
+                }} >
+                    {editView
+                        ?
+                        <PfpUpload />
+                        :
+                        null
+                    }
+                </Box>
                 <Stack direction={'column'} padding={'5px 0 5px 0'}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div style={{ display: 'flex' }}>
                         <Typography gutterBottom variant="h5" component="div">
-                            {
-                                editView
-                                    ?
-                                    <EditField value={name} />
-                                    :
-                                    name
-                            }
+                            {name}
                         </Typography>
-                        <Box width='20px' />
-                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginBottom: "8.4px" }}>
-                            <LocationOnIcon fontSize='17px' />
-                            <Typography fontSize='17px' variant="p" component="div" style={{flexShrink: 0}}>
-                                Baazardzhique
-                            </Typography>
-                        </div>
+                        {
+                            editView
+                                ?
+                                <Box marginTop="-5px">
+                                    <EditAccount />
+                                </Box>
+                                :
+                                null
+                        }
+                        {
+                            editView
+                                ?
+                                <Box width='10px' />
+                                :
+                                <Box width='15px' />
+                        }
+                        {
+                            editView
+                                ?
+                                <EditRegionPopup data={chipData[0]} initSel="Tatargrad" />
+                                :
+                                <Chip icon={<LocationOnIcon fontSize='small' />} label="Baazardzhique" />
+                        }
                     </div>
                     {
                         editView

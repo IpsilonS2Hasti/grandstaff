@@ -5,7 +5,10 @@ export const theme = mode => {
         palette: {
             mode: 'light',
             primary: {
-                main: "#1D2B53",
+                main: "#FCAE1A",
+            },
+            secondary: {
+                main: "#1D2951",
             },
             background: {
                 paper: '#F6F8FC',

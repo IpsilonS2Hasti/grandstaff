@@ -30,7 +30,7 @@ const DialogPopup = ({ data, selected }) => {
 
     return (
         <div>
-            <Stack direction='row' spacing={'2px'}>
+            <Stack direction='row' gap={'2px'} style={{flexWrap: 'wrap'}}>
                 {selEls.map(el => <Chip label={el} />)}
                 <IconButton size="small" onClick={handleClickOpen}>
                     <AddIcon fontSize="small" />

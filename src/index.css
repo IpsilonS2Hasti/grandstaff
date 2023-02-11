@@ -41,3 +41,25 @@ code {
 .filepond--panel-root {
   background-color: #00000000 !important;
 }
+
+/* ===== Scrollbar CSS ===== /
+  / Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #4b4b4b #00000000;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #00000000;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #4b4b4b;
+    border-radius: 4px;
+    border: 3px solid #4b4b4b;
+  }

@@ -12,6 +12,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { ColorModeContextProvider } from "./context/ColorModeContext";
 import { theme } from "./theme";
 import Profile from "./pages/Profile";
+import Band from "./pages/Band";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
                 <Route path="/concerts" element={<Home />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/profile/:uid" element={<Profile />} />
+                <Route path="/band/:uid" element={<Band />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
               </Routes>

@@ -16,6 +16,7 @@ const Search = styled('div')(({ theme }) => ({
         marginLeft: theme.spacing(3),
         width: 'auto',
     },
+    whiteSpace: 'nowrap'
 }));
 
 

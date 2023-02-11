@@ -5,18 +5,20 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { IconButton, TextField } from '@mui/material';
+import { Box, IconButton, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
-import { Edit } from '@mui/icons-material';
+import AddIcon from '@mui/icons-material/Add';
+import { chipData } from '../lib/chipData';
+import DialogPopup from './DialogPopup';
+import { useNavigate } from 'react-router';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 })
 
-const EditInfoPopup = ({ desc, isBand }) => {
-    console.log(isBand);
+const BandCreationPopup = () => {
     const [open, setOpen] = React.useState(false);
-
+    const navigate = useNavigate();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -24,14 +26,19 @@ const EditInfoPopup = ({ desc, isBand }) => {
 
     const handleClose = () => {
         setOpen(false);
-
     };
+
+    const createBand = () => {
+        console.log("BAND CREAYDRTYFEED!!!!!");
+        navigate('/band/' + "bandID") //sig 6e trqq timeout predi redirecta da moje backenda da syzdade bandata
+        handleClose();
+    }
 
 
     return (
         <div>
-            <IconButton onClick={handleClickOpen} >
-                <Edit />
+            <IconButton onClick={handleClickOpen}>
+                <AddIcon fontSize="large" />
             </IconButton>
             <Dialog
                 open={open}
@@ -41,48 +48,45 @@ const EditInfoPopup = ({ desc, isBand }) => {
                 aria-describedby="alert-dialog-slide-description"
             >
                 <DialogTitle sx={{ display: 'flex' }}>
-                    {"Редакция на данни"}
+                    {"Създаване на Група"}
                 </DialogTitle>
                 <DialogContent style={{ padding: '15px', width: '400px' }}>
                     <Stack direction={'column'} spacing="15px">
-                        {
-                            isBand
-                                ?
-                                null
-                                :
-                                <TextField
-                                    id="vuz"
-                                    label="Висше учебно заведение"
-                                    defaultValue="Hello World"
-                                />
-                        }
+                        <TextField
+                            required
+                            id="name"
+                            label="Име на група"
+                        />
+                        <Stack direction={"row"}>
+                            <Typography variant='p' fontSize="15px" marginTop="4px">{"Жанр:"}</Typography>
+                            <Box width="5px" />
+                            <DialogPopup data={chipData[2]} selected={[]} />
+                        </Stack>
                         <TextField
                             id="description"
                             label="Описание"
                             multiline
                             minRows={4}
                             maxRows={9}
-                            defaultValue={desc}
                         />
                         <TextField
                             sx={{ width: '210px' }}
                             id="phone-number"
                             label="Телефонен номер"
-                            defaultValue="Hello World"
                         />
                         <TextField
                             id="contact-email"
                             label="Имейл за връзка"
-                            defaultValue="Hello World"
                         />
                     </Stack>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Finish selection</Button>
+                    <Button onClick={handleClose} color="error">Отказ</Button>
+                    <Button onClick={createBand}>Създаване</Button>
                 </DialogActions>
             </Dialog>
         </div>
     );
 }
 
-export default EditInfoPopup;
+export default BandCreationPopup;

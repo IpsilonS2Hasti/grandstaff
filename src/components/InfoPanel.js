@@ -3,7 +3,7 @@ import ScheduleCalendar from "./ScheduleCalendar";
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import { useState } from "react";
-import BandStack from "./BandStack";
+import InfoStack from "./InfoStack";
 import SchoolIcon from '@mui/icons-material/School';
 import EditInfoPanel from "./EditInfoPopup";
 
@@ -27,7 +27,8 @@ function TabPanel(props) {
     );
 }
 
-const InfoPanel = ({ desc, phone, contactEmail, uEdu, editView }) => {
+const InfoPanel = ({ desc, phone, contactEmail, uEdu, editView, isBand }) => {
+    console.log(isBand);
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -39,7 +40,7 @@ const InfoPanel = ({ desc, phone, contactEmail, uEdu, editView }) => {
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <b>ABOUT: </b>
                     {editView ?
-                        <EditInfoPanel {...{desc, phone, contactEmail, uEdu,}}/>
+                        <EditInfoPanel {...{desc, phone, contactEmail, uEdu, isBand}}/>
                         :
                         null
                     }
@@ -68,14 +69,14 @@ const InfoPanel = ({ desc, phone, contactEmail, uEdu, editView }) => {
             <Stack direction="row" justifyContent='center'>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" >
                     <Tab label="Schedule" />
-                    <Tab label="Bands" />
+                    <Tab label={isBand ? "Members" : "Bands"} />
                 </Tabs>
             </Stack>
             <TabPanel value={value} index={0}>
                 <ScheduleCalendar editView={editView} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <BandStack />
+                <InfoStack isBand={isBand}/>
             </TabPanel>
         </Card>
     );

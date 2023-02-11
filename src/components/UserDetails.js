@@ -9,8 +9,9 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PfpUpload from "./PfpUpload";
 import EditRegionPopup from "./EditRegionPopup";
 import EditAccount from "./EditAccount";
+import EditBand from "./EditBand";
 
-const UserDetails = ({ name, pfp, instruments, genres, editView }) => {
+const UserDetails = ({ name, pfp, instruments, genres, editView, isBand }) => {
     return (
         <Box maxWidth={'700px'} marginLeft='70px'>
             <Stack direction={'row'}>
@@ -39,9 +40,15 @@ const UserDetails = ({ name, pfp, instruments, genres, editView }) => {
                         {
                             editView
                                 ?
-                                <Box marginTop="-5px">
-                                    <EditAccount />
-                                </Box>
+                                isBand
+                                    ?
+                                    <Box marginTop="-5px">
+                                        <EditBand />
+                                    </Box>
+                                    :
+                                    <Box marginTop="-5px">
+                                        <EditAccount />
+                                    </Box>
                                 :
                                 null
                         }

@@ -11,7 +11,6 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useProSidebar } from "react-pro-sidebar";
 import ListingFilters from './ListingFilters';
@@ -21,6 +20,7 @@ import { useContext } from 'react';
 import { useLogout } from '../hooks/useLogout';
 import { useLocation } from "react-router-dom"
 import SearchBar from './Searchbar';
+import NotificationsMenu from './NotificationsMenu';
 
 export default function SearchAppBar() {
     const { logout } = useLogout();
@@ -30,7 +30,7 @@ export default function SearchAppBar() {
     // console.log(colorMode);
 
     const RenderFilters = () => {
-        if(pathname=="/find") return <ListingFilters/>;
+        if (pathname == "/find") return <ListingFilters />;
     };
 
     const { collapseSidebar } = useProSidebar();
@@ -77,7 +77,7 @@ export default function SearchAppBar() {
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-            <MenuItem onClick={()=>{
+            <MenuItem onClick={() => {
                 handleMenuClose();
                 logout();
             }}>Log out</MenuItem>
@@ -110,15 +110,7 @@ export default function SearchAppBar() {
                 <p>Messages</p>
             </MenuItem>
             <MenuItem>
-                <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                >
-                    <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton>
+                <NotificationsMenu />
                 <p>Notifications</p>
             </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
@@ -160,24 +152,16 @@ export default function SearchAppBar() {
                     >
                         GrandStaff
                     </Typography>
-                    <SearchBar/>
+                    <SearchBar />
                     {RenderFilters()}
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={ colorMode.toggleColorMode }>
+                        <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={colorMode.toggleColorMode}>
                             <Badge badgeContent={4} color="error">
                                 <MailIcon />
                             </Badge>
                         </IconButton>
-                        <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                        >
-                            <Badge badgeContent={17} color="error">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
+                        <NotificationsMenu/>
                         <IconButton
                             size="large"
                             edge="end"

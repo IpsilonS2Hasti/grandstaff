@@ -266,8 +266,11 @@ export const listingData = [
         city: 'гр. Стара Загора',
         uEdu: 'Нов Технически Университет',
         instruments: [
-            'Raper',
-            'Mouth Farting'
+            'Валдхорна',
+            'Синтезатор',
+            'Саксофон',
+            'Бузуки',
+            'Барабани'
         ],
         genres: [
             'Jazz',

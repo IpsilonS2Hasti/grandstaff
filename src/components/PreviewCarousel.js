@@ -11,7 +11,7 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
 
-const PreviewCarousel = ({ previews, uid }) => {
+const PreviewCarousel = ({ previews, uid, miniMode }) => {
     const largeScreen = useMediaQuery((theme) => theme.breakpoints.up('xl'));
 
     return (
@@ -44,7 +44,7 @@ const PreviewCarousel = ({ previews, uid }) => {
                     className="mySwiper"
                 >
                     {previews.map(({ type, cover, source }) => (
-                        <SwiperSlide style={{ height: largeScreen ? '500px' : '350px', width: largeScreen ? '650px' : '400px' }}>
+                        <SwiperSlide style={{ height: !largeScreen || miniMode ? '350px' : '500px', width: !largeScreen || miniMode ? '400px' : '650px' }}>
                             {({ isActive }) => (
                                 isActive ?
                                     <div style={{ borderRadius: '16px', overflow: 'hidden', zIndex: 1, height: '100%', width: '100%' }}>

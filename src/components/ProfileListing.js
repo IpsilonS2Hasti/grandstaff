@@ -2,6 +2,8 @@ import { Card, CardActionArea, Chip, Stack, Typography } from "@mui/material";
 import { alpha, Box } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import SchoolIcon from '@mui/icons-material/School';
 
 const ProfileListing = ({ id, name, pfp, instruments, city, genres, uEdu }) => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -22,11 +24,11 @@ const ProfileListing = ({ id, name, pfp, instruments, city, genres, uEdu }) => {
                     }} />
                     <Typography sx={{ width: 'calc(100% - 90px)', overflow: 'hidden', mt: '10px', lineHeight: '1.2' }} gutterBottom variant="h6" component="div">
                         {name}
-                        <Typography sx={{ fontSize: '13px', opacity: '0.5', fontStyle: 'italic' }} variant="p" component="div">
-                            {city}
+                        <Typography sx={{ fontSize: '13px', opacity: '0.5', fontStyle: 'italic', marginBottom: "1.5px" }} variant="p" component="div">
+                            <LocationOnIcon fontSize='13px' style={{marginBottom: "-2.5px",  marginRight: '2px'}}/>{city}
                         </Typography>
                         <Typography sx={{ fontSize: '13px', opacity: '0.5', fontStyle: 'italic' }} variant="p" component="div">
-                            {uEdu}
+                            <SchoolIcon fontSize='13px' style={{marginBottom: "-2.5px", marginRight: '2px'}}/>{uEdu}
                         </Typography>
                     </Typography>
                 </Stack>

@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 })
 
-const EditBand = () => {
+const EditBand = ({ isJob }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -44,9 +44,9 @@ const EditBand = () => {
                     <Stack direction={'column'} spacing="15px">
                         <Stack spacing={'15px'} direction='row'>
                             <TextField
-                                style={{width: '100%'}}
+                                style={{ width: '100%' }}
                                 id="band-name"
-                                label="Име на банда"
+                                label={isJob ? "Заглавие" : "Име на банда"}
                                 defaultValue="Hello World"
                             />
                         </Stack>

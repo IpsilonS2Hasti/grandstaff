@@ -11,27 +11,33 @@ import EditRegionPopup from "./EditRegionPopup";
 import EditAccount from "./EditAccount";
 import EditBand from "./EditBand";
 
-const UserDetails = ({ name, pfp, instruments, genres, editView, isBand }) => {
+const UserDetails = ({ name, pfp, instruments, genres, editView, isBand, isJob }) => {
     return (
         <Box maxWidth={'700px'} marginLeft='70px'>
             <Stack direction={'row'}>
-                <Box style={{
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
-                    backgroundImage: `url(${pfp})`,
-                    borderRadius: '20px',
-                    height: '125px',
-                    width: '125px',
-                    marginRight: '15px'
-                }} >
-                    {editView
+                {
+                    isJob
                         ?
-                        <PfpUpload />
-                        :
                         null
-                    }
-                </Box>
+                        :
+                        <Box style={{
+                            backgroundPosition: 'center',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundSize: 'cover',
+                            backgroundImage: `url(${pfp})`,
+                            borderRadius: '20px',
+                            height: '125px',
+                            width: '125px',
+                            marginRight: '15px'
+                        }} >
+                            {editView
+                                ?
+                                <PfpUpload />
+                                :
+                                null
+                            }
+                        </Box>
+                }
                 <Stack direction={'column'} padding={'5px 0 5px 0'}>
                     <div style={{ display: 'flex' }}>
                         <Typography gutterBottom variant="h5" component="div">
@@ -40,10 +46,10 @@ const UserDetails = ({ name, pfp, instruments, genres, editView, isBand }) => {
                         {
                             editView
                                 ?
-                                isBand
+                                isBand || isJob
                                     ?
                                     <Box marginTop="-5px">
-                                        <EditBand />
+                                        <EditBand isJob={isJob}/>
                                     </Box>
                                     :
                                     <Box marginTop="-5px">

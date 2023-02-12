@@ -2,27 +2,32 @@ import SearchIcon from '@mui/icons-material/Search';
 import CompassIcon from '@mui/icons-material/Explore';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import PersonIcon from '@mui/icons-material/Person';
-import WorkIcon from '@mui/icons-material/Work';
+import ArticleIcon from '@mui/icons-material/Article';
 
 export const navData = [
     {
         path: "/find",
         icon: <SearchIcon />,
-        name: "Find"
+        name: "Директория"
     },
     {
         path: "/discover",
         icon: <CompassIcon />,
-        name: "Discover"
+        name: "Открий"
     },
     {
         path: "/concerts",
         icon: <MusicNoteIcon />,
-        name: "Concerts"
+        name: "Концерти"
+    },
+    {
+        path: "/job",
+        icon: <ArticleIcon/>,
+        name: "Мои Обяви"
     },
     {
         path: "/profile",
         icon: <PersonIcon />,
-        name: "Profile"
+        name: "Профил"
     }
 ];

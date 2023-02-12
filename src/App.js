@@ -13,6 +13,7 @@ import { ColorModeContextProvider } from "./context/ColorModeContext";
 import { theme } from "./theme";
 import Profile from "./pages/Profile";
 import Band from "./pages/Band";
+import Job from "./pages/Job";
 
 
 function App() {
@@ -38,7 +39,9 @@ function App() {
                 <Route path="/concerts" element={<Home />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/profile/:uid" element={<Profile />} />
-                <Route path="/band/:uid" element={<Band />} />
+                <Route path="/band/:id" element={<Band />} />
+                <Route path="/job" element={<Find />} />
+                <Route path="/job/:id" element={<Job />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
               </Routes>

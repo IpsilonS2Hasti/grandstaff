@@ -28,14 +28,11 @@ const ScheduleCalendar = ({ editView = false }) => {
 
     const handleDoubleClick = (event) => {
         if (event.detail > 1) {
-            console.log(event.detail)
-        } else {
-            console.log(event.detail)
+            handleChange();
         }
-        }
-
+    }
     return (
-        <Box sx={{ position: 'fixed', overflowY: 'auto', height: { xl: 'calc(100% - 430px)', lg: 'calc(100% - 330px)' }, width: '100%' }}>
+        <Box sx={{ position: 'fixed', overflowY: 'auto', height: "inherit", width: 'inherit' }}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <StaticDatePicker
                     className="ScheduleCalendar"
@@ -53,9 +50,9 @@ const ScheduleCalendar = ({ editView = false }) => {
                     renderDay={(day, _value, DayComponentProps) => {
                         const isSelected = takenDays.includes(`${day.getDate()}-${day.getMonth() + 1}-${day.getFullYear()}`); //Months start from 0?!? Repeat that?!?
                         if (isSelected) return (
-                            <PickersDay {...DayComponentProps} disabled={editView ? false : true} sx={{ backgroundColor: '#d32f2f90', [':hover']: { backgroundColor: '#d32f2fAA' } }} />
+                            <PickersDay onClick={editView ? handleDoubleClick : () => { }} {...DayComponentProps} disabled={editView ? false : true} sx={{ backgroundColor: '#d32f2f90', [':hover']: { backgroundColor: '#d32f2fAA' } }} />
                         );
-                        return <PickersDay onClick={handleDoubleClick} {...DayComponentProps} sx={{ backgroundColor: '#00000000' }} />
+                        return <PickersDay onClick={editView ? handleDoubleClick : () => { }} {...DayComponentProps} sx={{ backgroundColor: '#00000000' }} />
                     }}
                 />
                 {editView ? <Button style={{ marginLeft: '110px' }} onClick={handleChange}>Промени Дата</Button> : null}

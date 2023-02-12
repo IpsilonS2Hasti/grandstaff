@@ -1,16 +1,30 @@
-import { Grid } from "@mui/material";
+import { Box, Card, CardActionArea, Grid, IconButton, Stack } from "@mui/material";
+import JobListing from "./JobListing";
 import ProfileListing from "./ProfileListing";
+import AddIcon from '@mui/icons-material/Add';
+import CreateJobPopup from "./CreateJobPopup";
 
-const ProfileListings = ({ listings }) => {
+const ProfileListings = ({ listings, jobMode, createMode = true }) => {
     return (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '25px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fit, minmax(${jobMode ? "400px" : "300px"}, 1fr))`, gap: '25px' }}>
             {
                 listings.map(listing => (
-                    <ProfileListing {...listing} />
+                    jobMode
+                        ?
+                        <JobListing {...listing} />
+                        :
+                        <ProfileListing {...listing} />
                 ))
             }
             {
-                [1, 2, 3, 4].map(() => <div/>)
+                createMode
+                    ?
+                    <CreateJobPopup/>
+                    :
+                    null
+            }
+            {
+                [1, 2, 3, 4].map(() => <div />)
             }
         </div>
     );

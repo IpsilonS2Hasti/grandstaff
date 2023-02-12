@@ -21,6 +21,9 @@ import { useLogout } from '../hooks/useLogout';
 import { useLocation } from "react-router-dom"
 import SearchBar from './Searchbar';
 import NotificationsMenu from './NotificationsMenu';
+import ChipDropdown from './ChipDropdown';
+import { ChipDropdownData } from '../lib/chipData';
+import FeedTypeDropdown from './FeedTypeDropdown';
 
 export default function SearchAppBar() {
     const { logout } = useLogout();
@@ -30,7 +33,8 @@ export default function SearchAppBar() {
     // console.log(colorMode);
 
     const RenderFilters = () => {
-        if (pathname == "/find") return <ListingFilters />;
+        if (pathname == "/find") return <><SearchBar /><ListingFilters /></>;
+        if (pathname == "/discover") return <FeedTypeDropdown/>;
     };
 
     const { collapseSidebar } = useProSidebar();
@@ -152,7 +156,6 @@ export default function SearchAppBar() {
                     >
                         GrandStaff
                     </Typography>
-                    <SearchBar />
                     {RenderFilters()}
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -161,7 +164,7 @@ export default function SearchAppBar() {
                                 <MailIcon />
                             </Badge>
                         </IconButton>
-                        <NotificationsMenu/>
+                        <NotificationsMenu />
                         <IconButton
                             size="large"
                             edge="end"

@@ -1,7 +1,7 @@
 export const listingData = [
     {
-        name: 'Владислав Керанов',
-        pfp: 'https://www.meme-arsenal.com/memes/17d66979cdcfc3363aee314f4967254a.jpg',
+        name: 'Георги Рахатов',
+        pfp: 'https://imgs.search.brave.com/8KwUHUdUskWjEgLNs3vflTzFmJotsqfijC9MJdzrGIg/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9qb29p/bm4uY29tL2ltYWdl/cy9tdXNpY2lhbi02/LmpwZw',
         city: 'гр. Стара Загора',
         uEdu: 'Нов Технически Университет',
         instruments: [

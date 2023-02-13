@@ -14,6 +14,8 @@ import { theme } from "./theme";
 import Profile from "./pages/Profile";
 import Band from "./pages/Band";
 import Job from "./pages/Job";
+import { HMSRoomProvider } from "@100mslive/hms-video-react";
+import Concerts from "./pages/Concerts";
 
 
 function App() {
@@ -29,6 +31,7 @@ function App() {
     <ColorModeContextProvider setMode={setMode}>
       <ThemeProvider theme={themeMemo}>
         <CssBaseline>
+        <HMSRoomProvider>
           <Box id="app" sx={{ backgroundColor: "background.paper" }}>
             <SearchAppBar />
             <div style={{ display: 'flex', height: 'calc(100vh - 65px)' }}>
@@ -36,7 +39,7 @@ function App() {
               <Routes>
                 <Route path="/find" element={<Find />} />{/* Make seperate find routes for the 3 types in the future?*/}
                 <Route path="/discover" element={<Discover />} />
-                <Route path="/concerts" element={<Home />} />
+                <Route path="/concerts" element={<Concerts />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/profile/:uid" element={<Profile />} />
                 <Route path="/band/:id" element={<Band />} />
@@ -47,6 +50,7 @@ function App() {
               </Routes>
             </div>
           </Box>
+          </HMSRoomProvider>
         </CssBaseline>
       </ThemeProvider>
     </ColorModeContextProvider>

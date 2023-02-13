@@ -18,18 +18,21 @@ import { ColorModeContext } from '../context/ColorModeContext';
 import { useTheme } from '@emotion/react';
 import { useContext } from 'react';
 import { useLogout } from '../hooks/useLogout';
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import SearchBar from './Searchbar';
 import NotificationsMenu from './NotificationsMenu';
 import ChipDropdown from './ChipDropdown';
 import { ChipDropdownData } from '../lib/chipData';
 import FeedTypeDropdown from './FeedTypeDropdown';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import Brightness5Icon from '@mui/icons-material/Brightness5';
 
 export default function SearchAppBar() {
     const { logout } = useLogout();
     const theme = useTheme();
     const colorMode = useContext(ColorModeContext);
     const { pathname } = useLocation();
+    const navigate = useNavigate();
     // console.log(colorMode);
 
     const RenderFilters = () => {
@@ -79,8 +82,10 @@ export default function SearchAppBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={() => {
+                handleMenuClose();
+                navigate('/profile/');
+            }}>Profile</MenuItem>
             <MenuItem onClick={() => {
                 handleMenuClose();
                 logout();
@@ -106,10 +111,14 @@ export default function SearchAppBar() {
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
-                        <MailIcon />
-                    </Badge>
+                <IconButton size="large" color="inherit">
+                    {
+                        theme.palette.mode === "dark"
+                        ?
+                        <Brightness5Icon/>
+                        :
+                        <DarkModeIcon/>
+                    }
                 </IconButton>
                 <p>Messages</p>
             </MenuItem>
@@ -160,9 +169,13 @@ export default function SearchAppBar() {
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={colorMode.toggleColorMode}>
-                            <Badge badgeContent={4} color="error">
-                                <MailIcon />
-                            </Badge>
+                            {
+                                theme.palette.mode === "dark"
+                                ?
+                                <Brightness5Icon/>
+                                :
+                                <DarkModeIcon/>
+                            }
                         </IconButton>
                         <NotificationsMenu />
                         <IconButton

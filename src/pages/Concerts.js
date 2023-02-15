@@ -3,8 +3,8 @@ import {
     useHMSStore,
     selectIsConnectedToRoom,
 } from '@100mslive/hms-video-react';
-import Join from '../components/concerts/components/Join';
-import Room from '../components/concerts/components/Room';
+import Join from '../components/concerts/Join';
+import Room from '../components/concerts/Room';
 
 const Concerts = () => {
     const theme = useTheme();

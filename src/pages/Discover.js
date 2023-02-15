@@ -8,7 +8,7 @@ import { findData } from "../lib/discoveryData";
 const Find = () => {
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
-    const isJob = true;
+    const isJob = false;
     return (
         <Box sx={{ overflowY: 'auto', scrollSnapType: 'y mandatory', height: '100vh-30px', borderRadius: "15px", width: "100%", backgroundColor: isDark ? "background.default" : "#707070", margin: "15px 15px 15px 0" }}>
             {

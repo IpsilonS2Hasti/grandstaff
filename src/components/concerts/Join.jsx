@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import Input from './Join/Input';
-import JoinButton from './Join/JoinButton';
-import SelectRole from './Join/Select';
-import getToken from '../utils/getToken';
+import SelectRole from './Select';
+import getToken from './utils/getToken';
 import { useHMSActions } from '@100mslive/hms-video-react';
 import { Button, Card, Typography } from '@mui/material';
-import Avatar from 'boring-avatars';
 import { alpha, Box, Stack } from '@mui/system';
 
 const Join = () => {

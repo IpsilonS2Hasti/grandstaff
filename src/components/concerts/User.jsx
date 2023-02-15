@@ -9,7 +9,7 @@ import {
   selectIsPeerAudioEnabled,
   selectLocalPeer,
 } from '@100mslive/hms-video-react';
-import Permission from '../Roles/Roles';
+import Permission from './Roles';
 import { alpha, Box } from '@mui/system';
 import { Card, Stack, Typography } from '@mui/material';
 

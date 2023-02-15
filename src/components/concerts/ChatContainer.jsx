@@ -4,10 +4,6 @@ import {
   useHMSActions,
 } from '@100mslive/hms-video-react';
 import React from 'react';
-import ChatFeed from './ChatFeed';
-import ChatInput from './ChatInput';
-import ChatLayout from './ChatLayout';
-import Chat from './Chat';
 import { alpha, Box, Card, Divider, TextField, Typography } from '@mui/material';
 
 const ChatContainer = (props) => {
@@ -27,7 +23,7 @@ const ChatContainer = (props) => {
   return (
     <Card sx={{ flex: 1, position: 'relative', height: "fit-content", borderRadius: '10px', backdropFilter: 'blur(10px)', padding: '10px',
       backgroundColor: theme => alpha(theme.palette.background.paper, 0.57) }}>
-      <Box style={{ height: 'calc(80vh - 100px)', overflowY: "auto", whiteSpace: "break-spaces", wordWrap: "break-word"}}>
+      <Box id='chat-feed' style={{ height: 'calc(80vh - 100px)', overflowY: "auto", whiteSpace: "break-spaces", wordWrap: "break-word"}}>
         {storeMessages.map((m) => (
           <Typography>{m.senderName + ": " + m.message}</Typography>
         ))}

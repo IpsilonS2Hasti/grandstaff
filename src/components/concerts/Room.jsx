@@ -1,8 +1,8 @@
 import { selectPeers, useHMSStore } from '@100mslive/hms-video-react';
 import { Stack } from '@mui/system';
-import Footer from '../components/Footer/Footer';
-import User from '../components/Tile/User';
-import ChatContainer from './Chat/ChatContainer';
+import Footer from './Footer';
+import User from './User';
+import ChatContainer from './ChatContainer';
 
 const Room = () => {
   const peers = useHMSStore(selectPeers);

@@ -1,4 +1,4 @@
-import { selectPeers, useHMSStore } from '@100mslive/hms-video-react';
+import { selectPeers, useHMSStore } from '@100mslive/react-sdk';
 import { Stack } from '@mui/system';
 import Footer from './Footer';
 import User from './User';

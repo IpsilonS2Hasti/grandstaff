@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHMSActions } from '@100mslive/hms-video-react';
+import { useHMSActions } from '@100mslive/react-sdk';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 

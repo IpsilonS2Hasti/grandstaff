@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SelectRole from './Select';
 import getToken from './utils/getToken';
-import { useHMSActions } from '@100mslive/hms-video-react';
+import { useHMSActions } from '@100mslive/react-sdk';
 import { Button, Card, Typography } from '@mui/material';
 import { alpha, Box, Stack } from '@mui/system';
 
@@ -9,7 +9,7 @@ const Join = () => {
   const hmsActions = useHMSActions();
   const [role, setRole] = useState('listener');
 
-  const username = "Ernest Khalimov"
+  const username = "Красимир Карадонев"
   const pfpUrl = "https://www.meme-arsenal.com/memes/17d66979cdcfc3363aee314f4967254a.jpg";
   const joinRoom = () => {
     getToken(role)

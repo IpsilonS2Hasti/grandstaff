@@ -2,7 +2,7 @@ import {
   useHMSStore,
   selectHMSMessages,
   useHMSActions,
-} from '@100mslive/hms-video-react';
+} from '@100mslive/react-sdk';
 import React from 'react';
 import { alpha, Box, Card, Divider, TextField, Typography } from '@mui/material';
 

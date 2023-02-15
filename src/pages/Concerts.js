@@ -2,7 +2,7 @@ import { Box, useTheme } from "@mui/material";
 import {
     useHMSStore,
     selectIsConnectedToRoom,
-} from '@100mslive/hms-video-react';
+} from '@100mslive/react-sdk';
 import Join from '../components/concerts/Join';
 import Room from '../components/concerts/Room';
 

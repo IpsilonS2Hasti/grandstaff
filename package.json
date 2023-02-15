@@ -5,6 +5,7 @@
   "dependencies": {
     "@100mslive/hms-video": "^0.7.3",
     "@100mslive/hms-video-react": "^0.7.3",
+    "@100mslive/react-sdk": "^0.6.3",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.11.0",

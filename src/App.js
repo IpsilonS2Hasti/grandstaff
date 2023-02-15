@@ -14,7 +14,7 @@ import { theme } from "./theme";
 import Profile from "./pages/Profile";
 import Band from "./pages/Band";
 import Job from "./pages/Job";
-import { HMSRoomProvider } from "@100mslive/hms-video-react";
+import { HMSRoomProvider } from "@100mslive/react-sdk";
 import Concerts from "./pages/Concerts";
 
 

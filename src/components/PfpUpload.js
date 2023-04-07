@@ -64,9 +64,8 @@ const PfpUpload = () => {
                             console.log(response);
                             setEntityState(prev => ({ //TODO
                                 ...prev,
-                                pfpUrl: "https://cdn.discordapp.com/attachments/471777194847502351/1067378546626015272/image.png", //set to whatever's saved in the server
+                                pfpUrl: `https://grandstaff.herokuapp.com/images/${response.data.fileNameExt}`, //set to whatever's saved in the server
                             }));
-                            window.location.reload(true);
                         })
                 }} /></Button>
             </HoverEffect>

@@ -14,7 +14,7 @@ import userEvent from "@testing-library/user-event";
 import { EntityContext } from "../context/EntityContext";
 
 const UserDetails = () => {
-    const { _id, firstName, lastName, pfpUrl, instruments, genres, city, editView, type, name, isJob } = useContext(EntityContext);
+    const { _id, firstName, lastName, pfpUrl, instruments, genres, city, editView, type, name } = useContext(EntityContext);
     return (
         <Box maxWidth={'700px'} marginLeft='70px' key={_id}>
             <Stack direction={'row'}>

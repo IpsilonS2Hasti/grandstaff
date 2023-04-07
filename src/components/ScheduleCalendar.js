@@ -8,19 +8,22 @@ import { addYears } from "date-fns";
 import { PickersDay } from "@mui/x-date-pickers";
 import { Stack } from "@mui/system";
 import axios from "axios";
+import { useContext } from "react";
+import { EntityContext } from "../context/EntityContext";
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 })
 
-const ScheduleCalendar = ({ editView = false, userId, isBand }) => {
+const ScheduleCalendar = () => {
+    const { editView, _id, type } = useContext(EntityContext);
     const user = JSON.parse(localStorage.getItem('user'));
     const [value, setValue] = useState(new Date());
     let datesTaken;
     const [takenDays, setTakenDays] = useState([]);
     axios({
         method: 'get',
-        url: ('https://grandstaff.herokuapp.com/api/schedule/getDatesTaken/' + userId)
+        url: ('https://grandstaff.herokuapp.com/api/schedule/getDatesTaken/' + _id)
     }).then(res => {
         datesTaken = res.data.datesTaken;
         setTakenDays(datesTaken);
@@ -34,14 +37,14 @@ const ScheduleCalendar = ({ editView = false, userId, isBand }) => {
         console.log(index);
         console.log(date);
         if (index > -1) {
-            if (isBand) {
+            if (type==="Band") {
                 axios({
                     method: 'patch',
                     url: ('https://grandstaff.herokuapp.com/api/schedule/freeDayBand'),
                     headers: {'Authorization': 'Bearer ' + (user !== null ? user.token : '0')},
                     data: {
                         days: [date],
-                        bandId: userId
+                        bandId: _id
                     }
                 }).then(res => {
                     datesTaken = res.data.schedule.datesTaken;
@@ -56,7 +59,7 @@ const ScheduleCalendar = ({ editView = false, userId, isBand }) => {
                     headers: {'Authorization': 'Bearer ' + (user !== null ? user.token : '0')},
                     data: {
                         days: [date],
-                        jobId: userId
+                        jobId: _id
                     }
                 }).then(res => {
                     datesTaken = res.data.schedule.datesTaken;
@@ -67,14 +70,14 @@ const ScheduleCalendar = ({ editView = false, userId, isBand }) => {
             }
             
         } else {
-            if (isBand) {
+            if (type==="Band") {
                 axios({
                     method: 'patch',
                     url: ('https://grandstaff.herokuapp.com/api/schedule/takeDayBand'),
                     headers: {'Authorization': 'Bearer ' + (user !== null ? user.token : '0')},
                     data: {
                         days: [date],
-                        bandId: userId
+                        bandId: _id
                     }
                 }).then(res => {
                     datesTaken = res.data.schedule.datesTaken;
@@ -89,7 +92,7 @@ const ScheduleCalendar = ({ editView = false, userId, isBand }) => {
                     headers: {'Authorization': 'Bearer ' + (user !== null ? user.token : '0')},
                     data: {
                         days: [date],
-                        jobId: userId
+                        jobId: _id
                     }
                 }).then(res => {
                     datesTaken = res.data.schedule.datesTaken;

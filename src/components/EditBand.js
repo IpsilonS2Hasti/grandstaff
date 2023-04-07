@@ -11,12 +11,14 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useParams } from 'react-router';
 import axios from 'axios';
+import { EntityContext } from '../context/EntityContext';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 })
 
-const EditBand = ({ name, isJob }) => {
+const EditBand = () => {
+    const {name, type} = React.useContext(EntityContext);
     const [open, setOpen] = React.useState(false);
     const [bandName, setBandName] = React.useState(name);
     const { _id } = useParams();
@@ -27,7 +29,7 @@ const EditBand = ({ name, isJob }) => {
     };
 
     const handleClose = () => {
-        if (isJob) {
+        if (type === "Employer") {
             axios({
                 method: 'patch',
                 url: 'https://grandstaff.herokuapp.com/api/define',
@@ -85,7 +87,7 @@ const EditBand = ({ name, isJob }) => {
                             <TextField
                                 style={{ width: '100%' }}
                                 id="band-name"
-                                label={isJob ? "Заглавие" : "Име на банда"}
+                                label={type==="Employer" ? "Заглавие" : "Име на банда"}
                                 defaultValue={bandName}
                                 onChange={e => {
                                     setBandName(e.target.value);

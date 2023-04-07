@@ -9,12 +9,14 @@ import { FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup
 import { Stack } from '@mui/system';
 import { Edit } from '@mui/icons-material';
 import axios from 'axios';
+import { EntityContext } from '../context/EntityContext';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 })
 
-const EditInfoPopup = ({ desc, uniEd, gsm, contactEmail, userId, isBand, _id, isJob }) => {
+const EditInfoPopup = () => {
+    const { desc, uniEd, gsm, contactEmail, userId, type, _id, setEntityState } = React.useContext(EntityContext);
     const [open, setOpen] = React.useState(false);
     const [vuz, setVuz] = React.useState(uniEd);
     const [descr, setDescr] = React.useState(desc);
@@ -36,11 +38,18 @@ const EditInfoPopup = ({ desc, uniEd, gsm, contactEmail, userId, isBand, _id, is
     const submit = () => {
         console.log(_id);
         const user = JSON.parse(localStorage.getItem('user'));
-        if (isBand) {
+        setEntityState(prev => ({
+            ...prev,
+            desc: descr,
+            gsm: phone,
+            contactEmail: mail,
+            uniEd: vuz,
+        }));
+        if (type === "Band") {
             axios({
                 method: 'patch',
                 url: 'https://grandstaff.herokuapp.com/api/band/editBand',
-                headers: {'Authorization': 'Bearer ' + (user != null ? user.token : '0')},
+                headers: { 'Authorization': 'Bearer ' + (user != null ? user.token : '0') },
                 data: {
                     desc: descr,
                     gsm: phone,
@@ -49,7 +58,6 @@ const EditInfoPopup = ({ desc, uniEd, gsm, contactEmail, userId, isBand, _id, is
                 }
             }).then(res => {
                 console.log(res.data.band);
-                window.location.reload(true);
             }).catch(err => {
                 console.log(err);
             });
@@ -58,7 +66,7 @@ const EditInfoPopup = ({ desc, uniEd, gsm, contactEmail, userId, isBand, _id, is
             axios({
                 method: 'patch',
                 url: 'https://grandstaff.herokuapp.com/api/define',
-                headers: {'Authorization': 'Bearer ' + (user != null ? user.token : '0')},
+                headers: { 'Authorization': 'Bearer ' + (user != null ? user.token : '0') },
                 data: {
                     uniEd: vuz,
                     desc: descr,
@@ -68,13 +76,12 @@ const EditInfoPopup = ({ desc, uniEd, gsm, contactEmail, userId, isBand, _id, is
                 }
             }).then(res => {
                 console.log(res.data.user);
-                window.location.reload(true);
             }).catch(err => {
                 console.log(err);
             });
             setOpen(false);
         }
-        
+
     };
 
 
@@ -96,36 +103,36 @@ const EditInfoPopup = ({ desc, uniEd, gsm, contactEmail, userId, isBand, _id, is
                 <DialogContent style={{ padding: '15px', width: '400px' }}>
                     <Stack direction={'column'} spacing="15px">
                         {
-                            isBand
+                            type==="Band"
                                 ?
                                 null
                                 :
-                                isJob ? 
-                                <FormControl>
-                                <FormLabel id="demo-radio-buttons-group-label">Търся:</FormLabel>
-                                <RadioGroup
-                                    aria-labelledby="demo-radio-buttons-group-label"
-                                    defaultValue={vuz}
-                                    name="vuz"
-                                    id="vuz"
-                                    onChange={e => {
-                                        if (e.target.value !== 'Висшисти'){
-                                            setVuz('Undefined');
-                                        }
-                                        else setVuz('Висшисти');
-                                    }}
-                                >
-                                    <FormControlLabel value="Висшисти" control={<Radio />} label="Висшисти" />
-                                    <FormControlLabel value="Всички" control={<Radio />} label="Всички" />
-                                </RadioGroup>
-                            </FormControl>
-                            :
-                                <TextField
-                                    id="vuz"
-                                    label="Висше учебно заведение"
-                                    defaultValue={vuz}
-                                    onChange = {e => setVuz(e.target.value)}
-                                /> 
+                                type==="Job" ?
+                                    <FormControl>
+                                        <FormLabel id="demo-radio-buttons-group-label">Търся:</FormLabel>
+                                        <RadioGroup
+                                            aria-labelledby="demo-radio-buttons-group-label"
+                                            defaultValue={vuz}
+                                            name="vuz"
+                                            id="vuz"
+                                            onChange={e => {
+                                                if (e.target.value !== 'Висшисти') {
+                                                    setVuz('Undefined');
+                                                }
+                                                else setVuz('Висшисти');
+                                            }}
+                                        >
+                                            <FormControlLabel value="Висшисти" control={<Radio />} label="Висшисти" />
+                                            <FormControlLabel value="Всички" control={<Radio />} label="Всички" />
+                                        </RadioGroup>
+                                    </FormControl>
+                                    :
+                                    <TextField
+                                        id="vuz"
+                                        label="Висше учебно заведение"
+                                        defaultValue={vuz}
+                                        onChange={e => setVuz(e.target.value)}
+                                    />
                         }
                         <TextField
                             id="description"

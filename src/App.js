@@ -16,7 +16,6 @@ import Band from "./pages/Band";
 import Job from "./pages/Job";
 import { HMSRoomProvider } from "@100mslive/react-sdk";
 import Concerts from "./pages/Concerts";
-import Testing from "./pages/Testing";
 
 function App() {
   const [mode, setMode] = useState('dark');
@@ -40,11 +39,11 @@ function App() {
                 <Route path="/find" element={<Find />} />{/* Make seperate find routes for the 3 types in the future?*/}
                 <Route path="/" element={<Discover />} />
                 <Route path="/concerts" element={<Concerts />} />
-                <Route path="/profile" element={<Testing />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/band/:_id" element={<Band />} />
                 <Route path="/job" element={<Find />} />
                 <Route path="/job/:_id" element={<Job />} />
-                <Route path="/profile/:_id" element={<Testing />} />
+                <Route path="/profile/:_id" element={<Profile />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
               </Routes>

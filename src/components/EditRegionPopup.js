@@ -11,13 +11,15 @@ import { useParams, useSearchParams } from "react-router-dom";
 import SearchField from './SearchField';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import axios from 'axios';
+import { EntityContext } from '../context/EntityContext';
+import { useContext } from 'react';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 })
 
-const EditRegionPopup = ({ data, initSel, isBand }) => {
-    const [selEl, setSelEl] = React.useState(initSel);
+const EditRegionPopup = ({ data }) => {
+    const { city, type, setEntityState } = useContext(EntityContext);
     const [open, setOpen] = React.useState(false);
     const [query, setQuery] = React.useState('');
     const user = JSON.parse(localStorage.getItem('user'));
@@ -29,13 +31,13 @@ const EditRegionPopup = ({ data, initSel, isBand }) => {
 
     const handleClose = () => {
         const user = JSON.parse(localStorage.getItem('user'));
-        if (isBand) {
+        if (type==="Band") {
             axios({
                 method: 'patch',
                 url: 'https://grandstaff.herokuapp.com/api/band/editBand',
                 headers: {'Authorization': 'Bearer ' + (user != null ? user.token : '0')},
                 data: {
-                    city: selEl,
+                    city: city,
                     bandId: _id
                 }
             }).then(res => {
@@ -49,7 +51,7 @@ const EditRegionPopup = ({ data, initSel, isBand }) => {
                 url: 'https://grandstaff.herokuapp.com/api/define',
                 headers: {'Authorization': 'Bearer ' + (user != null ? user.token : '0')},
                 data: {
-                    city: selEl,
+                    city: city,
                     jobId: _id
                 }
             }).then(res => {
@@ -64,7 +66,7 @@ const EditRegionPopup = ({ data, initSel, isBand }) => {
 
     return (
         <div>
-             <Chip icon={<LocationOnIcon fontSize='small' />} label={selEl} onClick={handleClickOpen}/>
+             <Chip icon={<LocationOnIcon fontSize='small' />} label={city} onClick={handleClickOpen}/>
             <Dialog
                 open={open}
                 TransitionComponent={Transition}
@@ -84,7 +86,7 @@ const EditRegionPopup = ({ data, initSel, isBand }) => {
                                     if (!el.toLowerCase().includes(query.toLowerCase())) return;
                                     return (
                                         <Grid item>
-                                            <Chip label={el} color={el===selEl ? 'primary' : 'default'} onClick={() => setSelEl(el)} />
+                                            <Chip label={el} color={el===city ? 'primary' : 'default'} onClick={() => setEntityState(prev => ({...prev, city: el}))} />
                                         </Grid>
                                     )
                                 })

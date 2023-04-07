@@ -6,48 +6,19 @@ import BandCreationPopup from "./BandCreationPopup";
 import AddToBand from "./AddToBandPopup";
 import axios from 'axios';
 import { useEffect, useState } from "react";
+import CenteredSpinner from "./CenteredSpinner";
+import { useContext } from "react";
+import { EntityContext } from "../context/EntityContext";
 
-const InfoStack = ({ isBand, members, userId }) => {
-    console.log(members);
-    console.log(isBand);
+const InfoStack = () => {
+    const { type, members, bands, _id:userId } = useContext(EntityContext);
+    let isBand = type === "Band";
     let user = JSON.parse(localStorage.getItem('user'));
     if (!user) user = {userId: '0', token: '0'};
     const isForeignUser = user.userId === userId ? false : true;
     //Fetch from server
     const limit = isBand ? 30 : 10;
-    // const data = isBand ?
-    //     [
-    //         {
-    //             firstName: "Ilhan",
-    //             lastName: "Andonoff",
-    //             pfpUrl: "https://cdn.discordapp.com/attachments/471777194847502351/1039169390064705586/unknown.png",
-    //             instruments: [
-    //                 "Флатуленция",
-    //                 "Пелтечене"
-    //             ]
-    //         }
-    //     ]
-    //     :
-    //     [
-    //         {
-    //             name: "Орк. Глупаците от Долна Джумая",
-    //             pfpUrl: "https://cdn.discordapp.com/attachments/471777194847502351/1037830501530083488/unknown.png",
-    //             genres: [
-    //                 "Чалга",
-    //                 "Маками"
-    //             ],
-    //             memberCount: "7"
-    //         },
-    //         {
-    //             name: "Орк. Глупаците от Долна Джумая 2.0",
-    //             pfpUrl: "https://cdn.discordapp.com/attachments/471777194847502351/1037830501530083488/unknown.png",
-    //             genres: [
-    //                 "Чалга",
-    //                 "Маками"
-    //             ],
-    //             memberCount: "7"
-    //         },
-    //     ];
+
     const [data, setData] = useState(null);
     useEffect(() => {
         if (isBand) {
@@ -68,7 +39,7 @@ const InfoStack = ({ isBand, members, userId }) => {
                 method: 'post',
                 url: 'https://grandstaff.herokuapp.com/api/band/getBands',
                 data: {
-                    bandIds: members
+                    bandIds: bands
                 }
             }).then(res => {
                 setData(res.data.bands)
@@ -81,13 +52,13 @@ const InfoStack = ({ isBand, members, userId }) => {
     const renderIconButton = () => {
         if (isForeignUser === true)
             return (
-                <Stack direction="row" justifyContent="center" margin="5px">
+                <Stack width="350px" direction="row" justifyContent="center" margin="5px">
                     <AddToBand userId={userId} />
                 </Stack>
             );
         if (isForeignUser === false)
             return (
-                <Stack direction="row" justifyContent="center" margin="5px">
+                <Stack width="350px" direction="row" justifyContent="center" margin="5px">
                     <BandCreationPopup />
                 </Stack>
             );
@@ -97,7 +68,7 @@ const InfoStack = ({ isBand, members, userId }) => {
         <Box sx={{ position: 'fixed', overflowY: 'auto', height: { xl: 'calc(100% - 430px)', lg: 'calc(100% - 330px)' }, lineHeight: 'normal' }}>
             {data ? data.map(
                 el => isBand ? <MemberTile {...el} /> : <BandTile {...el} />
-            ) : <CircularProgress /> }
+            ) : <Box width="350px" height="100%"><CenteredSpinner/></Box> }
             {
                 data ? 
                 ((data.length < limit) && !isBand

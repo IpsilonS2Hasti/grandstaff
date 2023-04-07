@@ -5,10 +5,12 @@ import EmailIcon from '@mui/icons-material/Email';
 import { useState } from "react";
 import InfoStack from "./InfoStack";
 import SchoolIcon from '@mui/icons-material/School';
-import EditInfoPanel from "./EditInfoPopup";
+import EditInfoPopup from "./EditInfoPopup";
 import PreviewCarousel from "./PreviewCarousel";
 import { findData } from "../lib/discoveryData";
 import EditPreviewCarousel from "./EditPreviewCarousel";
+import { useContext } from "react";
+import { EntityContext } from "../context/EntityContext";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -31,7 +33,8 @@ function TabPanel(props) {
     );
 }
 
-const JobInfoPanel = ({ desc, gsm, contactEmail, uniEd, previews, _id, editView, isBand, isJob=true }) => {
+const JobInfoPanel = () => {
+    const { desc, gsm, contactEmail, uniEd, previews, _id, editView } = useContext(EntityContext);
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -65,7 +68,7 @@ const JobInfoPanel = ({ desc, gsm, contactEmail, uniEd, previews, _id, editView,
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                             <b>Информация: </b>
                             {editView ?
-                                <EditInfoPanel {...{ desc, gsm, contactEmail, uniEd, isBand, _id, isJob }} />
+                                <EditInfoPopup/> //REWIRED
                                 :
                                 null
                             }
@@ -81,16 +84,16 @@ const JobInfoPanel = ({ desc, gsm, contactEmail, uniEd, previews, _id, editView,
                     </Box>
                     <Divider orientation='vertical' />
                     <Stack direction="column" height='100%' width='350px'>
-                        <ScheduleCalendar editView={editView} userId={_id} isBand={false} />
+                        <ScheduleCalendar/> {/* REWIRED */}
                     </Stack>
                 </Stack>
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <Box padding="15px 35px 0 35px">
                     { editView ? 
-                        <EditPreviewCarousel initPreviews={previews} _id={_id} miniMode />
+                        <EditPreviewCarousel miniMode /> //REWIRED + WIP
                         :    
-                        <PreviewCarousel previews={previews} _id={_id} miniMode />
+                        <PreviewCarousel miniMode /> //REWIRED
                     }
                 </Box>
             </TabPanel>

@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -8,6 +8,7 @@ import ListingFilters from "../components/ListingFilters";
 import ProfileListings from "../components/ProfileListings";
 import useFetch from "../hooks/useFetch";
 import { listingData } from "../lib/listingData";
+import CenteredSpinner from "../components/CenteredSpinner";
 
 const Find = ({ createMode }) => {
     let { search, pathname } = useLocation();
@@ -29,7 +30,7 @@ const Find = ({ createMode }) => {
     return (
         <Box sx={{ overflowY: 'auto', height: '100vh-30px', borderRadius: "15px", padding: "15px 25px", width: "100%", backgroundColor: "background.default", margin: "15px 15px 15px 0" }}>
             {loading ? 
-                <CircularProgress /> :
+                <CenteredSpinner /> :
                 (data.type === 'Band' ? 
                 <BandListings listings={data.queryBands} /> 
                 : <ProfileListings listings={data.queryUsers} jobMode={jobMode} createMode={pathname === '/job'} />)

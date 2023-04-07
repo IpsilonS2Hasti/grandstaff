@@ -12,12 +12,14 @@ import AddIcon from '@mui/icons-material/Add';
 import SearchField from './SearchField';
 import axios from 'axios';
 import { useParams } from 'react-router';
+import { EntityContext } from '../context/EntityContext';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 })
 
-const DialogPopup = ({ data, selected, isBand }) => {
+const DialogPopup = ({ data, selected }) => {
+    const { type } = React.useContext(EntityContext);
     const [selEls, setSelEls] = React.useState([...selected]);
     const [open, setOpen] = React.useState(false);
     const [query, setQuery] = React.useState('');
@@ -31,7 +33,7 @@ const DialogPopup = ({ data, selected, isBand }) => {
     const handleClose = () => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (data.chipName === 'Инструмент') {
-            if (isBand) {
+            if (type==="Band") {
                 axios({
                     method: 'patch',
                     url: 'https://grandstaff.herokuapp.com/api/band/editBand',
@@ -62,7 +64,7 @@ const DialogPopup = ({ data, selected, isBand }) => {
             }
         }
         if (data.chipName === 'Жанр') {
-            if (isBand) {
+            if (type==="Band") {
                 axios({
                     method: 'patch',
                     url: 'https://grandstaff.herokuapp.com/api/band/editBand',

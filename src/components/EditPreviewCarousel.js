@@ -20,10 +20,14 @@ import FilePondPluginMediaPreview from 'filepond-plugin-media-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 import 'filepond-plugin-media-preview/dist/filepond-plugin-media-preview.min.css';
 import { useLocation, useParams } from "react-router";
+import { useContext } from "react";
+import { EntityContext } from "../context/EntityContext";
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginMediaPreview);
 
-const EditPreviewCarousel = ({ initPreviews, _id, isBand, miniMode }) => {
+const EditPreviewCarousel = ({ miniMode }) => {
+    const { previews: initPreviews, _id, type } = useContext(EntityContext);
+    let isBand = type === "Band";
     const [previews, setPreviews] = useState([...initPreviews]);
     const [files, setFiles] = useState([]);
     const { pathname } = useLocation();
@@ -32,7 +36,26 @@ const EditPreviewCarousel = ({ initPreviews, _id, isBand, miniMode }) => {
     const user = JSON.parse(localStorage.getItem('user'));
 
     const updateFiles = (newFiles) => {
-        window.location.reload(true);
+        console.log("BOB!",newFiles);
+        setPreviews(prev => (
+            [
+                ...prev,
+                {
+                    cover
+                        :
+                        "https://cdn.discordapp.com/attachments/802212627405078578/1093242271501123604/image.png",
+                    source
+                        :
+                        "https://cdn.discordapp.com/attachments/802212627405078578/1093242271501123604/image.png",
+                    type
+                        :
+                        "image",
+                    _id
+                        :
+                        "642dbba918b6289b05a3278e"
+                }
+            ]
+        ));
     }
 
     const EditSlide = index => {
@@ -41,26 +64,26 @@ const EditPreviewCarousel = ({ initPreviews, _id, isBand, miniMode }) => {
         const handleClick = (event) => { //popover
             setAnchorEl(event.currentTarget);
         };
-    
+
         const handleClose = () => { //popover
             setAnchorEl(null);
         };
-    
+
         const open = Boolean(anchorEl); //popover
         const id = open ? 'simple-popover' : undefined; //popover
-    
-        function deleteItem (index) {
-        //DELETE ON SERVER!!
+
+        function deleteItem(index) {
+            //DELETE ON SERVER!!
             console.log('delete' + (index));
             axios({
                 method: "delete",
                 url: (isBand ? `https://grandstaff.herokuapp.com/api/media/removeMediaBand/${(previews.at(index).source.split('/')[4])}/${user.token}/${_id}` : (inJob ? `https://grandstaff.herokuapp.com/api/media/removeMediaJob/${(previews.at(index).source.split('/')[4])}/${user.token}/${_id}` : `https://grandstaff.herokuapp.com/api/media/removeMedia/${(previews.at(index).source.split('/')[4])}/${user.token}`))
             })
-            .then(res => {
-                let b = [...previews];
-                b.splice(index, 1);
-                setPreviews(b);
-            })
+                .then(res => {
+                    let b = [...previews];
+                    b.splice(index, 1);
+                    setPreviews(b);
+                })
         }
 
         const changeFile = e => {
@@ -74,23 +97,23 @@ const EditPreviewCarousel = ({ initPreviews, _id, isBand, miniMode }) => {
                 url: (isBand ? ('https://grandstaff.herokuapp.com/api/media/addMediaBand/' + user.token + '/' + _id) : (inJob ? `https://grandstaff.herokuapp.com/api/media/addMediaJob/${user.token}/${_id}` : `https://grandstaff.herokuapp.com/api/media/addMedia/${user.token}`)),
                 data: formData,
                 headers: { "Content-Type": "multipart/form-data" },
-              })
+            })
                 .then(function (response) {
                     console.log(response);
                     axios({
                         method: "delete",
                         url: (isBand ? `https://grandstaff.herokuapp.com/api/media/removeMediaBand/${(previews.at(index).source.split('/')[4])}/${user.token}/${_id}` : (inJob ? `https://grandstaff.herokuapp.com/api/media/removeMediaJob/${(previews.at(index).source.split('/')[4])}/${user.token}/${_id}` : `https://grandstaff.herokuapp.com/api/media/removeMedia/${(previews.at(index).source.split('/')[4])}/${user.token}`))
                     })
-                    .then(function (response) {
-                        window.location.reload(true);
-                    })
+                        .then(function (response) {
+                            window.location.reload(true);
+                        })
                 })
         };
 
         return (
             <Stack direction='row' style={{ width: '100%', position: 'absolute', zIndex: '3', justifyContent: 'flex-end' }}>
-                <IconButton onClick={handleClick} sx={{backgroundColor: theme => alpha(theme.palette.background.default, 0.25)}}>
-                    <EditIcon fontSize="large"/>
+                <IconButton onClick={handleClick} sx={{ backgroundColor: theme => alpha(theme.palette.background.default, 0.25) }}>
+                    <EditIcon fontSize="large" />
                 </IconButton>
                 <Popover
                     id={id}
@@ -179,7 +202,7 @@ const EditPreviewCarousel = ({ initPreviews, _id, isBand, miniMode }) => {
                                     )
                                 return (
                                     <div style={{ borderRadius: '16px', overflow: 'hidden', height: '100%', width: '100%' }}>
-                                        <EditSlide index={index}/>
+                                        <EditSlide index={index} />
                                         {renderSlideContent(type, cover, source)}
                                     </div>
                                 )
@@ -190,19 +213,19 @@ const EditPreviewCarousel = ({ initPreviews, _id, isBand, miniMode }) => {
                     {
                         previews.length < 10
                             ?
-                            <SwiperSlide style={{ height: !largeScreen || miniMode ? '350px' : '500px', width: !largeScreen || miniMode ? '400px' : '650px' }}>
-                                <Box sx={{ backdropFilter: 'blur(15px)', backgroundColor: theme => theme.palette.mode === 'dark'?"#878787AA" : alpha(theme.palette.background.default, 0.67), borderRadius: '16px'}}>
+                            <SwiperSlide style={{ height: miniMode ? '350px' : '500px', width: !largeScreen || miniMode ? '400px' : '650px' }}>
+                                <Box sx={{ backdropFilter: 'blur(15px)', backgroundColor: theme => theme.palette.mode === 'dark' ? "#878787AA" : alpha(theme.palette.background.default, 0.67), borderRadius: '16px' }}>
                                     <FilePond
                                         files={files}
                                         onupdatefiles={setFiles}
                                         onprocessfile={updateFiles}
                                         allowMultiple={false}
                                         maxFiles={1}
-                                        server={isBand ? ('https://grandstaff.herokuapp.com/api/media/addMediaBand/' + user.token + '/' + _id) : (inJob ? `https://grandstaff.herokuapp.com/api/media/addMediaJob/${user.token}/${_id}` : `https://grandstaff.herokuapp.com/api/media/addMedia/${user.token}`) }
+                                        server={isBand ? ('https://grandstaff.herokuapp.com/api/media/addMediaBand/' + user.token + '/' + _id) : (inJob ? `https://grandstaff.herokuapp.com/api/media/addMediaJob/${user.token}/${_id}` : `https://grandstaff.herokuapp.com/api/media/addMedia/${user.token}`)}
                                         name="files" /* sets the file input name, it's filepond by default */
                                         labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
                                         stylePanelLayout='integrated'
-                                        stylePanelAspectRatio={largeScreen ? '650:500' : '400:350'}
+                                        stylePanelAspectRatio={largeScreen && !miniMode ? '650:500' : '400:350'}
                                         credits={false}
                                     />
                                 </Box>

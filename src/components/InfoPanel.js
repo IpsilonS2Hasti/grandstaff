@@ -2,10 +2,11 @@ import { alpha, Box, Card, Divider, Stack, Tab, Tabs, Typography } from "@mui/ma
 import ScheduleCalendar from "./ScheduleCalendar";
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
-import { useState } from "react";
+import { useContext, useState } from "react";
 import InfoStack from "./InfoStack";
 import SchoolIcon from '@mui/icons-material/School';
 import EditInfoPopup from "./EditInfoPopup";
+import { EntityContext } from "../context/EntityContext";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -27,7 +28,11 @@ function TabPanel(props) {
     );
 }
 
-const InfoPanel = ({ desc, gsm, contactEmail, uEdu, editView, userId, isBand, members }) => {
+const InfoPanel = () => {
+    const { desc, gsm, contactEmail, uniEd, editView, type } = useContext(EntityContext);
+    const bob = useContext(EntityContext);
+    console.log(bob);
+    let isBand = type === "Band";
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -39,16 +44,16 @@ const InfoPanel = ({ desc, gsm, contactEmail, uEdu, editView, userId, isBand, me
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                     <b>Информация: </b>
                     {editView ?
-                        <EditInfoPopup {...{desc, gsm, contactEmail, uEdu, userId, isBand}}/>
+                        <EditInfoPopup/> //REWIRED
                         :
                         null
                     }
                 </div>
                 {
-                    isBand ? '' : uEdu !== 'Undefined' ? <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', opacity: '0.7' }}>
+                    isBand ? '' : uniEd !== 'Undefined' ? <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', opacity: '0.7' }}>
                         <SchoolIcon fontSize="small" />
                         <Box width="5px" />
-                        <Typography variant="p" component="p" marginTop='5px'>{uEdu}</Typography>
+                        <Typography variant="p" component="p" marginTop='5px'>{uniEd}</Typography>
                     </div> : null
                 }
                 
@@ -75,10 +80,10 @@ const InfoPanel = ({ desc, gsm, contactEmail, uEdu, editView, userId, isBand, me
                 </Tabs>
             </Stack>
             <TabPanel value={value} index={0}>
-                <ScheduleCalendar editView={editView} userId={userId} isBand={isBand} />
+                <ScheduleCalendar/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <InfoStack isBand={isBand} members={members} userId={userId} />
+                <InfoStack/>
             </TabPanel>
         </Card>
     );

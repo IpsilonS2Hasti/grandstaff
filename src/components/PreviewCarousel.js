@@ -9,9 +9,12 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
+import { useContext } from "react";
+import { EntityContext } from "../context/EntityContext";
 
 
-const PreviewCarousel = ({ previews, _id, miniMode }) => {
+const PreviewCarousel = ({ miniMode }) => {
+    const { previews, _id } = useContext(EntityContext);
     if (!previews) previews = [];
     const largeScreen = useMediaQuery((theme) => theme.breakpoints.up('xl'));
 

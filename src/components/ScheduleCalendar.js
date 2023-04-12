@@ -2,7 +2,7 @@ import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogContentT
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { addYears } from "date-fns";
 import { PickersDay } from "@mui/x-date-pickers";
@@ -19,17 +19,19 @@ const ScheduleCalendar = () => {
     const { editView, _id, type } = useContext(EntityContext);
     const user = JSON.parse(localStorage.getItem('user'));
     const [value, setValue] = useState(new Date());
-    let datesTaken;
+
+    useEffect(() => {
+        axios({
+            method: 'get',
+            url: ('https://grandstaff.herokuapp.com/api/schedule/getDatesTaken/' + _id)
+        }).then(res => {
+            setTakenDays(res.data.datesTaken);
+        }).catch(err => {
+            //console.log(err);
+        });
+    }, [])
+
     const [takenDays, setTakenDays] = useState([]);
-    axios({
-        method: 'get',
-        url: ('https://grandstaff.herokuapp.com/api/schedule/getDatesTaken/' + _id)
-    }).then(res => {
-        datesTaken = res.data.datesTaken;
-        setTakenDays(datesTaken);
-    }).catch(err => {
-        //console.log(err);
-    });
 
     const handleChange = () => {
         const date = `${value.getDate()}-${value.getMonth() + 1}-${value.getFullYear()}`
@@ -37,18 +39,17 @@ const ScheduleCalendar = () => {
         console.log(index);
         console.log(date);
         if (index > -1) {
-            if (type==="Band") {
+            if (type === "Band") {
                 axios({
                     method: 'patch',
                     url: ('https://grandstaff.herokuapp.com/api/schedule/freeDayBand'),
-                    headers: {'Authorization': 'Bearer ' + (user !== null ? user.token : '0')},
+                    headers: { 'Authorization': 'Bearer ' + (user !== null ? user.token : '0') },
                     data: {
                         days: [date],
                         bandId: _id
                     }
                 }).then(res => {
-                    datesTaken = res.data.schedule.datesTaken;
-                    setTakenDays(datesTaken);
+                    setTakenDays(res.data.schedule.datesTaken);
                 }).catch(err => {
                     console.log(err);
                 });
@@ -56,32 +57,30 @@ const ScheduleCalendar = () => {
                 axios({
                     method: 'patch',
                     url: ('https://grandstaff.herokuapp.com/api/schedule/freeDay'),
-                    headers: {'Authorization': 'Bearer ' + (user !== null ? user.token : '0')},
+                    headers: { 'Authorization': 'Bearer ' + (user !== null ? user.token : '0') },
                     data: {
                         days: [date],
                         jobId: _id
                     }
                 }).then(res => {
-                    datesTaken = res.data.schedule.datesTaken;
-                    setTakenDays(datesTaken);
+                    setTakenDays(res.data.schedule.datesTaken);
                 }).catch(err => {
                     console.log(err);
                 });
             }
-            
+
         } else {
-            if (type==="Band") {
+            if (type === "Band") {
                 axios({
                     method: 'patch',
                     url: ('https://grandstaff.herokuapp.com/api/schedule/takeDayBand'),
-                    headers: {'Authorization': 'Bearer ' + (user !== null ? user.token : '0')},
+                    headers: { 'Authorization': 'Bearer ' + (user !== null ? user.token : '0') },
                     data: {
                         days: [date],
                         bandId: _id
                     }
                 }).then(res => {
-                    datesTaken = res.data.schedule.datesTaken;
-                    setTakenDays(datesTaken);
+                    setTakenDays(res.data.schedule.datesTaken);
                 }).catch(err => {
                     console.log(err);
                 });
@@ -89,14 +88,13 @@ const ScheduleCalendar = () => {
                 axios({
                     method: 'patch',
                     url: ('https://grandstaff.herokuapp.com/api/schedule/takeDay'),
-                    headers: {'Authorization': 'Bearer ' + (user !== null ? user.token : '0')},
+                    headers: { 'Authorization': 'Bearer ' + (user !== null ? user.token : '0') },
                     data: {
                         days: [date],
                         jobId: _id
                     }
                 }).then(res => {
-                    datesTaken = res.data.schedule.datesTaken;
-                    setTakenDays(datesTaken);
+                    setTakenDays(res.data.schedule.datesTaken);
                 }).catch(err => {
                     console.log(err);
                 });

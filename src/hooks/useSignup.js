@@ -4,7 +4,7 @@ export const useSignup = () => {
     const [ error, setError ] = useState(null);
     const [ isLoading, setIsLoading ] = useState(null);
 
-    const signup = async (email, password, firstName, lastName, type) => {
+    const signup = async (email, password, password2, firstName, lastName, type) => {
         setIsLoading(true);
         setError(null);
 
@@ -14,8 +14,10 @@ export const useSignup = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                realUser: true,
                 email: email,
                 password: password,
+                password2: password2,
                 firstName: firstName,
                 lastName: lastName,
                 type: type
@@ -30,7 +32,7 @@ export const useSignup = () => {
 
         if(!response.ok){
             setIsLoading(false);
-            setError(json.error);
+            setError(json.message);
         }
 
         if(response.ok){

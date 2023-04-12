@@ -23,7 +23,7 @@ export default function Signup() {
     const handleSubmit = async (event) => { //async await is unnecessary here?!
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        await signup(data.get('email'), data.get('password'), data.get('firstName'), data.get('lastName'), data.get('type'));
+        await signup(data.get('email'), data.get('password'), data.get('password2'), data.get('firstName'), data.get('lastName'), data.get('type'));
         await login(data.get('email'), data.get('password'));
         if (localStorage.getItem('user')) navigate('/profile');
     };
@@ -89,6 +89,17 @@ export default function Signup() {
                             />
                         </Grid>
                         <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                name="password2"
+                                label="Потвърди паролата"
+                                type="password"
+                                id="password2"
+                                autoComplete="new-password"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
                             <FormControl>
                                 <FormLabel id="demo-radio-buttons-group-label">Аз съм:</FormLabel>
                                 <RadioGroup
@@ -117,6 +128,11 @@ export default function Signup() {
                             <Link href="http://localhost:3000/login" variant="body2">
                                 Вече имате акаунт? Впишете се!
                             </Link>
+                        </Grid>
+                        <Grid item>
+                            <Typography color={"red"}>
+                                { error }
+                            </Typography>
                         </Grid>
                     </Grid>
                 </Box>

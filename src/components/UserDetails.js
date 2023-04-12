@@ -12,9 +12,12 @@ import EditAccount from "./EditAccount";
 import EditBand from "./EditBand";
 import userEvent from "@testing-library/user-event";
 import { EntityContext } from "../context/EntityContext";
+import InsertCommentIcon from '@mui/icons-material/InsertComment';
+import { useNavigate } from "react-router";
 
 const UserDetails = () => {
     const { _id, firstName, lastName, pfpUrl, instruments, genres, city, editView, type, name } = useContext(EntityContext);
+    const navigate = useNavigate();
     return (
         <Box maxWidth={'700px'} marginLeft='70px' key={_id}>
             <Stack direction={'row'}>
@@ -73,6 +76,20 @@ const UserDetails = () => {
                                 :
                                 <Chip icon={<LocationOnIcon fontSize='small' />} label={city} />
                         }
+                        {
+                            type === "Musician" && !editView
+                                ?
+                                <Box width='10px' />
+                                :
+                                null
+                        }
+                        {
+                            type === "Musician" && !editView
+                                ?
+                                <Chip style={{ borderRadius: "6px" }} icon={<InsertCommentIcon fontSize='small' />} label="Съобщение" onClick={() => navigate('/messages/' + _id)}/>
+                                :
+                                null
+                        }
                     </div>
                     {
                         editView
@@ -80,7 +97,7 @@ const UserDetails = () => {
                             <DialogPopup data={chipData[1]} selected={instruments} /> //REWIRED
                             :
                             <Stack direction='row' spacing={'2px'}>
-                                {instruments.map(instr => <Chip label={instr} />)}
+                                {instruments.map(instr => <Chip key={instr} label={instr} />)}
                             </Stack>
                     }
                     <Box sx={{ height: '5px' }} />
@@ -91,7 +108,7 @@ const UserDetails = () => {
                                 <DialogPopup data={chipData[2]} selected={genres} /> //REWIRED
                                 :
                                 <Stack direction='row' spacing={'2px'}>
-                                    {genres.map(instr => <Chip label={instr} />)}
+                                    {genres.map(genre => <Chip key={genre} label={genre} />)}
                                 </Stack>
                         }
                     </Stack>

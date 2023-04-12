@@ -3,7 +3,7 @@ import { alpha, Box } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
-const BandListing = ({ _id, name, pfpUrl, city, genres}) => {
+const BandListing = ({ _id, name, pfpUrl, city, genres }) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
     return (
@@ -24,25 +24,30 @@ const BandListing = ({ _id, name, pfpUrl, city, genres}) => {
                         {name}
                         {
                             city !== 'Undefined' ?
-                            <Typography sx={{ fontSize: '13px', opacity: '0.5', fontStyle: 'italic' }} variant="p" component="div">
-                                {city}
-                            </Typography> : null
+                                <Typography sx={{ fontSize: '13px', opacity: '0.5', fontStyle: 'italic' }} variant="p" component="div">
+                                    {city}
+                                </Typography> : null
                         }
-                        
+
                     </Typography>
                 </Stack>
                 <Stack direction='row' spacing={'5px'} margin='5px'>
-                    {genres.map(genre => {
-                        let isHighlighted = false;
-                        searchParams.forEach(e => { if (e === genre) isHighlighted = true; });
-                        return (<Chip label={genre} sx={
+                    {
+                        genres.length > 0 ?
+                            genres.map(genre => {
+                                let isHighlighted = false;
+                                searchParams.forEach(e => { if (e === genre) isHighlighted = true; });
+                                return (<Chip label={genre} sx={
 
-                            isHighlighted ?
-                                { backgroundColor: theme => alpha(theme.palette.primary.main, 0.6), color: '#fff', [':hover']: { backgroundColor: theme => alpha(theme.palette.primary.main, 0.7) } }
-                                :
-                                null
-                        } />)
-                    })}
+                                    isHighlighted ?
+                                        { backgroundColor: theme => alpha(theme.palette.primary.main, 0.6), color: '#fff', [':hover']: { backgroundColor: theme => alpha(theme.palette.primary.main, 0.7) } }
+                                        :
+                                        null
+                                } />)
+                            })
+                        :
+                        <Box height="32px" />
+                        }
                 </Stack>
             </CardActionArea>
         </Card>

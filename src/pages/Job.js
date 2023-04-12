@@ -15,10 +15,10 @@ const Job = () => {
     const loggedUser = JSON.parse(localStorage.getItem('user'));
     let job;
     let editView = false;
-    const { data, loading, error } = useFetch('https://grandstaff.herokuapp.com/api/getUser/' + _id); //TODO
+    const { data, loading, error } = useFetch('https://grandstaff.herokuapp.com/api/getUser/' + _id);
     if (!loading) {
         job = data.user;
-        if (job.owner === loggedUser.userId) editView = true;
+        if (loggedUser && job.owner === loggedUser.userId) editView = true;
     }
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';

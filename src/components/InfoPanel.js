@@ -30,8 +30,6 @@ function TabPanel(props) {
 
 const InfoPanel = () => {
     const { desc, gsm, contactEmail, uniEd, editView, type } = useContext(EntityContext);
-    const bob = useContext(EntityContext);
-    console.log(bob);
     let isBand = type === "Band";
     const [value, setValue] = useState(0);
 

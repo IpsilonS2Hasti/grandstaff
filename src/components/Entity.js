@@ -9,7 +9,6 @@ import EditPreviewCarousel from "./EditPreviewCarousel";
 
 const Entity = () => {
     const user = useContext(EntityContext);
-    console.log(user);
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
     return (

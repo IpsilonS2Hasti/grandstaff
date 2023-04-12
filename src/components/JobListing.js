@@ -22,54 +22,55 @@ const JobListing = ({ _id, firstName, pfp, instruments, city, genres, uniEd }) =
                             <Stack direction='row' marginLeft="7.5px">
                                 {
                                     city !== 'Undefined' ?
-                                    <Typography sx={{ fontSize: '13px', opacity: '0.5', fontStyle: 'italic' }} variant="p" component="div">
-                                        <LocationOnIcon fontSize='13px' style={{ marginBottom: "-2.5px", marginRight: '2px' }} />{city}
-                                    </Typography> : null
+                                        <Typography sx={{ fontSize: '13px', opacity: '0.5', fontStyle: 'italic' }} variant="p" component="div">
+                                            <LocationOnIcon fontSize='13px' style={{ marginBottom: "-2.5px", marginRight: '2px' }} />{city}
+                                        </Typography> : null
                                 }
-                                
+
                                 <Box width="10px" />
-                                {   uniEd !== 'Undefined' ?
+                                {uniEd !== 'Undefined' ?
                                     <Typography sx={{ fontSize: '13px', opacity: '0.5', fontStyle: 'italic' }} variant="p" component="div">
                                         <SchoolIcon fontSize='13px' style={{ marginBottom: "-2.5px", marginRight: '2px' }} />{uniEd}
                                     </Typography> : null
                                 }
-                                
+
                             </Stack>
                         </Typography>
                     }
                     <Stack direction='row' spacing={'5px'} margin='5px'>
-                        {instruments.map(instr => {
-                            let isHighlighted = false;
-                            searchParams.forEach(e => { if (e === instr) isHighlighted = true; });
-                            return (<Chip label={instr} sx={
+                        {instruments.length > 0 ?
+                            instruments.map(instr => {
+                                let isHighlighted = false;
+                                searchParams.forEach(e => { if (e === instr) isHighlighted = true; });
+                                return (<Chip label={instr} sx={
 
-                                isHighlighted ?
-                                    { backgroundColor: theme => alpha(theme.palette.primary.main, 0.6), color: '#fff', [':hover']: { backgroundColor: theme => alpha(theme.palette.primary.main, 0.7) } }
-                                    :
-                                    null
-                            } />)
-                        })}
+                                    isHighlighted ?
+                                        { backgroundColor: theme => alpha(theme.palette.primary.main, 0.6), color: '#fff', [':hover']: { backgroundColor: theme => alpha(theme.palette.primary.main, 0.7) } }
+                                        :
+                                        null
+                                } />)
+                            })
+                            :
+                            <Box height="32px" />
+                        }
                     </Stack>
                     <Stack direction='row' spacing={'5px'} margin='5px 5px 0 5px' paddingBottom="5px">
-                        {genres.map(genre => {
-                            let isHighlighted = false;
-                            searchParams.forEach(e => { if (e === genre) isHighlighted = true; });
-                            return (<Chip label={genre} sx={
+                        {genres.length > 0 ?
+                            genres.map(genre => {
+                                let isHighlighted = false;
+                                searchParams.forEach(e => { if (e === genre) isHighlighted = true; });
+                                return (<Chip label={genre} sx={
 
-                                isHighlighted ?
-                                    { backgroundColor: theme => alpha(theme.palette.primary.main, 0.6), color: '#fff', [':hover']: { backgroundColor: theme => alpha(theme.palette.primary.main, 0.7) } }
-                                    :
-                                    null
-                            } />)
-                        })}
-                    </Stack>
-                    {
-                        instruments.length === 0
-                            ?
-                            <Box height="32px" />
+                                    isHighlighted ?
+                                        { backgroundColor: theme => alpha(theme.palette.primary.main, 0.6), color: '#fff', [':hover']: { backgroundColor: theme => alpha(theme.palette.primary.main, 0.7) } }
+                                        :
+                                        null
+                                } />)
+                            })
                             :
-                            null
-                    }
+                            <Box height="32px" />
+                        }
+                    </Stack>
                 </Box>
             </CardActionArea>
         </Card>

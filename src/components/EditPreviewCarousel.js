@@ -171,7 +171,7 @@ const EditPreviewCarousel = ({ miniMode }) => {
                 alignItems="center"
                 minHeight="100%"
             >
-                <ArrowBackIosNewIcon alignSelf className={`swiper-button-prev${_id}`} style={{ cursor: 'pointer', width: '50px', height: '36px' }} /> {/* DISABLE ARROWS ON BREAKPOINT!  */}
+                <ArrowBackIosNewIcon className={`swiper-button-prev${_id}`} style={{ cursor: 'pointer', width: '50px', height: '36px' }} /> {/* DISABLE ARROWS ON BREAKPOINT!  */}
             </Box>
             <Box maxWidth={'calc(100% - 76px)'} margin={'auto'}> {/* Remake with flex?  */}
                 <Swiper

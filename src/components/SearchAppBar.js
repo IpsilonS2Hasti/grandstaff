@@ -88,25 +88,27 @@ export default function SearchAppBar() {
         >
             {
                 !loggedUser ? 
-                <><MenuItem onClick={() => {
-                    handleMenuClose();
-                    navigate('/login');
-                }}>Вписване</MenuItem>
-                <MenuItem onClick={() => {
-                    handleMenuClose();
-                    logout();
-                    navigate('/signup');
-                }}>Регистрация</MenuItem></>
+                [
+                    <MenuItem key="login" onClick={() => {
+                        handleMenuClose();
+                        navigate('/login');
+                    }}>Вписване</MenuItem>,
+                    <MenuItem key="signup" onClick={() => {
+                        handleMenuClose();
+                        logout();
+                        navigate('/signup');
+                    }}>Регистрация</MenuItem>
+                ]
                 :
-                <><MenuItem onClick={() => {
+                [<MenuItem key="profile" onClick={() => {
                     handleMenuClose();
                     navigate('/profile/');
-                }}>Профил</MenuItem>
-                <MenuItem onClick={() => {
+                }}>Профил</MenuItem>,
+                <MenuItem key="logout" onClick={() => {
                     handleMenuClose();
                     logout();
                     navigate('/login');
-                }}>Излизане</MenuItem></>
+                }}>Излизане</MenuItem>]
             }
         </Menu>
     );

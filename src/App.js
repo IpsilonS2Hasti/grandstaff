@@ -16,6 +16,7 @@ import Band from "./pages/Band";
 import Job from "./pages/Job";
 import { HMSRoomProvider } from "@100mslive/react-sdk";
 import Concerts from "./pages/Concerts";
+import Messages from "./pages/Messages";
 
 function App() {
   const [mode, setMode] = useState('dark');
@@ -44,6 +45,8 @@ function App() {
                 <Route path="/job" element={<Find />} />
                 <Route path="/job/:_id" element={<Job />} />
                 <Route path="/profile/:_id" element={<Profile />} />
+                <Route path="/messages" element={<Messages />}/>
+                <Route path="/messages/:chatUid" element={<Messages />}/>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
               </Routes>

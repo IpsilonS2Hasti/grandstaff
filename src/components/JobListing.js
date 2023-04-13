@@ -24,7 +24,7 @@ const JobListing = ({ _id, firstName, pfp, instruments, city, genres, uniEd }) =
                                     city !== 'Undefined' ?
                                         <Typography sx={{ fontSize: '13px', opacity: '0.5', fontStyle: 'italic' }} variant="p" component="div">
                                             <LocationOnIcon fontSize='13px' style={{ marginBottom: "-2.5px", marginRight: '2px' }} />{city}
-                                        </Typography> : null
+                                        </Typography> : <Box height="15.59px"/>
                                 }
                                 
                                 <Box width="10px" />

@@ -18,8 +18,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 })
 
-const DialogPopup = ({ data, selected }) => {
-    const { type } = React.useContext(EntityContext);
+const DialogPopup = ({ data, selected, type, externalSetState }) => {
+    const context = React.useContext(EntityContext);
+    type = context ? context.type : type; //For external setState
     const [selEls, setSelEls] = React.useState([...selected]);
     const [open, setOpen] = React.useState(false);
     const [query, setQuery] = React.useState('');
@@ -31,13 +32,20 @@ const DialogPopup = ({ data, selected }) => {
     };
 
     const handleClose = () => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        if (externalSetState) { //For external setState
+            externalSetState(selEls);
+            setOpen(false);
+            setTimeout(() => setQuery(''), 300);
+            return;
+        }
+        
+        const user = JSON.parse(localStorage.getItem('user'));        
         if (data.chipName === 'Инструмент') {
-            if (type==="Band") {
+            if (type === "Band") {
                 axios({
                     method: 'patch',
                     url: 'https://grandstaff.herokuapp.com/api/band/editBand',
-                    headers: {'Authorization': 'Bearer ' + (user != null ? user.token : '0')},
+                    headers: { 'Authorization': 'Bearer ' + (user != null ? user.token : '0') },
                     data: {
                         instruments: selEls,
                         bandId: _id
@@ -51,7 +59,7 @@ const DialogPopup = ({ data, selected }) => {
                 axios({
                     method: 'patch',
                     url: 'https://grandstaff.herokuapp.com/api/define',
-                    headers: {'Authorization': 'Bearer ' + (user != null ? user.token : '0')},
+                    headers: { 'Authorization': 'Bearer ' + (user != null ? user.token : '0') },
                     data: {
                         instruments: selEls,
                         jobId: _id
@@ -64,11 +72,11 @@ const DialogPopup = ({ data, selected }) => {
             }
         }
         if (data.chipName === 'Жанр') {
-            if (type==="Band") {
+            if (type === "Band") {
                 axios({
                     method: 'patch',
                     url: 'https://grandstaff.herokuapp.com/api/band/editBand',
-                    headers: {'Authorization': 'Bearer ' + (user != null ? user.token : '0')},
+                    headers: { 'Authorization': 'Bearer ' + (user != null ? user.token : '0') },
                     data: {
                         genres: selEls,
                         bandId: _id
@@ -82,7 +90,7 @@ const DialogPopup = ({ data, selected }) => {
                 axios({
                     method: 'patch',
                     url: 'https://grandstaff.herokuapp.com/api/define',
-                    headers: {'Authorization': 'Bearer ' + (user != null ? user.token : '0')},
+                    headers: { 'Authorization': 'Bearer ' + (user != null ? user.token : '0') },
                     data: {
                         genres: selEls,
                         jobId: _id
@@ -95,12 +103,12 @@ const DialogPopup = ({ data, selected }) => {
             }
         }
         setOpen(false);
-        setTimeout(() => setQuery(''), 300); //MIGHT BE BLOCKING CODE EXECUTION?
+        setTimeout(() => setQuery(''), 300);
     };
 
     return (
         <div>
-            <Stack direction='row' gap={'2px'} style={{flexWrap: 'wrap'}}>
+            <Stack direction='row' gap={'2px'} style={{ flexWrap: 'wrap' }}>
                 {selEls.map(el => <Chip label={el} />)}
                 <IconButton size="small" onClick={handleClickOpen}>
                     <AddIcon fontSize="small" />
@@ -129,7 +137,7 @@ const DialogPopup = ({ data, selected }) => {
                                         <Grid item>
                                             <Chip label={el} color={inArr ? 'primary' : 'default'} onClick={() => {
                                                 if (inArr) setSelEls(selEls.filter(instr => instr !== el));
-                                                if(selEls.length >=5) return;
+                                                if (selEls.length >= 5) return;
                                                 if (!inArr) setSelEls([...selEls, el]);
                                             }} />
                                         </Grid>

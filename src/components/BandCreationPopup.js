@@ -27,6 +27,8 @@ const BandCreationPopup = () => {
     //const [genres, setGenres] = React.useState();
     const [gsm, setGsm] = React.useState();
     const [email, setEmail] = React.useState();
+    const [instr, setInstr] = React.useState([]);
+    const [genre, setGenre] = React.useState([]);
 
     console.log('name', name);
     console.log('desc', desc);
@@ -84,6 +86,16 @@ const BandCreationPopup = () => {
                                 setName(e.target.value);
                             }}
                         />
+                        <Stack direction={"row"}>
+                            <Typography variant='p' fontSize="15px" marginTop="4px">{"Жанр:"}</Typography>
+                            <Box width="5px" />
+                            <DialogPopup data={chipData[2]} selected={[]} type="Job" externalSetState={setInstr} />
+                        </Stack>
+                        <Stack direction={"row"}>
+                            <Typography variant='p' fontSize="15px" marginTop="4px">{"Инстр.:"}</Typography>
+                            <Box width="5px" />
+                            <DialogPopup data={chipData[1]} selected={[]} type="Job" externalSetState={setGenre} />
+                        </Stack>
                         <TextField
                             id="description"
                             label="Описание"

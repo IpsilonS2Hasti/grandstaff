@@ -5,12 +5,31 @@ import AddIcon from '@mui/icons-material/Add';
 import CreateJobPopup from "./CreateJobPopup";
 import BandListing from "./BandListing";
 import { Waypoint } from "react-waypoint";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import axios from "axios";
 
-const Listings = ({ listings, type, createMode }) => {
+const Listings = ({ listingsOg, type, createMode, search }) => {
+    const [ listings, setListings ] = useState(listingsOg);
 
     const loadMore = cursor => {
+        const user = JSON.parse(localStorage.getItem('user'));
         console.log("Waiter Chudjack of Westfall restaurant: SERVE! "+cursor);
+        axios({
+            method: 'post',
+            url: `https://grandstaff.herokuapp.com/api/findNext` + (search=="" ? "?type=Musician" : search),
+            headers: {
+                'Authorization': 'Bearer ' + (user ? user.token : '0')
+            },
+            data: {
+                chain: listings
+            }
+        }).then(res => {
+            if (type != 'Band') setListings(prev => [...prev, ...res.data.queryUsers]);
+            else setListings(prev => [...prev, ...res.data.queryBands]);
+        }).catch(err => {
+            console.log(err);
+        });
+        //setListings(prev => [...prev, ...res.data.users.slice(0, 3)]);
     }
 
     return (
@@ -30,6 +49,7 @@ const Listings = ({ listings, type, createMode }) => {
                             loadMore(listings[listings.length - 1]._id);
                         }} />}
                     </Fragment>
+                    
                 ))
             }
             {

@@ -49,6 +49,7 @@ const EditAccount = () => {
     const [passNew, setPassNew] = useState('');
     const [passNew2, setPassNew2] = useState('');
     const [mail, setMail] = useState(email);
+    const [error, setError] = useState('');
     let user = JSON.parse(localStorage.getItem('user'));
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -80,13 +81,16 @@ const EditAccount = () => {
                     lastName: lastName,
                     type: type
                 }));
+                setError('');
+                setOpen(false);
             }
         }).catch(err => {
-            //console.log(err);
+            setError(err.response.data.message);
+            setOpen(true);
         }).finally(() => {
-            //console.log(dataM);
+
         });
-        setOpen(false);
+        if (error === '') setOpen(false);
     };
 
     const handleClosePass = () => {
@@ -104,12 +108,17 @@ const EditAccount = () => {
             }
         }).then(res => {
             console.log(res.data);
+            if (res.data) {
+                setError('');
+                setOpen(false);
+            }
         }).catch(err => {
-            //console.log(err);
+            setError(err.response.data.message);
+            setOpen(true);
         }).finally(() => {
-            //console.log(dataM);
+            
         });
-        setOpen(false);
+        if (error === '') setOpen(false);
     };
 
     const handleCloseEmail = () => {
@@ -130,13 +139,16 @@ const EditAccount = () => {
                     ...prev,
                     email: mail
                 }));
+                setError('');
+                setOpen(false);
             }
         }).catch(err => {
-            //console.log(err);
+            setError(err.response.data.message);
+            setOpen(true);
         }).finally(() => {
-            //console.log(dataM);
+            
         });
-        setOpen(false);
+        if (error === '') setOpen(false);
     };
 
     const handleClose = () => {
@@ -235,6 +247,9 @@ const EditAccount = () => {
                                 </FormControl>
                             </Stack>
                         </Stack>
+                        <Typography color={"red"}>
+                                { error }
+                            </Typography>
                         <DialogActions>
                             <Button onClick={handleCloseData}>Запамети</Button>
                         </DialogActions>
@@ -281,6 +296,9 @@ const EditAccount = () => {
                             </Stack>
                         </Stack>
                         <DialogActions>
+                        <Typography color={"red"} sx={{ float: 'left' }}>
+                            { error }
+                        </Typography>
                             <Button onClick={handleCloseEmail} sx={{ marginTop: '11px' }}>Запамети</Button>
                         </DialogActions>
                     </DialogContent>
@@ -364,6 +382,9 @@ const EditAccount = () => {
                                 </FormControl>
                             </Stack>
                         </Stack>
+                        <Typography color={"red"}>
+                                { error }
+                            </Typography>
                         <DialogActions>
                             <Button onClick={handleClosePass}>Запамети</Button>
                         </DialogActions>

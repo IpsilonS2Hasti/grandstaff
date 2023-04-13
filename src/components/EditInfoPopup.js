@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, TextField } from '@mui/material';
+import { FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { Edit } from '@mui/icons-material';
 import axios from 'axios';
@@ -22,6 +22,7 @@ const EditInfoPopup = () => {
     const [descr, setDescr] = React.useState(desc);
     const [phone, setPhone] = React.useState(gsm);
     const [mail, setMail] = React.useState(contactEmail);
+    const [error, setError] = React.useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -38,13 +39,6 @@ const EditInfoPopup = () => {
     const submit = () => {
         console.log(_id);
         const user = JSON.parse(localStorage.getItem('user'));
-        setEntityState(prev => ({
-            ...prev,
-            desc: descr,
-            gsm: phone,
-            contactEmail: mail,
-            uniEd: vuz,
-        }));
         if (type === "Band") {
             axios({
                 method: 'patch',
@@ -54,14 +48,21 @@ const EditInfoPopup = () => {
                     desc: descr,
                     gsm: phone,
                     contactEmail: mail,
-                    bandId: userId
+                    bandId: _id
                 }
             }).then(res => {
-                console.log(res.data.band);
+                setEntityState(prev => ({
+                    ...prev,
+                    desc: descr,
+                    gsm: phone,
+                    contactEmail: mail,
+                    uniEd: vuz,
+                }));
+                setOpen(false);
             }).catch(err => {
-                console.log(err);
+                setError(err.response.data.message);
+                setOpen(true);
             });
-            setOpen(false);
         } else {
             axios({
                 method: 'patch',
@@ -75,11 +76,18 @@ const EditInfoPopup = () => {
                     jobId: _id
                 }
             }).then(res => {
-                console.log(res.data.user);
+                setEntityState(prev => ({
+                    ...prev,
+                    desc: descr,
+                    gsm: phone,
+                    contactEmail: mail,
+                    uniEd: vuz,
+                }));
+                setOpen(false);
             }).catch(err => {
-                console.log(err);
+                setError(err.response.data.message);
+                setOpen(true);
             });
-            setOpen(false);
         }
 
     };
@@ -159,6 +167,9 @@ const EditInfoPopup = () => {
                         />
                     </Stack>
                 </DialogContent>
+                <Typography color={"red"}>
+                    { error }
+                </Typography>
                 <DialogActions>
                     <Button onClick={handleClose}>Затвори</Button>
                     <Button onClick={submit}>Запази</Button>

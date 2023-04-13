@@ -15,15 +15,25 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 
-const Find = () => {
+const Discover = () => {
 
     let [curChain, setCurChain] = useState([]);
-    const serveNext = async () => {
+    const serveNext = () => {
         const user = JSON.parse(localStorage.getItem('user'));
-        let res = await axios.get("https://grandstaff.herokuapp.com/api/feed/serveNext", {
-            headers: { 'Authorization': 'Bearer ' + (user != null ? user.token : '0') }
-        })
-        setCurChain(prev => [...prev, ...res.data.users.slice(0, 3)]);
+        axios({
+            method: 'post',
+            url: `https://grandstaff.herokuapp.com/api/feed/serveNext`,
+            headers: {
+                'Authorization': 'Bearer ' + (user ? user.token : '0')
+            },
+            data: {
+                chain: curChain
+            }
+        }).then(res => {
+            setCurChain(prev => [...prev, ...res.data.users]);
+        }).catch(err => {
+            console.log(err);
+        });
     }
     useEffect(() => {
         serveNext();
@@ -55,4 +65,4 @@ const Find = () => {
     );
 }
 
-export default Find;
+export default Discover;

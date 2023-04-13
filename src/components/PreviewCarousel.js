@@ -14,7 +14,7 @@ import { EntityContext } from "../context/EntityContext";
 
 
 const PreviewCarousel = ({ miniMode }) => {
-    const { previews, _id } = useContext(EntityContext);
+    let { previews, _id } = useContext(EntityContext);
     if (!previews) previews = [];
     const largeScreen = useMediaQuery((theme) => theme.breakpoints.up('xl'));
 

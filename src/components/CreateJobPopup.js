@@ -26,6 +26,9 @@ const CreateJobPopup = () => {
     const [desc, setDesc] = React.useState();
     const [gsm, setGsm] = React.useState();
     const [email, setEmail] = React.useState();
+    const [instr, setInstr] = React.useState([]);
+    const [genre, setGenre] = React.useState([]);
+    const [error, setError] = React.useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -39,7 +42,7 @@ const CreateJobPopup = () => {
         axios({
             method: 'put',
             url: 'https://grandstaff.herokuapp.com/api/signup',
-            headers: {'Authorization': 'Bearer ' + (user ? user.token : '0')},
+            headers: { 'Authorization': 'Bearer ' + (user ? user.token : '0') },
             data: {
                 realUser: false,
                 firstName: name,
@@ -49,12 +52,17 @@ const CreateJobPopup = () => {
                 password: 'bettercallsaulgoodman',
                 lastName: '',
                 type: 'Employer',
-                owner: user.userId
+                owner: user.userId,
+                instr: instr,
+                genre: genre
             }
         }).then(res => {
             navigate('/job/' + res.data.userId);
-            handleClose();
-        }) //sig 6e trqq timeout predi redirecta da moje backenda da syzdade bandata
+            setOpen(false);
+        }).catch(err => {
+            setError(err.response.data.message);
+            setOpen(true);
+        });
     }
 
 
@@ -88,6 +96,16 @@ const CreateJobPopup = () => {
                                 setName(e.target.value);
                             }}
                         />
+                        <Stack direction={"row"}>
+                            <Typography variant='p' fontSize="15px" marginTop="4px">{"Инстр.:"}</Typography>
+                            <Box width="5px" />
+                            <DialogPopup data={chipData[1]} selected={[]} type="Job" externalSetState={setInstr} />
+                        </Stack>
+                        <Stack direction={"row"}>
+                            <Typography variant='p' fontSize="15px" marginTop="4px">{"Жанр:"}</Typography>
+                            <Box width="5px" />
+                            <DialogPopup data={chipData[2]} selected={[]} type="Job" externalSetState={setGenre} />
+                        </Stack>
                         <TextField
                             id="description"
                             label="Описание"
@@ -114,6 +132,9 @@ const CreateJobPopup = () => {
                         />
                     </Stack>
                 </DialogContent>
+                <Typography color={"red"}>
+                    { error }
+                </Typography>
                 <DialogActions>
                     <Button onClick={handleClose} color="error">Отказ</Button>
                     <Button onClick={createJob}>Създаване</Button>

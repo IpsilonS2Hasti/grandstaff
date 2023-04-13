@@ -20,7 +20,7 @@ const Find = ({ createMode }) => {
         if (pathname.includes('/job') && user) search = ('?type=Employer&owner=' + user.userId);
     }
     console.log(search);
-
+    
     //Kato e na createMode da se dobavi v search querito user idto i type=employers direktno v koda
     const { data, loading } = useFetch('https://grandstaff.herokuapp.com/api/find' + (search=="" ? "?type=Musician" : search));
     console.log("BOB", data);
@@ -29,7 +29,7 @@ const Find = ({ createMode }) => {
         <Box sx={{ overflowY: 'auto', height: '100vh-30px', borderRadius: "15px", padding: "15px 25px", width: "100%", backgroundColor: "background.default", margin: "15px 15px 15px 0" }}>
             {loading ? 
                 <CenteredSpinner /> :
-                <Listings listings={data.queryUsers ? data.queryUsers : data.queryBands} type={data.type} createMode={pathname === '/job'}/>
+                <Listings listingsOg={data.queryUsers ? data.queryUsers : data.queryBands} type={data.type} createMode={pathname === '/job'} search={search} />
             }
         </Box>
     );

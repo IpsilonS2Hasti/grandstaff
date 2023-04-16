@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { Box, IconButton, TextField, Typography } from '@mui/material';
+import { Box, IconButton, TextField, Typography, useMediaQuery } from '@mui/material';
 import { Stack } from '@mui/system';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { chipData } from '../lib/chipData';
@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router';
 import BandTile from './BandTile';
 import axios from 'axios';
 import useFetch from '../hooks/useFetch';
+import { alpha } from "@mui/system";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -33,6 +34,8 @@ const AddToBand = (userId) => {
         console.log(data);
     }
     console.log(bands);
+
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const [dataM, setData] = React.useState([]);
     React.useEffect(() => {
@@ -106,11 +109,18 @@ const AddToBand = (userId) => {
                 keepMounted
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
+                PaperProps={{
+                    sx: {
+                        backdropFilter: 'blur(10px)',
+                        backgroundColor: theme => alpha(theme.palette.background.paper, 0.67),
+                        borderRadius: "16px"
+                    },
+                }}
             >
                 <DialogTitle sx={{ display: 'flex' }}>
                     {"Добавяне към Група"}
                 </DialogTitle>
-                <Stack direction={'column'} width={"400px"}>
+                <Stack direction={'column'} width={isMobile ? "calc(100vw - 64px)" : "400px"}>
                     {dataM.map(el => {
                         return <BandTile {...el} addMode userId={userId} />
                     })}

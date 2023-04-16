@@ -14,7 +14,7 @@ const Message = ({ content, timestamp, sender }) => {
             backdropFilter: 'blur(10px)',
             backgroundColor: theme => alpha(theme.palette.background.paper, 0.57),
             width: "fit-content",
-            maxWidth: "565px",
+            maxWidth: {lg: "565px", xs: "calc(100vw - 60px)"},
             margin: "15px",
             borderRadius: '16px',
             marginRight: !isMe ? "auto" : "15px",

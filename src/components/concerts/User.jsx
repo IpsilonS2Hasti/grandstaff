@@ -25,7 +25,7 @@ const User = ({ peer }) => {
   });
   return (
     <Card sx={{
-      position: 'relative', height: "170px", width: "200px", borderRadius: '10px', backdropFilter: 'blur(10px)',
+      position: 'relative', height: "170px", width: {lg: "200px", xs: "calc(100vw - 64px)"}, borderRadius: '10px', backdropFilter: 'blur(10px)',
       backgroundColor: theme => alpha(theme.palette.background.paper, 0.57), boxShadow: `0px 0px ${level || 0 / 4}px #3d5afe`
     }}>
       <video

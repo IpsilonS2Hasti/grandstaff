@@ -24,7 +24,7 @@ const Profile = () => {
     if (!loading) { user = data.user; console.log(data); }
 
     return (
-        <Box sx={{ overflowY: 'auto', height: '100vh-30px', borderRadius: "15px", width: "100%", backgroundColor: "background.default", margin: "15px 15px 15px 0" }}>
+        <Box sx={{ overflowY: 'auto', borderRadius: "15px", width: "100%", backgroundColor: "background.default", margin: "15px 15px 15px 0" }}>
             {
                 loading
                     ? <CenteredSpinner/>

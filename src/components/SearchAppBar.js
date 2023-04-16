@@ -28,6 +28,7 @@ import FeedTypeDropdown from './FeedTypeDropdown';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
 import axios from 'axios';
+import { Stack, useMediaQuery } from '@mui/material';
 
 export default function SearchAppBar() {
     const { logout } = useLogout();
@@ -36,12 +37,16 @@ export default function SearchAppBar() {
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const loggedUser = JSON.parse(localStorage.getItem('user'));
-    
+
     // console.log(colorMode);
 
-    const RenderFilters = () => {
-        if (pathname == "/find") return <><SearchBar /><ListingFilters /></>;
-        if (pathname == "/" && loggedUser) return <FeedTypeDropdown />;
+    const RenderFilters = (isSecSegment) => {
+        if (isSecSegment) {
+            if (pathname == "/find") return isMobile ? <ListingFilters /> : null;
+        } else {
+            if (pathname == "/find") return isMobile ? <SearchBar /> : <Stack direction="row" alignItems="flex-end"><SearchBar /> <ListingFilters /></Stack>;
+            if (pathname == "/" && loggedUser) return <FeedTypeDropdown />;
+        }
     };
 
     const { collapseSidebar } = useProSidebar();
@@ -51,6 +56,8 @@ export default function SearchAppBar() {
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -87,28 +94,28 @@ export default function SearchAppBar() {
             onClose={handleMenuClose}
         >
             {
-                !loggedUser ? 
-                [
-                    <MenuItem key="login" onClick={() => {
+                !loggedUser ?
+                    [
+                        <MenuItem key="login" onClick={() => {
+                            handleMenuClose();
+                            navigate('/login');
+                        }}>Вписване</MenuItem>,
+                        <MenuItem key="signup" onClick={() => {
+                            handleMenuClose();
+                            logout();
+                            navigate('/signup');
+                        }}>Регистрация</MenuItem>
+                    ]
+                    :
+                    [<MenuItem key="profile" onClick={() => {
                         handleMenuClose();
-                        navigate('/login');
-                    }}>Вписване</MenuItem>,
-                    <MenuItem key="signup" onClick={() => {
+                        navigate('/profile/');
+                    }}>Профил</MenuItem>,
+                    <MenuItem key="logout" onClick={() => {
                         handleMenuClose();
                         logout();
-                        navigate('/signup');
-                    }}>Регистрация</MenuItem>
-                ]
-                :
-                [<MenuItem key="profile" onClick={() => {
-                    handleMenuClose();
-                    navigate('/profile/');
-                }}>Профил</MenuItem>,
-                <MenuItem key="logout" onClick={() => {
-                    handleMenuClose();
-                    logout();
-                    navigate('/login');
-                }}>Излизане</MenuItem>]
+                        navigate('/login');
+                    }}>Излизане</MenuItem>]
             }
         </Menu>
     );
@@ -129,23 +136,27 @@ export default function SearchAppBar() {
             }}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
+            PaperProps={{
+                sx: {
+                    backdropFilter: 'blur(10px)',
+                    backgroundColor: theme => alpha(theme.palette.background.paper, 0.57),
+                    borderRadius: "16px"
+                },
+            }}
         >
-            <MenuItem>
-            <IconButton size="large" color="inherit">
+            <MenuItem onClick={colorMode.toggleColorMode}>
+                <IconButton size="large" color="inherit">
                     {
                         theme.palette.mode === "dark"
-                        ?
-                        <Brightness5Icon/>
-                        :
-                        <DarkModeIcon/>
+                            ?
+                            <Brightness5Icon />
+                            :
+                            <DarkModeIcon />
                     }
                 </IconButton>
-                <p>Съобщения</p>
+                <p>Тема</p>
             </MenuItem>
-            <MenuItem>
-                <NotificationsMenu />
-                <p>Известия</p>
-            </MenuItem>
+            <NotificationsMenu /> {/* Returns MenuItem on mobile */}
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
                     size="large"
@@ -162,7 +173,7 @@ export default function SearchAppBar() {
     );
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box className='appbar-container' sx={{ flexGrow: 1 }}>
             <AppBar position="static" color='secondary'>
                 <Toolbar>
                     <IconButton
@@ -188,13 +199,13 @@ export default function SearchAppBar() {
                     {RenderFilters()}
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={colorMode.toggleColorMode}>
+                        <IconButton size="large" aria-label="change theme" color="inherit" onClick={colorMode.toggleColorMode}>
                             {
                                 theme.palette.mode === "dark"
-                                ?
-                                <Brightness5Icon/>
-                                :
-                                <DarkModeIcon/>
+                                    ?
+                                    <Brightness5Icon />
+                                    :
+                                    <DarkModeIcon />
                             }
                         </IconButton>
                         <NotificationsMenu />
@@ -218,11 +229,13 @@ export default function SearchAppBar() {
                             aria-haspopup="true"
                             onClick={handleMobileMenuOpen}
                             color="inherit"
+                            style={{ marginRight: "-15px" }}
                         >
                             <MoreIcon />
                         </IconButton>
                     </Box>
                 </Toolbar>
+                {RenderFilters(true)}
             </AppBar>
             {renderMobileMenu}
             {renderMenu}

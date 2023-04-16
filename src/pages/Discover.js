@@ -45,7 +45,7 @@ const Discover = () => {
 
     let wpActivated = false;
     return (
-        <Box sx={{ overflowY: 'auto', scrollSnapType: 'y mandatory', height: '100vh-30px', borderRadius: "15px", width: "100%", backgroundColor: isDark ? "background.default" : "#707070", margin: "15px 15px 15px 0" }}>
+        <Box sx={{ overflowY: 'auto', scrollSnapType: 'y mandatory', borderRadius: "15px", width: "100%", backgroundColor: isDark ? "background.default" : "#707070", margin: {lg: "15px 15px 15px 0", xs: "10px 0 0 0"} }}>
             {
                 loading ? <CenteredSpinner /> :
                     curChain.map((user, i) => (

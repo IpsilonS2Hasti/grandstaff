@@ -1,4 +1,4 @@
-import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Slide, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Slide, TextField, Typography, useMediaQuery } from "@mui/material";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
@@ -30,6 +30,8 @@ const ScheduleCalendar = () => {
         });
     }, [])
     const [takenDays, setTakenDays] = useState([]);
+
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const handleChange = () => {
         const date = `${value.getDate()}-${value.getMonth() + 1}-${value.getFullYear()}`
@@ -66,7 +68,7 @@ const ScheduleCalendar = () => {
                     console.log(err);
                 });
             }
-            
+
         } else {
             if (type === "Band") {
                 axios({
@@ -110,31 +112,39 @@ const ScheduleCalendar = () => {
     }
 
     return (
-        <Box sx={{ position: 'fixed', overflowY: 'auto', height: "inherit", width: 'inherit' }}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <StaticDatePicker
-                    className="ScheduleCalendar"
-                    minDate={Date.now()}
-                    maxDate={addYears(Date.now(), 1)}
-                    disablePast
-                    orientation="landscape"
-                    openTo="day"
-                    displayStaticWrapperAs="desktop"
-                    value={value}
-                    onChange={(newValue) => {
-                        setValue(newValue);
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                    renderDay={(day, _value, DayComponentProps) => {
-                        const isSelected = takenDays.includes(`${day.getDate()}-${day.getMonth() + 1}-${day.getFullYear()}`); //Months start from 0?!? Repeat that?!?
-                        if (isSelected) return (
-                            <PickersDay onClick={editView ? handleDoubleClick : () => { }} {...DayComponentProps} disabled={editView ? false : true} sx={{ backgroundColor: '#d32f2f90', [':hover']: { backgroundColor: '#d32f2fAA' } }} />
-                        );
-                        return <PickersDay onClick={editView ? handleDoubleClick : () => { }} {...DayComponentProps} sx={{ backgroundColor: '#00000000' }} />
-                    }}
-                />
-                {editView ? <Button style={{ marginLeft: '110px' }} onClick={handleChange}>Промени Дата</Button> : null}
-            </LocalizationProvider>
+        <Box sx={{ position: 'fixed', overflowY: 'auto', height: isMobile ? "calc(100vh - 394px)" : "inherit", width: "inherit" }}>
+            <Stack direction="row" justifyContent="center">
+                <Box style={isMobile ? {
+                    marginTop: "-24px",
+                    transform: 'scale(0.85)',
+                    transformOrigin: 'center',
+                } : null}>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <StaticDatePicker
+                            className="ScheduleCalendar"
+                            minDate={Date.now()}
+                            maxDate={addYears(Date.now(), 1)}
+                            disablePast
+                            orientation="landscape"
+                            openTo="day"
+                            displayStaticWrapperAs="desktop"
+                            value={value}
+                            onChange={(newValue) => {
+                                setValue(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                            renderDay={(day, _value, DayComponentProps) => {
+                                const isSelected = takenDays.includes(`${day.getDate()}-${day.getMonth() + 1}-${day.getFullYear()}`); //Months start from 0?!? Repeat that?!?
+                                if (isSelected) return (
+                                    <PickersDay onClick={editView ? handleDoubleClick : () => { }} {...DayComponentProps} disabled={editView ? false : true} sx={{ backgroundColor: '#d32f2f90', [':hover']: { backgroundColor: '#d32f2fAA' } }} />
+                                );
+                                return <PickersDay onClick={editView ? handleDoubleClick : () => { }} {...DayComponentProps} sx={{ backgroundColor: '#00000000' }} />
+                            }}
+                        />
+                        {editView ? <Stack direction="row" justifyContent="center"><Button onClick={handleChange}>Промени Дата</Button></Stack> : null }
+                    </LocalizationProvider>
+                </Box>
+            </Stack>
         </Box>
     );
 }

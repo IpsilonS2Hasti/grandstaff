@@ -171,6 +171,13 @@ const EditAccount = () => {
                 keepMounted
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
+                PaperProps={{
+                    sx: {
+                        backdropFilter: 'blur(10px)',
+                        backgroundColor: theme => alpha(theme.palette.background.paper, 0.67),
+                        borderRadius: "16px"
+                    },
+                }}
             >
                 <DialogTitle sx={{ display: 'flex' }}>
                     {"Редакция на данни"}
@@ -183,7 +190,7 @@ const EditAccount = () => {
                         </Tabs>
                     </Stack>
                 <TabPanel value={value} index={0} style={{ marginTop: '25px' }}>
-                    <DialogContent style={{ padding: '15px', width: '400px', marginTop: '-25px' }}>
+                    <DialogContent sx={{ padding: '15px', width: {lg: '400px', xs: 'calc(100vw - 64px)'}, marginTop: '-25px' }}>
                         <Stack direction={'column'} spacing="15px">
                             <Stack spacing={'15px'} direction='row'>
                                 <TextField
@@ -256,7 +263,7 @@ const EditAccount = () => {
                     </DialogContent>
                 </TabPanel>
                 <TabPanel value={value} index={1} style={{ marginTop: '25px' }}>
-                    <DialogContent style={{ padding: '15px', width: '400px', marginTop: '-25px' }}>
+                    <DialogContent sx={{ padding: '15px', width: {lg: '400px', xs: 'calc(100vw - 64px)'}, marginTop: '-25px' }}>
                         <Stack direction={'column'} spacing="15px">
                             <Stack direction='row'>
                                 <TextField sx={{ width: '500px' }}
@@ -304,7 +311,7 @@ const EditAccount = () => {
                     </DialogContent>
                 </TabPanel>
                 <TabPanel value={value} index={2} style={{ marginTop: '25px' }}>
-                    <DialogContent style={{ padding: '15px', width: '400px', marginTop: '-25px' }}>
+                    <DialogContent sx={{ padding: '15px', width: {lg: '400px', xs: 'calc(100vw - 64px)'}, marginTop: '-25px' }}>
                         <Stack direction={'column'} spacing="15px">
                             <Stack direction='row'>
                                 <FormControl variant="outlined" sx={{ width: '500px' }}>

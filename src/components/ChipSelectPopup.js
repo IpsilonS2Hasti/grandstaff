@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { alpha, Chip, Grid, Stack, Typography } from '@mui/material';
+import { alpha, Box, Chip, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 import { useSearchParams } from "react-router-dom";
 import SearchField from './SearchField';
 
@@ -19,6 +19,7 @@ const ChipSelectPopup = ({ data }) => {
     const [open, setOpen] = React.useState(false);
     const [query, setQuery] = React.useState('');
     const [searchParams, setSearchParams] = useSearchParams();
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const labelName = () => {
         if (selEls.length == 0) return data.chipName;
@@ -57,11 +58,19 @@ const ChipSelectPopup = ({ data }) => {
                 keepMounted
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
+                PaperProps={{
+                    sx: {
+                        backdropFilter: 'blur(10px)',
+                        backgroundColor: theme => alpha(theme.palette.background.paper, 0.67),
+                        borderRadius: "16px"
+                    },
+                }}
             >
                 <DialogTitle sx={{ display: 'flex' }}>
                     {data.title}
-                    <SearchField onChange={e => setQuery(e.target.value)} value={query} />
+                    {isMobile ? null : <SearchField onChange={e => setQuery(e.target.value)} value={query} />}
                 </DialogTitle>
+                {isMobile ? <Box padding="0 15px"><SearchField onChange={e => setQuery(e.target.value)} value={query} /></Box> : null}
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         <Grid container spacing={'5px'}>

@@ -36,7 +36,7 @@ const BandTile = ({ name, pfpUrl, genres, memberCount, addMode, _id, userId }) =
                 :
                 () => navigate('/band/' + _id)
             }>
-                <Box sx={{ width: addMode ? '400px' : '350px', display: 'flex', padding: '10px 7.5px', flexDirection: 'row', alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.12)' }}>
+                <Box sx={{ display: 'flex', padding: '10px 7.5px', flexDirection: 'row', alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.12)' }}>
                     <Box style={{
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',

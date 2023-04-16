@@ -7,12 +7,13 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { chipData } from "../lib/chipData";
-import { Chip, Grid, Stack, Typography, IconButton } from '@mui/material';
+import { Chip, Grid, Stack, Typography, IconButton, useMediaQuery, Box } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SearchField from './SearchField';
 import axios from 'axios';
 import { useParams } from 'react-router';
 import { EntityContext } from '../context/EntityContext';
+import { alpha } from '@mui/system';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -26,6 +27,8 @@ const DialogPopup = ({ data, selected, type, externalSetState }) => {
     const [query, setQuery] = React.useState('');
     const user = JSON.parse(localStorage.getItem('user'));
     const { _id } = useParams();
+
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -120,11 +123,19 @@ const DialogPopup = ({ data, selected, type, externalSetState }) => {
                 keepMounted
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
+                PaperProps={{
+                    sx: {
+                        backdropFilter: 'blur(10px)',
+                        backgroundColor: theme => alpha(theme.palette.background.paper, 0.67),
+                        borderRadius: "16px"
+                    },
+                }}
             >
                 <DialogTitle sx={{ display: 'flex' }}>
                     {data.title}
-                    <SearchField onChange={e => setQuery(e.target.value)} value={query} />
+                    {isMobile ? null : <SearchField onChange={e => setQuery(e.target.value)} value={query} />}
                 </DialogTitle>
+                {isMobile ? <Box padding="0 15px"><SearchField onChange={e => setQuery(e.target.value)} value={query} /></Box> : null}
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         <Grid container spacing={'5px'}>

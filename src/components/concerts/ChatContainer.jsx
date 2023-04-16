@@ -21,7 +21,7 @@ const ChatContainer = (props) => {
     }
   }, [storeMessages]);
   return (
-    <Card sx={{ flex: 1, position: 'relative', height: "fit-content", borderRadius: '10px', backdropFilter: 'blur(10px)', padding: '10px',
+    <Card sx={{ position: 'relative', height: "fit-content", width: {lg: '376px', xs: 'calc(100vw - 64px)'}, flexShrink: 0, borderRadius: '10px', backdropFilter: 'blur(10px)', padding: '10px',
       backgroundColor: theme => alpha(theme.palette.background.paper, 0.57) }}>
       <Box id='chat-feed' style={{ height: 'calc(80vh - 100px)', overflowY: "auto", whiteSpace: "break-spaces", wordWrap: "break-word"}}>
         {storeMessages.map((m) => (

@@ -5,7 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField, alpha} from '@mui/material';
 import { Stack } from '@mui/system';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -81,11 +81,18 @@ const EditBand = () => {
                 keepMounted
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
+                PaperProps={{
+                    sx: {
+                        backdropFilter: 'blur(10px)',
+                        backgroundColor: theme => alpha(theme.palette.background.paper, 0.67),
+                        borderRadius: "16px"
+                    },
+                }}
             >
                 <DialogTitle sx={{ display: 'flex' }}>
                     {"Редакция на данни"}
                 </DialogTitle>
-                <DialogContent style={{ padding: '15px', width: '400px' }}>
+                <DialogContent sx={{ padding: '15px', width: {lg: '400px', xs: 'calc(100vw - 64px)'} }}>
                     <Stack direction={'column'} spacing="15px">
                         <Stack spacing={'15px'} direction='row'>
                             <TextField

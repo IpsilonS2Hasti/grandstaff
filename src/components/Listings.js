@@ -1,5 +1,5 @@
 import ProfileListing from "./ProfileListing";
-import { Box, Card, CardActionArea, Grid, IconButton, Stack } from "@mui/material";
+import { Box, Card, CardActionArea, Grid, IconButton, Stack, useMediaQuery } from "@mui/material";
 import JobListing from "./JobListing";
 import AddIcon from '@mui/icons-material/Add';
 import CreateJobPopup from "./CreateJobPopup";
@@ -10,6 +10,7 @@ import axios from "axios";
 
 const Listings = ({ listingsOg, type, createMode, search }) => {
     const [ listings, setListings ] = useState(listingsOg);
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const loadMore = cursor => {
         const user = JSON.parse(localStorage.getItem('user'));
@@ -33,7 +34,7 @@ const Listings = ({ listingsOg, type, createMode, search }) => {
     }
 
     return (
-        <div style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fit, minmax(${type === "Employer" ? "400px" : "300px"}, 1fr))`, gap: '25px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fit, minmax(${type === "Employer" && !isMobile ? "400px" : "300px"}, 1fr))`, gap: '25px' }}>
             {
                 listings.map((listing, i) => (
                     <Fragment key={listing._id}>

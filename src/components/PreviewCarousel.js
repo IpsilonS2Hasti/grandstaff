@@ -17,6 +17,7 @@ const PreviewCarousel = ({ miniMode }) => {
     let { previews, _id } = useContext(EntityContext);
     if (!previews) previews = [];
     const largeScreen = useMediaQuery((theme) => theme.breakpoints.up('xl'));
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     const renderSlideContent = (type, cover, source) => {
         if (type === 'video')
@@ -34,16 +35,16 @@ const PreviewCarousel = ({ miniMode }) => {
     return (
         <Stack direction="row">
             <Box
-                display={previews ? (previews.length < 2 ? 'none' : 'flex') : 'none'}
+                display={previews && !isMobile ? (previews.length < 2 ? 'none' : 'flex') : 'none'}
                 justifyContent="center"
                 alignItems="center"
                 minHeight="100%"
             >
                 <ArrowBackIosNewIcon className={`swiper-button-prev${_id}`} style={{ cursor: 'pointer', width: '50px', height: '36px' }} /> {/* DISABLE ARROWS ON BREAKPOINT!  */}
             </Box>
-            <Box maxWidth={'calc(100% - 76px)'} margin={'auto'}> {/* Remake with flex?  */}
+            <Box maxWidth={isMobile ? '100%' : 'calc(100% - 76px)'} margin={'auto'}> {/* Remake with flex?  */}
                 <Swiper
-                    allowTouchMove={false}
+                    allowTouchMove={true}
                     effect={"cards"}
                     centeredSlides={true}
                     slidesPerView={"auto"}
@@ -61,7 +62,7 @@ const PreviewCarousel = ({ miniMode }) => {
                     className="mySwiper"
                 >
                     {previews.map(({type, cover, source}) => (
-                        <SwiperSlide style={{ height: !largeScreen || miniMode ? '350px' : '500px', width: !largeScreen || miniMode ? '400px' : '650px' }}>
+                        <SwiperSlide style={{ height: isMobile ? '275px' : !largeScreen || miniMode ? '350px' : '500px', width: isMobile ? '275px' : !largeScreen || miniMode ? '400px' : '650px' }}>
                             {({ isActive }) => {
                                 if (!isActive)
                                     return (
@@ -78,7 +79,7 @@ const PreviewCarousel = ({ miniMode }) => {
                 </Swiper>
             </Box>
             <Box
-                display={previews.length < 2 ? 'none' : 'flex'}
+                display={previews.length < 2 || isMobile ? 'none' : 'flex'}
                 justifyContent="center"
                 alignItems="center"
                 minHeight="100%"

@@ -112,7 +112,7 @@ const ChatArea = ({ user }) => {
                     <b>{username}</b>
                 </Typography>
             </Stack>
-            <Stack sx={{ direction: 'column', width: "675px", overflowY: 'auto', flexGrow: 1 }}>
+            <Stack sx={{ direction: 'column', width: {lg: "675px", xs: "100%"}, overflowY: 'auto', flexGrow: 1 }}>
                 {messages.map(msg => <Message {...msg} />)}
             </Stack>
             <Box sx={{ margin: "0 15px 15px 15px", }}>

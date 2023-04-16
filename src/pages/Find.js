@@ -26,7 +26,7 @@ const Find = ({ createMode }) => {
     console.log("BOB", data);
 
     return (
-        <Box sx={{ overflowY: 'auto', height: '100vh-30px', borderRadius: "15px", padding: "15px 25px", width: "100%", backgroundColor: "background.default", margin: "15px 15px 15px 0" }}>
+        <Box sx={{ overflowY: 'auto', borderRadius: "15px", padding: "15px 25px", width: "100%", backgroundColor: "background.default", margin: {lg: "15px 15px 15px 0", xs: "10px 0 0 0"} }}>
             {loading ? 
                 <CenteredSpinner /> :
                 <Listings listingsOg={data.queryUsers ? data.queryUsers : data.queryBands} type={data.type} createMode={pathname === '/job'} search={search} />

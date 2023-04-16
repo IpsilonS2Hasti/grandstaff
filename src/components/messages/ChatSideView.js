@@ -20,7 +20,7 @@ const ChatSideView = () => {
         },
     ];
     return (
-        <Box sx={{ overflowY: 'auto', height: '100%', width: "350px", backgroundColor: "background.paper", borderLeft: '1px solid rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(10px)', backgroundColor: theme => alpha(theme.palette.background.paper, 0.57) }}>
+        <Box sx={{ overflowY: 'auto', height: '100%', width: {lg: "350px", xs: "calc(100vw - 60px)"}, backgroundColor: "background.paper", borderLeft: {lg: '1px solid rgba(255, 255, 255, 0.12)', xs:""}, backdropFilter: 'blur(10px)', backgroundColor: theme => alpha(theme.palette.background.paper, 0.57) }}>
             <Stack direction="column">
                 <Stack
                     justifyContent="center"

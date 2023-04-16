@@ -36,20 +36,21 @@ const Join = () => {
       });
   };
   return (
-    <Card sx={{ position: 'relative', margin: "auto", marginTop: '40px', borderRadius: '10px', backdropFilter: 'blur(10px)', width: '420px', padding: '15px', backgroundColor: theme => alpha(theme.palette.background.paper, 0.57) }}>
+    <Card sx={{ position: 'relative', margin: "auto", marginTop: {lg: '40px', xs: '0'}, borderRadius: '10px', backdropFilter: 'blur(10px)', width: {lg: '420px', xs: 'calc(100% - 64px)'}, padding: '15px', backgroundColor: theme => alpha(theme.palette.background.paper, 0.57) }}>
       <Stack direction={'row'} alignItems="center">
-        <Box style={{
+        <Box sx={{
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundImage: `url(${pfpUrl})`,
           borderRadius: '20px',
-          height: '125px',
-          width: '125px',
-          marginRight: '15px'
+          height: {lg: '125px', xs: '85px'},
+          width: {lg: '125px', xs: '85px'},
+          marginRight: '15px',
+          flexShrink: 0
         }} />
         <Box>
-          <Typography variant='h5'>{username}</Typography>
+          <Typography variant='h5' fontSize={{lg:"", xs:"20px"}}>{username}</Typography>
           <SelectRole state={{ role, setRole }} />
         </Box>
       </Stack>

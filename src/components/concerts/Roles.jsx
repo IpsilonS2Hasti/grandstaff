@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHMSActions } from '@100mslive/react-sdk';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import { IconButton, Menu, MenuItem, alpha } from '@mui/material';
 
 const Permission = ({ audioTrack, id }) => {
   const hmsActions = useHMSActions();
@@ -29,6 +29,13 @@ const Permission = ({ audioTrack, id }) => {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
+        PaperProps={{
+          sx: {
+              backdropFilter: 'blur(10px)',
+              backgroundColor: theme => alpha(theme.palette.background.paper, 0.67),
+              borderRadius: "16px"
+          },
+      }}
       >
         <MenuItem onClick={() => changeRole('listener')}>Направи Слушател</MenuItem>
         <MenuItem onClick={() => changeRole('musician')}>Направи Изпълнител</MenuItem>

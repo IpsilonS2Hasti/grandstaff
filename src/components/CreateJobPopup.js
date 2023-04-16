@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { Box, Card, CardActionArea, IconButton, TextField, Typography } from '@mui/material';
-import { Stack } from '@mui/system';
+import { Stack, alpha } from '@mui/system';
 import AddIcon from '@mui/icons-material/Add';
 import { chipData } from '../lib/chipData';
 import DialogPopup from './DialogPopup';
@@ -82,11 +82,18 @@ const CreateJobPopup = () => {
                 keepMounted
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
+                PaperProps={{
+                    sx: {
+                        backdropFilter: 'blur(10px)',
+                        backgroundColor: theme => alpha(theme.palette.background.paper, 0.67),
+                        borderRadius: "16px"
+                    },
+                }}
             >
                 <DialogTitle sx={{ display: 'flex' }}>
                     {"Създаване на Обява"}
                 </DialogTitle>
-                <DialogContent style={{ padding: '15px', width: '400px' }}>
+                <DialogContent sx={{ padding: '15px', width: {lg: '400px', xs: "calc(100vw - 64px)"} }}>
                     <Stack direction={'column'} spacing="15px">
                         <TextField
                             required

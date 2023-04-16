@@ -26,6 +26,7 @@ import { EntityContext } from "../context/EntityContext";
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginMediaPreview);
 
 const EditPreviewCarousel = ({ miniMode }) => {
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const { previews: initPreviews, _id, type } = useContext(EntityContext);
     let isBand = type === "Band";
     const [previews, setPreviews] = useState([...initPreviews]);
@@ -350,16 +351,16 @@ const EditPreviewCarousel = ({ miniMode }) => {
     return (
         <Stack direction="row">
             <Box
-                display={previews.length < 1 ? 'none' : 'flex'}
+                display={previews.length < 1 || isMobile ? 'none' : 'flex'}
                 justifyContent="center"
                 alignItems="center"
                 minHeight="100%"
             >
                 <ArrowBackIosNewIcon className={`swiper-button-prev${_id}`} style={{ cursor: 'pointer', width: '50px', height: '36px' }} /> {/* DISABLE ARROWS ON BREAKPOINT!  */}
             </Box>
-            <Box maxWidth={'calc(100% - 76px)'} margin={'auto'}> {/* Remake with flex?  */}
+            <Box maxWidth={isMobile ? '100%' : 'calc(100% - 76px)'} margin={'auto'}> {/* Remake with flex?  */}
                 <Swiper
-                    allowTouchMove={false}
+                    allowTouchMove={true}
                     effect={"cards"}
                     centeredSlides={true}
                     slidesPerView={"auto"}
@@ -378,7 +379,7 @@ const EditPreviewCarousel = ({ miniMode }) => {
                 >
 
                     {previews.map(({ type, cover, source }, index) => (
-                        <SwiperSlide style={{ height: !largeScreen || miniMode ? '350px' : '500px', width: !largeScreen || miniMode ? '400px' : '650px' }}>
+                        <SwiperSlide style={{ height: isMobile ? '275px' : !largeScreen || miniMode ? '350px' : '500px', width: isMobile ? '275px' : !largeScreen || miniMode ? '400px' : '650px' }}>
                             {({ isActive }) => {
                                 if (!isActive)
                                     return (
@@ -397,7 +398,7 @@ const EditPreviewCarousel = ({ miniMode }) => {
                     {
                         previews.length < 10
                             ?
-                            <SwiperSlide style={{ height: miniMode ? '350px' : '500px', width: !largeScreen || miniMode ? '400px' : '650px' }}>
+                            <SwiperSlide style={{ height: isMobile ? '275px' : !largeScreen || miniMode ? '350px' : '500px', width: isMobile ? '275px' : !largeScreen || miniMode ? '400px' : '650px' }}>
                                 <Box sx={{ backdropFilter: 'blur(15px)', backgroundColor: theme => theme.palette.mode === 'dark' ? "#878787AA" : alpha(theme.palette.background.default, 0.67), borderRadius: '16px' }}>
                                     <FilePond
                                         files={files}
@@ -409,7 +410,7 @@ const EditPreviewCarousel = ({ miniMode }) => {
                                         name="files" /* sets the file input name, it's filepond by default */
                                         labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
                                         stylePanelLayout='integrated'
-                                        stylePanelAspectRatio={largeScreen && !miniMode ? '650:500' : '400:350'}
+                                        stylePanelAspectRatio={isMobile ? '1:1' :largeScreen && !miniMode ? '650:500' : '400:350'}
                                         credits={false}
                                     />
                                 </Box>
@@ -420,7 +421,7 @@ const EditPreviewCarousel = ({ miniMode }) => {
                 </Swiper>
             </Box>
             <Box
-                display={previews.length < 1 ? 'none' : 'flex'}
+                display={previews.length < 1 || isMobile ? 'none' : 'flex'}
                 justifyContent="center"
                 alignItems="center"
                 minHeight="100%"

@@ -8,7 +8,7 @@ const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
-    
+
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
@@ -24,7 +24,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
-        
+
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('md')]: {
@@ -45,25 +45,26 @@ const SearchBar = () => {
     }
 
     const keyPress = (e) => {
-        if(e.keyCode == 13){
-           handleClick();
+        if (e.keyCode == 13) {
+            handleClick();
         }
-     }
+    }
 
     return (
-        <Search>
-                <IconButton onClick={handleClick} sx={{
-                    ['&:hover']: theme => ({
-                        backgroundColor: alpha(theme.palette.common.white, 0.20),
-                    }),
-                }}>
-                    <SearchIcon style={{color: '#ffffffDD'}}/>
-                </IconButton>
+        <Search style={{whiteSpace: "nowrap",}}>
+            <IconButton onClick={handleClick} sx={{
+                ['&:hover']: theme => ({
+                    backgroundColor: alpha(theme.palette.common.white, 0.20),
+                }),
+            }}>
+                <SearchIcon style={{ color: '#ffffffDD' }} />
+            </IconButton>
 
             <StyledInputBase
+            style={{width: "calc(100% - 40px)"}}
                 onKeyDown={keyPress}
                 onChange={e => setQuery(e.target.value)}
-                placeholder="Потърси по име..."
+                placeholder="Търси по име..."
                 inputProps={{ 'aria-label': 'search' }}
             />
         </Search>

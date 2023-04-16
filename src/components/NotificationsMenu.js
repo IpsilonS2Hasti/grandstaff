@@ -1,4 +1,4 @@
-import { Badge, Box, IconButton, Popover, Typography } from "@mui/material";
+import { Badge, Box, IconButton, MenuItem, Popover, Typography, alpha, useMediaQuery } from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useEffect, useState } from "react";
 import BandTileNotif from "./BandTileNotif";
@@ -6,6 +6,7 @@ import axios from "axios";
 
 const NotificationsMenu = () => {
     const [anchorEl, setAnchorEl] = useState(null);
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
     // const data = [
     //     {
@@ -28,7 +29,7 @@ const NotificationsMenu = () => {
         if (user) {
             axios({
                 method: 'get',
-                url: 'https://grandstaff.herokuapp.com/api/notifications/getNotifications/' + ( user.userId ),
+                url: 'https://grandstaff.herokuapp.com/api/notifications/getNotifications/' + (user.userId),
             }).then(res => {
                 setData(res.data.bands)
                 console.log(data);
@@ -36,7 +37,7 @@ const NotificationsMenu = () => {
                 console.log(err);
             });
         }
-        else {}
+        else { }
     }, []);
 
     const handleClick = (event) => {
@@ -51,15 +52,30 @@ const NotificationsMenu = () => {
     const id = open ? 'simple-popover' : undefined;
     return (
         <div>
-            <IconButton
-                size="large"
-                color="inherit"
-                onClick={handleClick}
-            >
-                <Badge badgeContent={data.length} color="error">
-                    <NotificationsIcon />
-                </Badge>
-            </IconButton>
+            {
+                isMobile ?
+                    <MenuItem onClick={handleClick}>
+                        <IconButton
+                            size="large"
+                            color="inherit"
+                        >
+                            <Badge badgeContent={data.length} color="error">
+                                <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
+                        <p>Известия</p>
+                    </MenuItem>
+                    :
+                    <IconButton
+                        size="large"
+                        color="inherit"
+                        onClick={handleClick}
+                    >
+                        <Badge badgeContent={data.length} color="error">
+                            <NotificationsIcon />
+                        </Badge>
+                    </IconButton>
+            }
             <Popover
                 id={id}
                 open={open}
@@ -73,8 +89,15 @@ const NotificationsMenu = () => {
                     vertical: 'top',
                     horizontal: 'right',
                 }}
+                PaperProps={{
+                    sx: {
+                        backdropFilter: 'blur(10px)',
+                        backgroundColor: theme => alpha(theme.palette.background.paper, 0.67),
+                        borderRadius: "16px"
+                    },
+                }}
             >
-                <Box sx={{ width: '400px', height: '500px' }}>
+                <Box sx={{ width: { xl: "400px", lg: "400px", xs: "calc(100vw - 64px)" }, height: '500px' }}>
                     <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: "12.5px 5px", borderBottom: '1px solid rgba(255, 255, 255, 0.12)' }}>
                         <NotificationsIcon />
                         <Box width="5px" />

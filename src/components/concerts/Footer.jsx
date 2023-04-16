@@ -11,6 +11,8 @@ import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
+import ChatContainer from './ChatContainer';
+import MobileChatPopUp from './MobileChatPopUp';
 
 const Footer = ({ count }) => {
   const hmsActions = useHMSActions();
@@ -54,6 +56,9 @@ const Footer = ({ count }) => {
       }}>
         Напусни
       </Button>
+      <MobileChatPopUp>
+        <ChatContainer />
+      </MobileChatPopUp>
     </Stack>
   );
 };

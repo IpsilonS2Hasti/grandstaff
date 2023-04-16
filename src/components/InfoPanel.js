@@ -1,4 +1,4 @@
-import { alpha, Box, Card, Divider, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { alpha, Box, Card, Divider, Stack, Tab, Tabs, Typography, useMediaQuery } from "@mui/material";
 import ScheduleCalendar from "./ScheduleCalendar";
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
@@ -20,7 +20,7 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-                <Box sx={{width: '100%', height: { xl: 'calc(100% - 430px)', lg: 'calc(100% - 330px)' }}}>
+                <Box sx={{ width: '100%', height: { xl: 'calc(100% - 430px)', lg: 'calc(100% - 330px)' } }}>
                     {children}
                 </Box>
             )}
@@ -33,16 +33,24 @@ const InfoPanel = () => {
     let isBand = type === "Band";
     const [value, setValue] = useState(0);
 
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
     return (
-        <Card sx={{ position: 'relative', backgroundColor: 'background.paper', marginLeft: '25px', borderRadius: '10px', height: { xl: '95%', lg: '100%' }, width: '350px', backdropFilter: 'blur(10px)', backgroundColor: theme => alpha(theme.palette.background.paper, 0.57) }}>
-            <Box sx={{ overflowY: 'auto', padding: '15px', height: { xl: '300px', lg: '200px' }, lineHeight: 'normal' }}>
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        <Card sx={{
+            position: 'relative',
+            borderRadius: '10px',
+            backgroundColor: 'background.paper',
+            height: { xl: '95%', lg: '100%', xs:"700px" }, width: isMobile ? "calc(100vw - 64px)" : "350px", backdropFilter: 'blur(10px)',
+            backgroundColor: theme => alpha(theme.palette.background.paper, 0.57)
+        }}>
+            <Box sx={{ overflowY: 'auto', padding: '15px', height: { xl: '300px', lg: '200px', xs: '200px' }, lineHeight: 'normal' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <b>Информация: </b>
                     {editView ?
-                        <EditInfoPopup/> //REWIRED
+                        <EditInfoPopup /> //REWIRED
                         :
                         null
                     }
@@ -54,7 +62,7 @@ const InfoPanel = () => {
                         <Typography variant="p" component="p" marginTop='5px'>{uniEd}</Typography>
                     </div> : null
                 }
-                
+
                 <Typography variant="p" component="p" fontSize="16px" marginTop='5px'>{desc}</Typography>
             </Box>
             <Divider />
@@ -78,10 +86,10 @@ const InfoPanel = () => {
                 </Tabs>
             </Stack>
             <TabPanel value={value} index={0}>
-                <ScheduleCalendar/>
+                <ScheduleCalendar />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <InfoStack/>
+                <InfoStack />
             </TabPanel>
         </Card>
     );

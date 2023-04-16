@@ -39,7 +39,7 @@ function App() {
             <div style={{ display: 'flex', height: 'calc(100vh - 65px)' }}>
               <SideNav />
               <Routes>
-                <Route path="/find" element={<Find />} />{/* Make seperate find routes for the 3 types in the future?*/}
+                <Route path="/find" element={<Find />} />
                 <Route path="/" element={<Discover />} />
                 <Route path="/concerts" element={<Concerts />} />
                 <Route path="/profile" element={<Profile />} />

@@ -2,15 +2,18 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import { Link, useLocation } from "react-router-dom";
 import { navData } from '../lib/navData';
+import { Drawer, Stack, Typography, alpha, useMediaQuery } from '@mui/material';
+import { useState } from 'react';
 
 const SideNav = () => {
-    const { collapseSidebar } = useProSidebar();
+    const { collapsed, collapseSidebar } = useProSidebar();
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const { pathname } = useLocation();
     const mainPath = '/' + pathname.split('/')[1];
-    return (
-        <Sidebar
-            // For 720p displays, make width smaller and make it collapsed by default or just have it be perma collapsed
-            style={{ position: 'sticky', top: 0, borderRadius: "15px", marginTop: "15px", marginBottom: "15px", height: "90vh" }} rootStyles={{  //!sticky
+
+    const renderMenu = () => {
+        return <Sidebar
+            style={{ position: 'sticky', top: 0, borderRadius: "15px", marginTop: "15px", marginBottom: "15px", height: "90vh" }} rootStyles={{
                 border: "none",
                 [`.ps-sidebar-container`]: {
                     backgroundColor: '#00000000',
@@ -43,12 +46,43 @@ const SideNav = () => {
                         active={mainPath === cur.path ? true : false}
                         routerLink={<Link to={cur.path} />}
                         icon={cur.icon}
+                        onClick={() => isMobile ? collapseSidebar(true) : null}
                     >
                         {cur.name}
                     </MenuItem>
                 ))}
             </Menu>
         </Sidebar>
+    }
+
+    const renderMobileDrawer = () => {
+        return <Drawer
+            PaperProps={{
+                sx: {
+                    backdropFilter: 'blur(10px)',
+                    backgroundColor: theme => alpha(theme.palette.background.paper, 0.57),
+                    borderRadius: "0 16px 16px 0"
+                },
+            }}
+            open={!collapsed}
+            onClose={() => collapseSidebar(true)}
+        >
+            <Stack alignItems="center" justifyContent="center" width="100%" height="65px" style={{ borderBottom: '2px solid rgba(255, 255, 255, 0.2)' }}>
+                <Typography variant="p" component="div" fontSize="20px">
+                    <b>Петолиние</b>
+                </Typography>
+            </Stack>
+            {renderMenu()}
+        </Drawer>
+    }
+
+
+
+    return (
+        isMobile ?
+            renderMobileDrawer()
+            :
+            renderMenu()
     );
 }
 

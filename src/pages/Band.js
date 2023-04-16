@@ -29,7 +29,7 @@ const Band = () => {
     const isDark = theme.palette.mode === 'dark';
 
     return (
-        <Box sx={{ overflowY: 'auto', height: '100vh-30px', borderRadius: "15px", width: "100%", backgroundColor: "background.default", margin: "15px 15px 15px 0" }}>
+        <Box sx={{ overflowY: 'auto', borderRadius: "15px", width: "100%", backgroundColor: "background.default", margin: { lg: "15px 15px 15px 0", xs: "15px 15px 15px 15px" } }}>
             {
                 loading
                     ? <CenteredSpinner/>

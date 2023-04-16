@@ -52,7 +52,7 @@ const BandTileNotif = ({ name, pfpUrl, genres, memberCount, _id, notifId, setDat
     return (
         <Card style={{ backgroundColor: "#00000000" }} elevation="0" >
             <CardActionArea onClick={() => navigate('/band/' + _id)}>
-                <Box sx={{ width: '400px', display: 'flex', padding: '10px 7.5px', flexDirection: 'row', alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.12)' }}>
+                <Box sx={{ width: {lg: '400px', xs: "100%"}, display: 'flex', padding: '10px 7.5px', flexDirection: 'row', alignItems: 'center', borderBottom: '1px solid rgba(255, 255, 255, 0.12)' }}>
                     <Box style={{
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat',

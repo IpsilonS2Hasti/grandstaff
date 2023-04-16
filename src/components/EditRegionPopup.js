@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { alpha, Chip, Grid, Stack, Typography } from '@mui/material';
+import { alpha, Box, Chip, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 import { useParams, useSearchParams } from "react-router-dom";
 import SearchField from './SearchField';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -25,17 +25,19 @@ const EditRegionPopup = ({ data }) => {
     const user = JSON.parse(localStorage.getItem('user'));
     const { _id } = useParams();
 
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+
     const handleClickOpen = () => {
         setOpen(true);
     };
 
     const handleClose = () => {
         const user = JSON.parse(localStorage.getItem('user'));
-        if (type==="Band") {
+        if (type === "Band") {
             axios({
                 method: 'patch',
                 url: 'https://grandstaff.herokuapp.com/api/band/editBand',
-                headers: {'Authorization': 'Bearer ' + (user != null ? user.token : '0')},
+                headers: { 'Authorization': 'Bearer ' + (user != null ? user.token : '0') },
                 data: {
                     city: city,
                     bandId: _id
@@ -49,7 +51,7 @@ const EditRegionPopup = ({ data }) => {
             axios({
                 method: 'patch',
                 url: 'https://grandstaff.herokuapp.com/api/define',
-                headers: {'Authorization': 'Bearer ' + (user != null ? user.token : '0')},
+                headers: { 'Authorization': 'Bearer ' + (user != null ? user.token : '0') },
                 data: {
                     city: city,
                     jobId: _id
@@ -66,18 +68,26 @@ const EditRegionPopup = ({ data }) => {
 
     return (
         <div>
-             <Chip icon={<LocationOnIcon fontSize='small' />} label={city} onClick={handleClickOpen}/>
+            <Chip icon={<LocationOnIcon fontSize='small' />} label={city} onClick={handleClickOpen} />
             <Dialog
                 open={open}
                 TransitionComponent={Transition}
                 keepMounted
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
+                PaperProps={{
+                    sx: {
+                        backdropFilter: 'blur(10px)',
+                        backgroundColor: theme => alpha(theme.palette.background.paper, 0.67),
+                        borderRadius: "16px"
+                    },
+                }}
             >
                 <DialogTitle sx={{ display: 'flex' }}>
                     {data.title}
-                    <SearchField onChange={e => setQuery(e.target.value)} value={query} />
+                    {isMobile ? null : <SearchField onChange={e => setQuery(e.target.value)} value={query} />}
                 </DialogTitle>
+                {isMobile ? <Box padding="0 15px"><SearchField onChange={e => setQuery(e.target.value)} value={query} /></Box> : null}
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
                         <Grid container spacing={'5px'}>
@@ -86,7 +96,7 @@ const EditRegionPopup = ({ data }) => {
                                     if (!el.toLowerCase().includes(query.toLowerCase())) return;
                                     return (
                                         <Grid item>
-                                            <Chip label={el} color={el===city ? 'primary' : 'default'} onClick={() => setEntityState(prev => ({...prev, city: el}))} />
+                                            <Chip label={el} color={el === city ? 'primary' : 'default'} onClick={() => setEntityState(prev => ({ ...prev, city: el }))} />
                                         </Grid>
                                     )
                                 })

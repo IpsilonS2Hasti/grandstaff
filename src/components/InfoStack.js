@@ -68,8 +68,9 @@ const InfoStack = () => {
         <Box sx={{
             position: 'fixed',
             overflowY: 'auto',
+            overflowX: 'hidden',
             height: { xl: 'calc(100% - 430px)', lg: 'calc(100% - 330px)', xs: "calc(100vh - 394px)" },
-            width: {xl: "auto", lg: "auto", xs: "calc(100vw - 64px)"},
+            width: {xl: "350px", lg: "350px", xs: "calc(100vw - 64px)"},
             lineHeight: 'normal'
         }}>
             {data ? data.map(

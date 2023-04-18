@@ -29,11 +29,14 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
 import axios from 'axios';
 import { Stack, useMediaQuery } from '@mui/material';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import { MobileDrawerContext } from './messages/MobileSideViewDrawer';
 
 export default function SearchAppBar() {
     const { logout } = useLogout();
     const theme = useTheme();
     const colorMode = useContext(ColorModeContext);
+    const { setIsOpen } = useContext(MobileDrawerContext);
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const loggedUser = JSON.parse(localStorage.getItem('user'));
@@ -233,6 +236,17 @@ export default function SearchAppBar() {
                         >
                             <MoreIcon />
                         </IconButton>
+                        {isMobile && pathname == "/messages" ?
+                            <IconButton
+                                size="large"
+                                aria-label="all chats"
+                                onClick={() => setIsOpen(true)}
+                                color="inherit"
+                                style={{ marginRight: "-15px" }}
+                            >
+                                <PeopleAltIcon />
+                            </IconButton>
+                            : null}
                     </Box>
                 </Toolbar>
                 {RenderFilters(true)}

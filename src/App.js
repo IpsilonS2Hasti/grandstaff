@@ -19,6 +19,7 @@ import Forgotpass from "./pages/Forgotpass";
 import { HMSRoomProvider } from "@100mslive/react-sdk";
 import Concerts from "./pages/Concerts";
 import Messages from "./pages/Messages";
+import { MobileDrawerContextProvider } from "./components/messages/MobileSideViewDrawer";
 
 function App() {
   const [mode, setMode] = useState('dark');
@@ -33,29 +34,31 @@ function App() {
     <ColorModeContextProvider setMode={setMode}>
       <ThemeProvider theme={themeMemo}>
         <CssBaseline>
-        <HMSRoomProvider>
-          <Box id="app" sx={{ backgroundColor: "background.paper" }}>
-            <SearchAppBar />
-            <div style={{ display: 'flex', height: 'calc(100vh - 65px)' }}>
-              <SideNav />
-              <Routes>
-                <Route path="/find" element={<Find />} />
-                <Route path="/" element={<Discover />} />
-                <Route path="/concerts" element={<Concerts />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/messages" element={<Messages />}/>
-                <Route path="/messages/:chatUid" element={<Messages />}/>
-                <Route path="/band/:_id" element={<Band />} />
-                <Route path="/job" element={<Find />} />
-                <Route path="/job/:_id" element={<Job />} />
-                <Route path="/profile/:_id" element={<Profile />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/resetpass" element={<Resetpass />} />
-                <Route path="/forgotpass" element={<Forgotpass />} />
-              </Routes>
-            </div>
-          </Box>
+          <HMSRoomProvider>
+            <MobileDrawerContextProvider>
+              <Box id="app" sx={{ backgroundColor: "background.paper" }}>
+                <SearchAppBar />
+                <div style={{ display: 'flex', height: 'calc(100vh - 65px)' }}>
+                  <SideNav />
+                  <Routes>
+                    <Route path="/find" element={<Find />} />
+                    <Route path="/" element={<Discover />} />
+                    <Route path="/concerts" element={<Concerts />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/messages" element={<Messages />} />
+                    <Route path="/messages/:chatUid" element={<Messages />} />
+                    <Route path="/band/:_id" element={<Band />} />
+                    <Route path="/job" element={<Find />} />
+                    <Route path="/job/:_id" element={<Job />} />
+                    <Route path="/profile/:_id" element={<Profile />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/resetpass" element={<Resetpass />} />
+                    <Route path="/forgotpass" element={<Forgotpass />} />
+                  </Routes>
+                </div>
+              </Box>
+            </MobileDrawerContextProvider>
           </HMSRoomProvider>
         </CssBaseline>
       </ThemeProvider>

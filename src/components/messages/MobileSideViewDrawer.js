@@ -1,9 +1,23 @@
 import { SwipeableDrawer, alpha } from "@mui/material";
 import { useState } from "react";
 import ChatSideView from "./ChatSideView";
+import { useContext } from "react";
+import { createContext } from "react";
+
+export const MobileDrawerContext = createContext();
+
+export const MobileDrawerContextProvider = ({ children }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    
+    return (
+        <MobileDrawerContext.Provider value={{isOpen, setIsOpen}}>
+            {children}
+        </MobileDrawerContext.Provider>
+    );
+};
 
 const MobileSideViewDrawer = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const {isOpen, setIsOpen} = useContext(MobileDrawerContext);
 
     return (
         <SwipeableDrawer

@@ -12,7 +12,7 @@ const MobileInfoPanelPopUp = ({ children }) => {
     const [open, setOpen] = useState(false);
     return (
         <div>
-            <Stack direction="row" justifyContent="center" paddingBottom="10px">
+            <Stack direction="row" justifyContent="center" paddingBottom="40px">
                 <Button startIcon={<ExpandLessIcon style={{marginTop: "-1px"}}/>} style={{borderRadius: "10px"}} onClick={() => setOpen(true)}>Покажи Информация</Button>
             </Stack>
             <Dialog

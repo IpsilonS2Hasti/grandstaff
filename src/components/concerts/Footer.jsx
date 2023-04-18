@@ -5,7 +5,7 @@ import {
   selectIsLocalAudioEnabled,
   selectIsLocalVideoEnabled,
 } from '@100mslive/react-sdk';
-import { Box, Button, IconButton, Stack } from '@mui/material';
+import { Box, Button, IconButton, Stack, useMediaQuery } from '@mui/material';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
@@ -15,6 +15,7 @@ import ChatContainer from './ChatContainer';
 import MobileChatPopUp from './MobileChatPopUp';
 
 const Footer = ({ count }) => {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const hmsActions = useHMSActions();
   const isLocalAudioEnabled = useHMSStore(selectIsLocalAudioEnabled);
   const isLocalVideoEnabled = useHMSStore(selectIsLocalVideoEnabled);
@@ -56,9 +57,12 @@ const Footer = ({ count }) => {
       }}>
         Напусни
       </Button>
-      <MobileChatPopUp>
-        <ChatContainer />
-      </MobileChatPopUp>
+      {isMobile ?
+        <MobileChatPopUp>
+          <ChatContainer />
+        </MobileChatPopUp>
+        :
+        null}
     </Stack>
   );
 };

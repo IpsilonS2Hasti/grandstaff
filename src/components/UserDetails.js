@@ -147,7 +147,7 @@ const UserDetails = () => {
                 {
                     editView
                         ?
-                        <Stack>
+                        <Stack gap={'2px'}>
                             <DialogPopup data={chipData[1]} selected={instruments} />
                             <DialogPopup data={chipData[2]} selected={genres} />
                         </Stack>

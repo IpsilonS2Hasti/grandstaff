@@ -1,4 +1,4 @@
-import { alpha, Box, Card, Divider, Stack, Tab, Tabs, Typography, useMediaQuery } from "@mui/material";
+import { alpha, Box, Button, Card, Divider, Stack, Tab, Tabs, Typography, useMediaQuery } from "@mui/material";
 import ScheduleCalendar from "./ScheduleCalendar";
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
@@ -11,6 +11,8 @@ import { findData } from "../lib/discoveryData";
 import EditPreviewCarousel from "./EditPreviewCarousel";
 import { useContext } from "react";
 import { EntityContext } from "../context/EntityContext";
+import { FacebookShareButton } from "react-share";
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 const JobInfoPanel = () => {
     const { desc, gsm, contactEmail, uniEd, previews, _id, editView } = useContext(EntityContext);
@@ -73,6 +75,11 @@ const JobInfoPanel = () => {
                             :
                             null
                         }
+                        <FacebookShareButton url={`https://www.grandstaff.online/job/${_id}`}>
+                            <Button size="small" sx={{ color: "#3482E2", marginLeft: "10px" }} endIcon={<FacebookIcon />}>
+                                сподели
+                            </Button>
+                        </FacebookShareButton>
                     </div>
                     {uniEd !== 'Undefined' ?
                         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', opacity: '0.7' }}>
@@ -95,6 +102,11 @@ const JobInfoPanel = () => {
                                     :
                                     null
                                 }
+                                <FacebookShareButton url={`https://www.grandstaff.online/job/${_id}`}>
+                                    <Button size="small" sx={{ color: "#3482E2", marginLeft: "10px" }} endIcon={<FacebookIcon />}>
+                                        сподели
+                                    </Button>
+                                </FacebookShareButton>
                             </div>
                             {uniEd !== 'Undefined' ?
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', opacity: '0.7' }}>

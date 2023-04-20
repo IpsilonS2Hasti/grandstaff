@@ -1,4 +1,4 @@
-import { alpha, Box, Card, Divider, Stack, Tab, Tabs, Typography, useMediaQuery } from "@mui/material";
+import { alpha, Box, Button, Card, Divider, Stack, Tab, Tabs, Typography, useMediaQuery } from "@mui/material";
 import ScheduleCalendar from "./ScheduleCalendar";
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
@@ -7,6 +7,8 @@ import InfoStack from "./InfoStack";
 import SchoolIcon from '@mui/icons-material/School';
 import EditInfoPopup from "./EditInfoPopup";
 import { EntityContext } from "../context/EntityContext";
+import { FacebookShareButton } from "react-share";
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -29,7 +31,7 @@ function TabPanel(props) {
 }
 
 const InfoPanel = () => {
-    const { desc, gsm, contactEmail, uniEd, editView, type } = useContext(EntityContext);
+    const { desc, gsm, contactEmail, uniEd, editView, type, _id } = useContext(EntityContext);
     let isBand = type === "Band";
     const [value, setValue] = useState(0);
 
@@ -54,6 +56,11 @@ const InfoPanel = () => {
                         :
                         null
                     }
+                    <FacebookShareButton url={`https://www.grandstaff.online/profile/${_id}`}>
+                        <Button size="small" sx={{color: "#3482E2", marginLeft: "10px"}} endIcon={<FacebookIcon/>}>
+                            сподели
+                        </Button>
+                    </FacebookShareButton>
                 </div>
                 {
                     isBand ? '' : uniEd !== 'Undefined' ? <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', opacity: '0.7' }}>

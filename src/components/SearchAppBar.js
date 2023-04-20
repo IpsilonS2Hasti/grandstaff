@@ -236,7 +236,7 @@ export default function SearchAppBar() {
                         >
                             <MoreIcon />
                         </IconButton>
-                        {isMobile && pathname == "/messages" ?
+                        {isMobile && pathname.split("/")[1] == "messages" ?
                             <IconButton
                                 size="large"
                                 aria-label="all chats"

@@ -9,6 +9,8 @@ import JobInfoPanel from "../components/JobInfoPanel";
 import { EntityContextProvider } from "../context/EntityContext";
 import Entity from "../components/Entity";
 import CenteredSpinner from "../components/CenteredSpinner";
+import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 const Job = () => {
     let { _id } = useParams();
@@ -24,16 +26,35 @@ const Job = () => {
     }
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
+
+    useEffect(() => {
+        const titleTag = document.getElementsByTagName('title');
+        console.log(data.user);
+        if (!loading) titleTag[0].innerText = `Петолиние ∙ ${job.firstName}`;
+        return () => titleTag[0].innerText = "Петолиние";
+    }, [loading]);
+
     return (
-        <Box sx={{ overflowY: 'auto', borderRadius: "15px", width: "100%", backgroundColor: "background.default", margin: {lg: "15px 15px 15px 0", xs: "10px 0 0 0"} }}>
+        <>
             {
-                loading
-                    ? <CenteredSpinner />
-                    : <EntityContextProvider entityData={{ ...job, editView }}>
-                        <Entity />
-                    </EntityContextProvider>
+                !loading ?
+                    <Helmet>
+                        <meta property="og:title" content={`Петолиние ∙ ${job.firstName}`} />
+                        <meta property="og:description" content={job.desc} />
+                        <meta property="og:image" content={`https://grandstaff.herokuapp.com/images/inst/${job.background}.png`} />
+                    </Helmet>
+                    : null
             }
-        </Box>
+            <Box sx={{ overflowY: 'auto', borderRadius: "15px", width: "100%", backgroundColor: "background.default", margin: { lg: "15px 15px 15px 0", xs: "10px 0 0 0" } }}>
+                {
+                    loading
+                        ? <CenteredSpinner />
+                        : <EntityContextProvider entityData={{ ...job, editView }}>
+                            <Entity />
+                        </EntityContextProvider>
+                }
+            </Box>
+        </>
     );
 }
 

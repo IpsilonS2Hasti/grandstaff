@@ -9,5 +9,4 @@ https://drive.google.com/file/d/1lR3Y2HyEYjeaPFkSUUHy248FDQ_qPrdf/view?usp=shari
 
 ## Features:
 Instant Messaging:
-https://media.licdn.com/dms/image/D4D2DAQGGl5VvgDEacw/profile-treasury-image-shrink_800_800/0/1688367148774?e=1712098800&v=beta&t=8eyKEBYnFcgg05yEfJlmsOsz2kApLbrBgkbQkiWEwZk![image](https://github.com/IpsilonS2Hasti/grandstaff/assets/59172405/676017fd-ba54-42e2-a412-daa4a4fd6705)
-
+![1688367148774](https://github.com/IpsilonS2Hasti/grandstaff/assets/59172405/84d485bb-85b8-4dca-9902-1f0c1ab94f53)

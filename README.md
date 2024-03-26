@@ -7,6 +7,5 @@ https://www.grandstaff.online/
 ## Mobile app: 
 https://drive.google.com/file/d/1lR3Y2HyEYjeaPFkSUUHy248FDQ_qPrdf/view?usp=sharing
 
-## Features:
-Instant Messaging:
-![1688367148774](https://github.com/IpsilonS2Hasti/grandstaff/assets/59172405/84d485bb-85b8-4dca-9902-1f0c1ab94f53)
+## Collage
+![grandstaff](https://github.com/IpsilonS2Hasti/grandstaff/assets/59172405/76077aaf-2b6e-40f1-aa53-1734d83042ad)
